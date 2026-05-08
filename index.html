@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Anime Library</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="boot-shell">
+        <aside>
+          <strong>Anime Library</strong>
+          <span>媒体库</span>
+          <span>设置</span>
+          <span>日志</span>
+        </aside>
+        <main>
+          <div class="boot-toolbar">
+            <div>搜索标题、文件夹名、别名</div>
+            <button>添加本地媒体库</button>
+          </div>
+          <section>
+            <h1>本地动漫 / 影视库管理器</h1>
+            <p>界面正在加载。如果停留在这里，说明 React 脚本没有执行，但 Electron 页面已经能正常显示。</p>
+          </section>
+        </main>
+      </div>
+    </div>
+    <style>
+      body { margin: 0; background: #101113; color: #f1f3f4; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+      .boot-shell { min-height: 100vh; display: grid; grid-template-columns: 232px 1fr; }
+      .boot-shell aside { background: #17191c; border-right: 1px solid #2b3034; padding: 22px 18px; display: flex; flex-direction: column; gap: 16px; }
+      .boot-shell aside span { color: #cbd3d7; background: #23282d; border-radius: 8px; padding: 10px 12px; }
+      .boot-shell main { padding: 24px 28px; }
+      .boot-toolbar { display: flex; gap: 12px; margin-bottom: 24px; }
+      .boot-toolbar div { flex: 1; color: #9ea8ae; border: 1px solid #31383e; background: #1b1f23; border-radius: 8px; padding: 12px; }
+      .boot-toolbar button { color: #fff; border: 1px solid #2f6f7a; background: #1b6b75; border-radius: 8px; padding: 0 14px; }
+      .boot-shell section { border: 1px dashed #3d454c; border-radius: 8px; min-height: 280px; display: grid; place-items: center; text-align: center; padding: 24px; }
+      .boot-shell h1 { margin: 0 0 10px; }
+      .boot-shell p { margin: 0; color: #b9c3c8; }
+    </style>
+    <script type="module" src="/src/App.tsx"></script>
+  </body>
+</html>

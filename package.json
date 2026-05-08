@@ -1,0 +1,59 @@
+{
+  "name": "local-anime-library",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Windows local anime and movie library manager.",
+  "main": "dist-electron/electron/main/index.js",
+  "scripts": {
+    "dev": "tsc -p tsconfig.node.json && concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "dev:renderer": "vite",
+    "dev:electron": "tsc -p tsconfig.node.json && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .",
+    "build": "tsc -b && vite build && electron-builder",
+    "rebuild:native": "electron-rebuild -f -w better-sqlite3",
+    "postinstall": "electron-rebuild -f -w better-sqlite3",
+    "typecheck": "tsc -b",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "better-sqlite3": "^11.8.1",
+    "electron-store": "^10.0.0",
+    "lucide-react": "^0.468.0",
+    "pinyin-pro": "^3.26.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electron-rebuild": "^3.2.9",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "local.anime.library",
+    "productName": "Local Anime Library",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "electron/preload/index.cjs",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    }
+  }
+}
