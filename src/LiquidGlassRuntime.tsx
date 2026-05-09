@@ -72,9 +72,10 @@ function tuneColor(rgb: RGB): RGB {
   }
   
   // 饱和度：保留原色氛围但增强至可见范围，上限防刺眼
-  const targetS = Math.min(0.78, Math.max(0.35, s * 1.22 + 0.08));
-  // 亮度：暗色提亮、亮色微压，锁定玻璃 UI 最佳可读区间
-  const targetL = Math.min(0.62, Math.max(0.40, l * 0.55 + 0.22));
+  // 饱和度：保持克制，避免过饱和导致刺眼。上限进一步压低。
+  const targetS = s < 0.05 ? s : Math.min(0.60, Math.max(0.15, s * 0.9 + 0.02));
+  // 亮度：保持适中，既不过亮也不过暗，增强文字可读性
+  const targetL = Math.min(0.65, Math.max(0.42, l * 0.5 + 0.25));
   
   const hue2rgb = (p: number, q: number, t: number) => {
     if (t < 0) t += 1;

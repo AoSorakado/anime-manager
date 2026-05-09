@@ -2485,7 +2485,7 @@ h3 {
 .characterCard {
   display: grid;
   grid-template-columns: 50px 1fr;
-  gap: 12px;
+  gap: 18px; /* 增加头像和文字之间的间距 */
   align-items: center;
   text-align: left;
   color: inherit;
@@ -4707,11 +4707,22 @@ h3 {
 }
 
 .detailHeroBg img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: blur(60px) brightness(0.9) saturate(1.2);
   transform: scale(1.1);
+  transition: opacity 0.8s var(--motion-fluid);
+}
+
+.detailHeroBg .remotePoster {
+  z-index: 1;
+}
+
+.detailHeroBg .basePoster {
+  z-index: 0;
 }
 
 .detailHeroBg::after {
@@ -6357,8 +6368,7 @@ h3 {
 
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   2. FOUNDATION RESET 鈥?Strip all opaque backgrounds
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
-.app.theme-liquid :is(
-  .posterCard,
+.app.theme-liquid :is(.posterCard,
   .posterCard .posterMeta,
   .searchHeader,
   .modalContent,
@@ -6415,8 +6425,7 @@ h3 {
   .searchSection,
   .globalSearchResults,
   .subscriptionsSearchPage,
-  .mikanHubPage
-) {
+  .mikanHubPage) {
   background: transparent !important;
   background-color: transparent !important;
 }
@@ -7348,7 +7357,9 @@ h3 {
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   13. DETAIL PAGE 鈥?Hero, metadata, file table
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 .app.theme-liquid .detailHeroBg img {
-  filter: blur(90px) brightness(0.82) saturate(1.35);
+  filter: blur(90px) brightness(1.2) saturate(1.1) !important;
+  opacity: 0.9 !important;
+  transform: scale(1.15) !important;
 }
 
 .app.theme-liquid .detailHeroBg::after {
@@ -7754,6 +7765,20 @@ h3 {
 
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   22. SCRAPE PAGES 鈥?Issue cards & candidate list
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+.app.theme-liquid .candidateList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.app.theme-liquid .candidateList::before {
+  display: none !important;
+}
+
 .app.theme-liquid .candidateList .candidate {
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.32);
@@ -8351,8 +8376,7 @@ h3 {
 }
 
 /* 涓昏鐜荤拑鏉愯川锛氬彧瑕嗙洊瑙嗚灞炴€э紝涓嶇甯冨眬 */
-.app.theme-liquid :is(
-  .sidebar,
+.app.theme-liquid :is(.sidebar,
   .toolbar,
   .backBar,
   .detailHero,
@@ -8373,8 +8397,7 @@ h3 {
   .formGrid,
   .groupOverview,
   .mikanResourceMain,
-  .torrentTable
-) {
+  .torrentTable) {
   background:
     linear-gradient(135deg,
       rgba(255, 255, 255, 0.46) 0%,
@@ -8451,8 +8474,7 @@ h3 {
 }
 
 /* 娴锋姤鍗＄墖锛氭牳蹇?Liquid Glass */
-.app.theme-liquid :is(
-  .posterCard,
+.app.theme-liquid :is(.posterCard,
   .mediaCard,
   .onlineResultCard,
   .onlineRuleItem,
@@ -8474,8 +8496,7 @@ h3 {
   .candidate,
   .logEntry,
   .torrentRow,
-  .sourceRow
-) {
+  .sourceRow) {
   background: var(--glass-bg-card) !important;
   border-color: rgba(255, 255, 255, 0.50) !important;
   backdrop-filter: var(--glass-blur-card) !important;
@@ -8490,8 +8511,7 @@ h3 {
 }
 
 /* 鐜荤拑杈圭紭锛氱敤浼厓绱犲仛鈥滃帤杈规鈥濓紝涓嶆尋鍘嬪竷灞€ */
-.app.theme-liquid :is(
-  .posterCard,
+.app.theme-liquid :is(.posterCard,
   .toolbar,
   .detailHero,
   .panel,
@@ -8507,21 +8527,18 @@ h3 {
   .characterCard,
   .relatedSubject,
   .staffItem,
-  .timeMachineCard
-) {
+  .timeMachineCard) {
   isolation: isolate;
 }
 
-.app.theme-liquid :is(
-  .posterCard::before,
+.app.theme-liquid :is(.posterCard::before,
   .toolbar::before,
   .detailHero::before,
   .panel::before,
   .fileTable::before,
   .logList::before,
   .candidateList::before,
-  .characterModal::before
-) {
+  .characterModal::before) {
   content: "";
   position: absolute;
   inset: 0;
@@ -8566,8 +8583,7 @@ h3 {
   mix-blend-mode: screen;
 }
 
-.app.theme-liquid :is(
-  .posterCard>*,
+.app.theme-liquid :is(.posterCard>*,
   .onlineResultCard>*,
   .sideCard>*,
   .groupCard>*,
@@ -8578,8 +8594,7 @@ h3 {
   .fileTable>*,
   .logList>*,
   .candidateList>*,
-  .detailHero>*
-) {
+  .detailHero>*) {
   position: relative;
   z-index: 3;
 }
@@ -8738,16 +8753,14 @@ h3 {
 }
 
 /* 鎮仠鏃跺姞涓€鐐规恫鎬佹诞璧凤紝涓嶆敼闈欐€佸竷灞€ */
-.app.theme-liquid :is(
-  .posterCard:hover,
+.app.theme-liquid :is(.posterCard:hover,
   .mediaCard:hover,
   .onlineResultCard:hover,
   .onlineRuleItem:hover,
   .characterCard:hover,
   .timeMachineCard:hover,
   .groupCard:hover,
-  .sideCard:hover
-) {
+  .sideCard:hover) {
   background:
     linear-gradient(145deg,
       rgba(255, 255, 255, 0.68) 0%,
@@ -8766,8 +8779,7 @@ h3 {
 }
 
 /* 鏍囬涓庢绾ф枃鏈紝鍦ㄩ珮閫忔槑鐜荤拑涓婁繚鎸佸彲璇?*/
-.app.theme-liquid :is(
-  .posterMeta strong,
+.app.theme-liquid :is(.posterMeta strong,
   .onlineResultMeta strong,
   .onlineRuleItem strong,
   .onlineEpisodeItem strong,
@@ -8776,14 +8788,12 @@ h3 {
   h3,
   .brand,
   .ratingScoreLine span,
-  .infoList dd
-) {
+  .infoList dd) {
   color: #24131d !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.64);
 }
 
-.app.theme-liquid :is(
-  .posterMeta span,
+.app.theme-liquid :is(.posterMeta span,
   .subline,
   .detailFoot,
   .sourceRow span,
@@ -8793,8 +8803,7 @@ h3 {
   .infoList dt,
   .onlineResultMeta span,
   .onlineResultMeta small,
-  .onlineEpisodeItem small
-) {
+  .onlineEpisodeItem small) {
   color: rgba(64, 39, 52, 0.68) !important;
 }
 
@@ -8849,8 +8858,8 @@ h3 {
   --glass-blur-card: blur(28px) saturate(2.35) brightness(1.08) contrast(1.045);
   --glass-blur-btn: blur(22px) saturate(2.25) brightness(1.08);
   --glass-blur-soft: blur(20px);
-  --glass-bg-generic: linear-gradient(145deg, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0.14) 38%, rgba(128,244,255,0.11) 61%, rgba(255,79,161,0.12) 100%), rgba(255,255,255,0.10);
-  --glass-bg-card: linear-gradient(145deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.145) 35%, rgba(138,246,255,0.095) 58%, rgba(255,95,162,0.13) 100%), rgba(255,255,255,0.105);
+  --glass-bg-generic: linear-gradient(145deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.14) 38%, rgba(128, 244, 255, 0.11) 61%, rgba(255, 79, 161, 0.12) 100%), rgba(255, 255, 255, 0.10);
+  --glass-bg-card: linear-gradient(145deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.145) 35%, rgba(138, 246, 255, 0.095) 58%, rgba(255, 95, 162, 0.13) 100%), rgba(255, 255, 255, 0.105);
 }
 
 /* ---------- 1. 鑳屾櫙锛氬噺灏戠櫧鏉挎劅锛岀粰鐜荤拑瓒冲鍙姌灏勭殑鑹插僵 ---------- */
@@ -8974,8 +8983,7 @@ h3 {
 }
 
 /* 鐜荤拑鍘氳竟楂樺厜灞?*/
-.app.theme-liquid :is(
-  .toolbar::before,
+.app.theme-liquid :is(.toolbar::before,
   .panel::before,
   .fileTable::before,
   .detailHero::before,
@@ -8988,8 +8996,7 @@ h3 {
   .torrentTable::before,
   .mikanGroupSidebar::before,
   .scheduleHeader::before,
-  .formGrid::before
-) {
+  .formGrid::before) {
   content: "";
   position: absolute;
   inset: 0;
@@ -9005,8 +9012,7 @@ h3 {
   z-index: 0;
 }
 
-.app.theme-liquid :is(
-  .toolbar>*,
+.app.theme-liquid :is(.toolbar>*,
   .panel>*,
   .fileTable>*,
   .detailHero>*,
@@ -9019,15 +9025,13 @@ h3 {
   .torrentTable>*,
   .mikanGroupSidebar>*,
   .scheduleHeader>*,
-  .formGrid>*
-) {
+  .formGrid>*) {
   position: relative;
   z-index: 1;
 }
 
 /* ---------- 3. 鎼滅储妗嗐€佽緭鍏ユ銆佹寜閽細鍘绘帀绾櫧锛屼繚鐣欐竻鏅板害 ---------- */
-.app.theme-liquid :is(
-  .searchBox,
+.app.theme-liquid :is(.searchBox,
   .sourceToggles,
   .scheduleTabs,
   .historyControls select,
@@ -9052,8 +9056,7 @@ h3 {
   .mikanGroupPanel button,
   .mikanDownloadActions .secondaryButton,
   .torrentAction,
-  .downloadBtn
-) {
+  .downloadBtn) {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.17) 52%, rgba(128, 244, 255, 0.12)),
     rgba(255, 255, 255, 0.12) !important;
@@ -9321,8 +9324,7 @@ h3 {
     rgba(255, 255, 255, 0.08);
 }
 
-.app.theme-liquid :is(
-  .headerCenter h1,
+.app.theme-liquid :is(.headerCenter h1,
   .mikanHeroIntro h1,
   .mikanResultHeader h3,
   .mikanGroupSidebar h4,
@@ -9331,8 +9333,7 @@ h3 {
   .settingsPage h1,
   h1,
   h2,
-  h3
-) {
+  h3) {
   color: #24131d !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
 }
@@ -9346,8 +9347,7 @@ h3 {
   border-color: rgba(255, 255, 255, 0.48);
 }
 
-.app.theme-liquid :is(
-  .mikanResultRow,
+.app.theme-liquid :is(.mikanResultRow,
   .torrentRow,
   .mikanDownloadRow,
   .tableRow,
@@ -9357,8 +9357,7 @@ h3 {
   .issueButton,
   .sideCard,
   .staffItem,
-  .groupCard
-) {
+  .groupCard) {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.12) 62%, rgba(255, 79, 161, 0.08)),
     rgba(255, 255, 255, 0.08) !important;
@@ -9385,35 +9384,30 @@ h3 {
     rgba(255, 255, 255, 0.10);
 }
 
-.app.theme-liquid :is(
-  .mikanResultRow:hover,
+.app.theme-liquid :is(.mikanResultRow:hover,
   .torrentRow:hover,
   .mikanDownloadRow:hover,
   .tableRow:hover,
   .sourceRow:hover,
   .groupCard:hover,
-  .sideCard:hover
-) {
+  .sideCard:hover) {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.20) 54%, rgba(255, 79, 161, 0.14)),
     rgba(255, 255, 255, 0.14);
 }
 
-.app.theme-liquid :is(
-  .mikanResultRow strong,
+.app.theme-liquid :is(.mikanResultRow strong,
   .mikanDownloadInfo strong,
   .torrentRow,
   .colTitle,
   .tableRow span,
   .sourceRow,
   .groupHeader,
-  .infoList dd
-) {
+  .infoList dd) {
   color: #2b1824;
 }
 
-.app.theme-liquid :is(
-  .mikanResultRow span,
+.app.theme-liquid :is(.mikanResultRow span,
   .mikanDownloadInfo span,
   .mikanDownloadInfo small,
   .headerCenter span,
@@ -9421,8 +9415,7 @@ h3 {
   .sideTitle,
   .subline,
   .infoList dt,
-  .emptyHint
-) {
+  .emptyHint) {
   color: rgba(72, 43, 60, 0.68);
 }
 
@@ -10605,6 +10598,17 @@ h3 {
   gap: 8px;
 }
 
+.detail.cover-tinted {
+  --accent-dynamic: rgb(var(--cover-rgb));
+  --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
+  /* 增加静谧感 */
+  --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
+  --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
+
+  /* 全页面微调色，让背景与封面更统一 */
+  background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
+}
+
 .filterChip {
   padding: 6px 12px;
   border-radius: 20px;
@@ -10689,6 +10693,8 @@ h3 {
   transition: all 0.2s ease;
 }
 
+
+
 .pageBtn:hover {
   background: rgba(255, 255, 255, 0.8);
   transform: translateY(-1px);
@@ -10764,10 +10770,7 @@ h3 {
   box-shadow: 0 20px 40px rgba(166, 80, 118, 0.12);
 }
 
-.detail.cover-tinted .detailHeroSection {
-  background: rgba(var(--cover-rgb), 0.25) !important;
-  border-color: rgba(var(--cover-rgb), 0.4) !important;
-}
+
 
 .tagResultGrid.compactGrid .animeInfo span {
   font-size: 11px !important;
@@ -10848,6 +10851,7 @@ h3 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .app.theme-liquid .mikanGroupBtn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -11343,27 +11347,136 @@ h3 {
 
 .detail.cover-tinted {
   --accent-dynamic: rgb(var(--cover-rgb));
-  --accent-dynamic-soft: rgba(var(--cover-rgb), 0.16);
-  --accent-dynamic-glow: rgba(var(--cover-rgb), 0.4);
-  --accent-dynamic-strong: rgba(var(--cover-rgb), 0.9);
-  --accent-dynamic-muted: rgba(var(--cover-rgb), 0.6);
+  --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
+  /* 增加静谧感 */
+  --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
+  --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
+
+  /* 全页面微调色，让背景与封面更统一 */
+  background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
 }
 
-/* 顶部英雄区域背景取色融合 - 大幅增强沉浸感 */
+/* 动画：动态毛玻璃光晕漂移 - 增加幅度和速度 */
+@keyframes fluidGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 顶部英雄区域背景取色融合 - 降低顶部的重色并加入动态效果 */
 .detail.cover-tinted .detailHeroSection {
   background:
-    linear-gradient(135deg, rgba(var(--cover-rgb), 0.28) 0%, rgba(var(--cover-rgb), 0.1) 40%, transparent 100%),
-    radial-gradient(circle at 10% 10%, rgba(var(--cover-rgb), 0.2), transparent 50%) !important;
+    radial-gradient(circle at 20% 20%, rgba(var(--cover-rgb), 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(var(--cover-rgb), 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(var(--cover-rgb), 0.06) 0%, rgba(var(--cover-rgb), 0.02) 100%) !important;
   position: relative;
   overflow: hidden;
+  transition: background 1.5s ease-in-out;
 }
 
-/* 英雄区域背景毛玻璃增强 */
+.detail.cover-tinted .ratingScoreValue {
+  color: var(--accent-dynamic-muted) !important;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(var(--cover-rgb), 0.1);
+}
+
+/* 统一详情页信息列表文字颜色，避免“随机”感 */
+.detail.cover-tinted .infoList dt {
+  color: rgba(var(--cover-rgb), 0.7);
+  /* label 稍微带一点取色但更暗 */
+  font-weight: 600;
+}
+
+.detail.cover-tinted .infoList dd {
+  color: var(--accent-dynamic) !important;
+  font-weight: 700;
+}
+
+/* 玻璃容器取色：增强下方容器颜色的比重，确保极高优先级 */
+.app.theme-liquid .detail.cover-tinted .panel,
+.app.theme-liquid .detail.cover-tinted .detailSection,
+.app.theme-liquid .detail.cover-tinted .ratingDistribution,
+.app.theme-liquid .detail.cover-tinted .resourceSubSection,
+.app.theme-liquid .detail.cover-tinted .mikanGroupSidebar,
+.app.theme-liquid .detail.cover-tinted .mikanResourceMain,
+.app.theme-liquid .detail.cover-tinted .torrentTable,
+.app.theme-liquid .detail.cover-tinted .fileTable {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(var(--cover-rgb), 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(var(--cover-rgb), 0.08) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(var(--cover-rgb), 0.04), rgba(var(--cover-rgb), 0.01)),
+    rgba(255, 255, 255, 0.42) !important;
+  border: 1.5px solid rgba(var(--cover-rgb), 0.35) !important;
+  box-shadow:
+    0 24px 64px rgba(var(--cover-rgb), 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
+  /* 增加亮度提升通透感 */
+  -webkit-backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
+}
+
+/* 覆盖并加强高光层，使其产生“发光”的质感 */
+.app.theme-liquid .detail.cover-tinted .panel::before,
+.app.theme-liquid .detail.cover-tinted .detailSection::before,
+.app.theme-liquid .detail.cover-tinted .fileTable::before,
+.app.theme-liquid .detail.cover-tinted .torrentTable::before {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(var(--cover-rgb), 0.15), transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(var(--cover-rgb), 0.08), transparent 60%) !important;
+  opacity: 0.7 !important;
+}
+
+/* 针对文件列表行的特殊着色 */
+.detail.cover-tinted .tableRow:hover {
+  background: rgba(var(--cover-rgb), 0.08) !important;
+}
+
+/* 增强：角色卡片等小容器也可以稍微带一点色 */
+.detail.cover-tinted .characterCard,
+.detail.cover-tinted .staffItem,
+.detail.cover-tinted .relatedSubject {
+  background: rgba(var(--cover-rgb), 0.06) !important;
+  border-color: rgba(var(--cover-rgb), 0.1) !important;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.detail.cover-tinted .characterCard:hover,
+.detail.cover-tinted .staffItem:hover,
+.detail.cover-tinted .relatedSubject:hover {
+  background: rgba(var(--cover-rgb), 0.1) !important;
+  border-color: rgba(var(--cover-rgb), 0.25) !important;
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(var(--cover-rgb), 0.12) !important;
+}
+
+/* 增加底层稳定背景，防止远程图加载时的空白 */
+.detailHeroBg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--cover-rgb));
+  opacity: 0.04;
+  z-index: -1;
+}
+
+/* 英雄区域背景毛玻璃增强 - 并加入动态效果 */
 .detail.cover-tinted .detailHeroBg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(var(--cover-rgb), 0.15), transparent 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(var(--cover-rgb), 0.1), transparent 80%);
   z-index: 1;
 }
 
@@ -11433,13 +11546,16 @@ h3 {
   padding: 6px 16px !important;
   border-radius: 16px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  /* 极致流畅的动力学过渡 */
 }
 
 .detail.cover-tinted .tagCloud span:hover {
   background: var(--accent-dynamic) !important;
   color: white !important;
-  transform: translateY(-3px) rotate(1deg);
-  box-shadow: 0 8px 24px var(--accent-dynamic-glow) !important;
+  transform: translateY(-5px);
+  /* 纯垂直位移更显线性 */
+  box-shadow: 0 12px 32px var(--accent-dynamic-glow) !important;
 }
 
 /* 信息列表数值取色 */
@@ -11483,4 +11599,37 @@ h3 {
 .detail.cover-tinted .detailFoot span {
   color: var(--accent-dynamic-muted) !important;
   opacity: 0.8;
+}
+/* ����ҳ���Ż���ȥ�����ذ�ť��ı����� */
+.app.theme-liquid .scrapePage .backBar {
+  background: transparent !important;
+  border-bottom: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+  padding-left: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.app.theme-liquid .scrapePage .backBar::before,
+.app.theme-liquid .scrapePage .backBar::after {
+  display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.scrapePage .backBar .textButton {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.scrapePage .backBar .textButton:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
 }

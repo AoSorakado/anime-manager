@@ -38,10 +38,14 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
       setTintColor("220, 145, 165");
       return;
     }
+
+    let active = true;
     const src = `cover://${item.id}`;
     const img = new Image();
     img.crossOrigin = "anonymous";
+    
     img.onload = () => {
+      if (!active) return;
       try {
         const color = extractDominantColor(img);
         if (color) setTintColor(color);
@@ -49,19 +53,27 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
         // Canvas 被污染或取色失败时静默回退
       }
     };
+    
     img.onerror = () => {
-      // 本地封面加载失败，回退到默认色
-      setTintColor("220, 145, 165");
+      if (!active) return;
+      // 本地封面加载失败，保持现状或回退
     };
+    
     img.src = src;
+
+    // 瞬间取色（如果已加载）
     if (img.complete && img.naturalWidth > 0) {
       try {
         const color = extractDominantColor(img);
-        if (color) setTintColor(color);
-      } catch {
-        // 忽略缓存取色失败
-      }
+        if (color && active) setTintColor(color);
+      } catch { /* ignore */ }
     }
+
+    return () => {
+      active = false;
+      img.onload = null;
+      img.onerror = null;
+    };
   }, [item?.id]);
 
   useEffect(() => {
@@ -109,6 +121,8 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
   }
 
   useEffect(() => {
+    setItem(null);
+    setTintColor("180, 180, 180"); // 初始使用中性灰色，避免粉色闪烁
     void load();
   }, [id]);
 
@@ -154,7 +168,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
   }
 
   return (
-    <div className="detail cover-tinted greenTheme" style={{ "--cover-rgb": tintColor } as any}>
+    <div className="detail cover-tinted" style={{ "--cover-rgb": tintColor } as any}>
         <button className="backButtonGlass" onClick={onBack} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
           <ArrowLeft size={16} />
           <span>返回媒体库</span>
@@ -162,12 +176,21 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
 
       <section className="detailHeroSection">
         <div className="detailHeroBg">
+          {/* 始终渲染本地封面作为稳定底色 */}
           <img
-            className="poster"
-            src={selectedWeeklyDetail?.cover_url || `cover://${item.id}`}
+            className="poster basePoster"
+            src={`cover://${item.id}`}
             alt=""
-            crossOrigin="anonymous"
           />
+          {/* 如果有远程高清封面，则覆盖在上面 */}
+          {selectedWeeklyDetail?.cover_url && (
+            <img
+              className="poster remotePoster"
+              src={selectedWeeklyDetail.cover_url}
+              alt=""
+              crossOrigin="anonymous"
+            />
+          )}
         </div>
         <div className="detailHeroContent">
           <Poster mediaItemId={item.id} src={item.cover_path || undefined} title={item.title || item.clean_name} large isHero={true} />

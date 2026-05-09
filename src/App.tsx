@@ -409,6 +409,7 @@ function App() {
 
             {page === "detail" && selectedId && (
               <DetailPage
+                key={selectedId}
                 id={selectedId}
                 onBack={() => {
                   const transition = lastCardTransition.current;

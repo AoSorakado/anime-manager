@@ -56,25 +56,36 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
 
   // 2. 取色管理
   useEffect(() => {
-    if (selectedAnime) {
-      const showCover = selectedAnime.images.large || selectedAnime.images.common || "";
-      if (showCover) {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => {
-          const color = extractDominantColor(img);
-          if (color) setTintColor(color);
-        };
-        img.src = showCover;
-        // 瞬间取色：如果图片已在缓存中
-        if (img.complete) {
-          const color = extractDominantColor(img);
-          if (color) setTintColor(color);
-        }
-      }
-    } else {
+    if (!selectedAnime) {
       setTintColor("180, 180, 180");
+      return;
     }
+
+    let active = true;
+    const showCover = selectedAnime.images.large || selectedAnime.images.common || "";
+    if (!showCover) return;
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      if (!active) return;
+      const color = extractDominantColor(img);
+      if (color) setTintColor(color);
+    };
+    img.src = showCover;
+
+    // 瞬间取色：如果图片已在缓存中
+    if (img.complete && img.naturalWidth > 0) {
+      try {
+        const color = extractDominantColor(img);
+        if (color && active) setTintColor(color);
+      } catch { /* ignore */ }
+    }
+
+    return () => {
+      active = false;
+      img.onload = null;
+    };
   }, [selectedAnime]);
 
   const [mikanAirDetails, setMikanAirDetails] = useState<{ summary: string; details: any } | null>(null);
@@ -142,6 +153,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
       setWeeklyEpisodes([]);
       setMikanDownloadResults([]);
       setMikanAirDetails(null);
+      setTintColor("180, 180, 180"); // 导航瞬间重置取色，避免旧色残影
 
       try {
         const keyword = anime.nameCn || anime.name;
@@ -270,7 +282,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
     const showTitle = selectedAnime.nameCn || selectedAnime.name;
     const showCover = selectedAnime.images.large || selectedAnime.images.common || "";
     return (
-      <div className="detail cover-tinted greenTheme" style={{ "--cover-rgb": tintColor } as any}>
+      <div className="detail cover-tinted" style={{ "--cover-rgb": tintColor } as any}>
         <button className="backButtonGlass" onClick={() => setSelectedAnime(null)} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
           <ArrowLeft size={16} />
           <span>返回媒体库</span>
@@ -278,7 +290,21 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
 
         <section className="detailHeroSection">
           <div className="detailHeroBg">
-            <img src={selectedWeeklyDetail?.cover_url || showCover || undefined} alt="" />
+            {/* 始终渲染基础封面作为稳定底色 */}
+            <img
+              className="poster basePoster"
+              src={showCover || undefined}
+              alt=""
+            />
+            {/* 如果有 Bangumi 高清封面，则覆盖在上面 */}
+            {selectedWeeklyDetail?.cover_url && selectedWeeklyDetail.cover_url !== showCover && (
+              <img
+                className="poster remotePoster"
+                src={selectedWeeklyDetail.cover_url}
+                alt=""
+                crossOrigin="anonymous"
+              />
+            )}
           </div>
           <div className="detailHeroContent">
             <Poster src={selectedWeeklyDetail?.cover_url || showCover || undefined} title={showTitle} large />
