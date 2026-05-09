@@ -11,6 +11,7 @@ import { syncLocalWatchStatusToBangumi, testBangumiToken } from "./bangumiSync.j
 import { listOnlineRules, onlineEpisodes, onlineSearch, sniffAndPlay } from "./online.js";
 import { getSeasonAnime } from "./bangumiSeason.js";
 import { getMikanBangumi, refreshAllSubscriptions, refreshSubscription, searchMikan, sendPendingItemsToQbittorrent, sendRssItemToQbittorrent, sendUrlToQbittorrent, subscriptionAdd, subscriptionDelete, subscriptionItems, subscriptionsList, testQbittorrent } from "./subscriptions.js";
+import { fetchBangumiServiceStatus, listBangumiCollections } from "./bangumiSync.js";
 import { listPan123OfflineTasks, refreshAllPan123OfflineTasks, refreshPan123OfflineTask, submitPan123OfflineDownload } from "./pan123.js";
 import { listPikpakOfflineTasks, refreshPikpakOfflineTasks, submitPikpakOfflineDownload } from "./pikpak.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -234,6 +235,8 @@ function registerIpc() {
     ipcMain.handle("scraper:getBangumiCalendar", () => getBangumiCalendar());
     ipcMain.handle("bangumi:testToken", (_, token) => testBangumiToken(token));
     ipcMain.handle("bangumi:syncLocalStatus", () => syncLocalWatchStatusToBangumi());
+    ipcMain.handle("bangumi:listCollections", () => listBangumiCollections());
+    ipcMain.handle("bangumi:serviceStatus", () => fetchBangumiServiceStatus());
     // New season API (Bangumi API driven, no scraping)
     ipcMain.handle("season:getAnime", (_, year, season, options) => getSeasonAnime(year, season, options));
     ipcMain.handle("season:getDetail", (_, bangumiId) => getBangumiSubjectDetail(String(bangumiId)));
@@ -298,12 +301,12 @@ function registerIpc() {
         // 强制触发重绘，打破 DWM 与 backdrop-filter 之间的死锁。
         const webContents = win.webContents;
         const currentZoom = webContents.getZoomFactor();
-        webContents.setZoomFactor(currentZoom - 0.001);
+        webContents.setZoomFactor(currentZoom - 0.00001);
         setTimeout(() => {
             webContents.setZoomFactor(currentZoom);
             // 二次兜底：异步通知渲染进程强制 reflow
-            webContents.executeJavaScript("document.body.offsetHeight").catch(() => {});
-        }, 50);
+            webContents.executeJavaScript("document.body.style.display='none'; document.body.offsetHeight; document.body.style.display='';").catch(() => { });
+        }, 200);
     });
     ipcMain.handle("window:close", (event) => BrowserWindow.fromWebContents(event.sender)?.close());
 }

@@ -50,6 +50,8 @@ declare const api: {
     bangumi: {
         testToken: (token?: string) => Promise<import("../shared/types.js").BangumiSyncResult>;
         syncLocalStatus: () => Promise<import("../shared/types.js").BangumiSyncResult>;
+        listCollections: () => Promise<import("../shared/types.js").BangumiCollectionEntry[]>;
+        serviceStatus: () => Promise<import("../shared/types.js").BangumiStatusReport>;
     };
     logs: {
         list: (limit?: number) => Promise<AppLog[]>;

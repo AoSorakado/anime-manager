@@ -35,6 +35,8 @@ const api = {
     bangumi: {
         testToken: (token) => ipcRenderer.invoke("bangumi:testToken", token),
         syncLocalStatus: () => ipcRenderer.invoke("bangumi:syncLocalStatus"),
+        listCollections: () => ipcRenderer.invoke("bangumi:listCollections"),
+        serviceStatus: () => ipcRenderer.invoke("bangumi:serviceStatus"),
     },
     logs: {
         list: (limit) => ipcRenderer.invoke("logs:list", limit)

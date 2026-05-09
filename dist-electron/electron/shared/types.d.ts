@@ -440,3 +440,37 @@ export interface BangumiTag {
     name: string;
     count: number;
 }
+export interface BangumiCollectionEntry {
+    subject_id: number;
+    subject_name: string;
+    subject_name_cn: string;
+    subject_images?: {
+        large?: string;
+        common?: string;
+        medium?: string;
+        small?: string;
+        grid?: string;
+    };
+    subject_type: number;
+    subject_eps?: number;
+    updated_at: string;
+    /** 1=想看 2=看过 3=在看 4=搁置 5=抛弃 */
+    collection_type: number;
+    comment?: string;
+    rate?: number;
+    private: boolean;
+}
+export interface BangumiStatusIncident {
+    id: string;
+    title: string;
+    severity: "major" | "minor" | "resolved";
+    summary: string;
+    published: string;
+    updated: string;
+    link: string;
+}
+export interface BangumiStatusReport {
+    overall: "operational" | "degraded" | "outage";
+    updated: string;
+    incidents: BangumiStatusIncident[];
+}

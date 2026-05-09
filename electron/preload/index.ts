@@ -37,6 +37,8 @@ const api = {
   bangumi: {
     testToken: (token?: string) => ipcRenderer.invoke("bangumi:testToken", token) as Promise<import("../shared/types.js").BangumiSyncResult>,
     syncLocalStatus: () => ipcRenderer.invoke("bangumi:syncLocalStatus") as Promise<import("../shared/types.js").BangumiSyncResult>,
+    listCollections: () => ipcRenderer.invoke("bangumi:listCollections") as Promise<import("../shared/types.js").BangumiCollectionEntry[]>,
+    serviceStatus: () => ipcRenderer.invoke("bangumi:serviceStatus") as Promise<import("../shared/types.js").BangumiStatusReport>,
   },
   logs: {
     list: (limit?: number) => ipcRenderer.invoke("logs:list", limit) as Promise<AppLog[]>

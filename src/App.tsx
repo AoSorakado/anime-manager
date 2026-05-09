@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { BarChart3, BookOpen, ChevronLeft, ChevronRight, Database, MonitorPlay, Palette, RefreshCw, Rss, Settings, Sparkles, Tag } from "lucide-react";
+import { Activity, BarChart3, BookOpen, ChevronLeft, ChevronRight, Database, Heart, MonitorPlay, Palette, RefreshCw, Rss, Settings, Sparkles, Tag } from "lucide-react";
 import { createRoot } from "react-dom/client";
 import type { MediaItem, ScrapeIssue, Source, WatchStats } from "../electron/shared/types";
 import LiquidGlassRuntime from "./LiquidGlassRuntime";
@@ -10,6 +10,8 @@ import "./styles.css";
 import { CardTransitionPayload, getMainScrollY, Page, scrollMainTo } from "./utils";
 
 // ─── Basic Components (default exports) ────────────────────────
+import BangumiCollectionModal from "./components/BangumiCollectionModal";
+import BangumiStatusModal from "./components/BangumiStatusModal";
 import BrowserOnlyNotice from "./components/BrowserOnlyNotice";
 import NavButton from "./components/NavButton";
 import SidebarInsights from "./components/SidebarInsights";
@@ -85,6 +87,8 @@ function App() {
   const [libraryScrollY, setLibraryScrollY] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const lastCardTransition = useRef<CardTransitionPayload | null>(null);
+  const [showBangumiCollections, setShowBangumiCollections] = useState(false);
+  const [showBangumiStatus, setShowBangumiStatus] = useState(false);
 
   // Restore scroll position when returning to library page
   useEffect(() => {
@@ -280,6 +284,8 @@ function App() {
             <NavButton active={page === "tags"} icon={<Tag size={20} />} label="动画标签" onClick={() => setPage("tags")} />
             <NavButton active={page === "scrape"} icon={<Sparkles size={20} />} label="刮削修正" onClick={() => setPage("scrape")} />
             <NavButton active={page === "stats"} icon={<BarChart3 size={20} />} label="统计页" onClick={() => setPage("stats")} />
+            <NavButton active={false} icon={<Heart size={20} />} label="我的收藏" onClick={() => setShowBangumiCollections(true)} />
+            <NavButton active={false} icon={<Activity size={20} />} label="服务状态" onClick={() => setShowBangumiStatus(true)} />
             <NavButton active={page === "settings"} icon={<Settings size={20} />} label="应用设置" onClick={() => setPage("settings")} />
             <NavButton active={page === "logs"} icon={<Database size={20} />} label="运行日志" onClick={() => setPage("logs")} />
           </nav>
@@ -470,6 +476,12 @@ function App() {
           </div>
         </main>
       </div>
+      {showBangumiCollections && (
+        <BangumiCollectionModal onClose={() => setShowBangumiCollections(false)} />
+      )}
+      {showBangumiStatus && (
+        <BangumiStatusModal onClose={() => setShowBangumiStatus(false)} />
+      )}
     </>
   );
 }

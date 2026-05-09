@@ -1,3 +1,4 @@
+import type { BangumiCollectionEntry, BangumiStatusReport } from "../shared/types.js";
 export interface BangumiSyncResult {
     total: number;
     synced: number;
@@ -11,3 +12,7 @@ export declare function testBangumiToken(token?: string): Promise<{
 }>;
 export declare function syncLocalWatchStatusToBangumi(): Promise<BangumiSyncResult>;
 export declare function updateBangumiSubjectStatus(token: string, subjectId: string | number, status: number, isPrivate?: boolean): Promise<void>;
+/** 获取用户 Bangumi 全部收藏条目（想看/看过/在看/搁置/抛弃） */
+export declare function listBangumiCollections(token?: string): Promise<BangumiCollectionEntry[]>;
+/** 解析 bgm-status.ry.mk Atom feed，返回 Bangumi 服务状态 */
+export declare function fetchBangumiServiceStatus(): Promise<BangumiStatusReport>;

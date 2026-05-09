@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import type { AnimeSeason, AppLog, BangumiAirtimeCollection, BangumiCalendarGroup, BangumiCalendarItem, BangumiSubjectDetail, BangumiSyncResult, BatchIdRefreshResult, BatchScrapeResult, CloudOfflineSubmitResult, CloudOfflineTask, MediaFile, MediaItem, MikanWeeklyCollection, MetadataCandidate, NormalizedAnimeItem, OnlineEpisode, OnlineRuleInput, OnlineRuleMeta, OnlineSearchResult, QbittorrentTestResult, RssItem, RssRefreshResult, RssSubscription, RssSubscriptionInput, ScanResult, ScrapeIssue, SeasonAnimeResponse, SettingsMap, Source, WatchStats, WatchStatus, WebDavSourceInput, WebDavSyncResult } from "../electron/shared/types";
+import type { AnimeSeason, AppLog, BangumiAirtimeCollection, BangumiCalendarGroup, BangumiCalendarItem, BangumiCollectionEntry, BangumiStatusReport, BangumiSubjectDetail, BangumiSyncResult, BatchIdRefreshResult, BatchScrapeResult, CloudOfflineSubmitResult, CloudOfflineTask, MediaFile, MediaItem, MikanWeeklyCollection, MetadataCandidate, NormalizedAnimeItem, OnlineEpisode, OnlineRuleInput, OnlineRuleMeta, OnlineSearchResult, QbittorrentTestResult, RssItem, RssRefreshResult, RssSubscription, RssSubscriptionInput, ScanResult, ScrapeIssue, SeasonAnimeResponse, SettingsMap, Source, WatchStats, WatchStatus, WebDavSourceInput, WebDavSyncResult } from "../electron/shared/types";
 
 interface LibraryApi {
   sources: {
@@ -41,6 +41,8 @@ interface LibraryApi {
   bangumi: {
     testToken: (token?: string) => Promise<{ user_id: number; expires?: number; client_id?: string }>;
     syncLocalStatus: () => Promise<BangumiSyncResult>;
+    listCollections: () => Promise<BangumiCollectionEntry[]>;
+    serviceStatus: () => Promise<BangumiStatusReport>;
   };
   season: {
     getAnime: (year: number, season: string, options?: { refresh?: boolean }) => Promise<SeasonAnimeResponse>;
