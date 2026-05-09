@@ -325,6 +325,17 @@ function registerIpc() {
     } else {
       win.maximize();
     }
+
+    // 修复 Windows Frameless 窗口最大化后 Chromium 合成器卡死：
+    // 强制触发重绘，打破 DWM 与 backdrop-filter 之间的死锁。
+    const webContents = win.webContents;
+    const currentZoom = webContents.getZoomFactor();
+    webContents.setZoomFactor(currentZoom - 0.001);
+    setTimeout(() => {
+      webContents.setZoomFactor(currentZoom);
+      // 二次兜底：异步通知渲染进程强制 reflow
+      webContents.executeJavaScript("document.body.offsetHeight").catch(() => {});
+    }, 50);
   });
   ipcMain.handle("window:close", (event) => BrowserWindow.fromWebContents(event.sender)?.close());
 }

@@ -44,13 +44,27 @@ function App() {
     localStorage.setItem("app_theme", theme);
   }, [theme]);
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
-    return localStorage.getItem("sidebar_collapsed") === "true";
-  });
+  // 使用 useRef 而非 useState 来管理 sidebar 状态，避免顶层重新渲染拖慢性能
+  const sidebarRef = useRef<boolean>(localStorage.getItem("sidebar_collapsed") === "true");
 
-  useEffect(() => {
-    localStorage.setItem("sidebar_collapsed", String(sidebarCollapsed));
-  }, [sidebarCollapsed]);
+  const toggleSidebar = () => {
+    const isCollapsed = !sidebarRef.current;
+    sidebarRef.current = isCollapsed;
+    localStorage.setItem("sidebar_collapsed", String(isCollapsed));
+    
+    const appEl = document.querySelector(".app");
+    const sidebarEl = document.getElementById("main-sidebar");
+    
+    if (appEl && sidebarEl) {
+      if (isCollapsed) {
+        appEl.classList.add("sidebar-collapsed");
+        sidebarEl.classList.add("collapsed");
+      } else {
+        appEl.classList.remove("sidebar-collapsed");
+        sidebarEl.classList.remove("collapsed");
+      }
+    }
+  };
 
   const [sources, setSources] = useState<Source[]>([]);
   const [items, setItems] = useState<MediaItem[]>([]);
@@ -231,7 +245,7 @@ function App() {
 
   return (
     <>
-      <div className={`app theme-${theme} page-${page} ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+      <div className={`app theme-${theme} page-${page} ${sidebarRef.current ? "sidebar-collapsed" : ""}`}>
         {/* Hyper-Liquid Distortion Filter */}
         <svg style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
           <defs>
@@ -249,14 +263,15 @@ function App() {
         </div>
         <div className="dragTitlebar">Local Anime Library</div>
         <WindowControls />
-        <aside className={`sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
+        <aside className={`sidebar ${sidebarRef.current ? "collapsed" : ""}`} id="main-sidebar">
           <div className="sidebarHeader">
             <div className="brand">
               <BookOpen size={22} />
-              {!sidebarCollapsed && <span>Anime Library</span>}
+              <span className="sidebar-text-only">Anime Library</span>
             </div>
-            <button className="sidebarToggle" onClick={() => setSidebarCollapsed(!sidebarCollapsed)} title={sidebarCollapsed ? "展开" : "收起"}>
-              {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+            <button className="sidebarToggle" onClick={toggleSidebar} title="折叠/展开侧边栏">
+              <ChevronLeft size={18} className="icon-collapse" />
+              <ChevronRight size={18} className="icon-expand" />
             </button>
           </div>
           <nav className="sidebarNav">
@@ -275,21 +290,19 @@ function App() {
               title="切换液态玻璃主题"
             >
               <Palette size={18} />
-              <span>{theme === "default" ? "默认" : "液态"}</span>
+              <span className="sidebar-text-only">{theme === "default" ? "默认" : "液态"}</span>
             </button>
           </div>
-          {!sidebarCollapsed && (
-            <div className="sourceList">
-              <div className="sideTitle">来源</div>
-              {sources.map((source) => (
-                <button key={source.id} className="sourceButton" onClick={() => void scanSource(source.id)}>
-                  <span>{source.name}</span>
-                  <RefreshCw size={14} className={scanningSourceId === source.id ? "spin" : ""} />
-                </button>
-              ))}
-            </div>
-          )}
-          {!sidebarCollapsed && (
+          <div className="sourceList sidebar-content-only">
+            <div className="sideTitle">来源</div>
+            {sources.map((source) => (
+              <button key={source.id} className="sourceButton" onClick={() => void scanSource(source.id)}>
+                <span>{source.name}</span>
+                <RefreshCw size={14} className={scanningSourceId === source.id ? "spin" : ""} />
+              </button>
+            ))}
+          </div>
+          <div className="sidebar-content-only">
             <SidebarInsights
               issues={scrapeIssues}
               stats={watchStats}
@@ -299,7 +312,7 @@ function App() {
                 scrollMainTo(0);
               }}
             />
-          )}
+          </div>
         </aside>
 
         <main className="main">

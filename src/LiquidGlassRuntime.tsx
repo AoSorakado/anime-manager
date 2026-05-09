@@ -283,99 +283,70 @@ async function processCard(card: HTMLElement) {
 }
 
 /**
- * 使用 requestIdleCallback 逐个处理卡片，避免阻塞主线程。
- * 增加视口感知：只处理可见或即将进入视口的卡片。
+ * 使用 IntersectionObserver 懒加载处理卡片，避免 `getBoundingClientRect` 导致强制回流卡顿。
  */
-function scanCardsIdle() {
-  if (document.documentElement.classList.contains("view-transitioning")) return;
-
-  const cards = Array.from(document.querySelectorAll<HTMLElement>(CARD_SELECTOR));
-  if (cards.length === 0) return;
-
-  // 优先处理视口内卡片
-  const inView: HTMLElement[] = [];
-  const outOfView: HTMLElement[] = [];
-  const margin = 300; // 预加载范围
-
-  for (const card of cards) {
-    const rect = card.getBoundingClientRect();
-    if (
-      rect.bottom >= -margin &&
-      rect.top <= window.innerHeight + margin &&
-      rect.right >= -margin &&
-      rect.left <= window.innerWidth + margin
-    ) {
-      inView.push(card);
-    } else {
-      outOfView.push(card);
-    }
-  }
-
-  const queue = [...inView, ...outOfView];
-
-  function processNext() {
-    if (queue.length === 0) return;
-    const card = queue.shift()!;
-    void processCard(card);
-
-    if (queue.length > 0) {
-      if (typeof requestIdleCallback === "function") {
-        requestIdleCallback(processNext, { timeout: 100 });
-      } else {
-        setTimeout(processNext, 16);
-      }
-    }
-  }
-
-  processNext();
-}
-
 export default function LiquidGlassRuntime() {
-  const lastScanRef = useRef(0);
+  const processedRef = useRef(new WeakSet<HTMLElement>());
 
   useEffect(() => {
-    let idleId: number;
-
-    const scheduleScan = () => {
-      // 节流：最小间隔 800ms，避免高频触发
-      const now = Date.now();
-      if (now - lastScanRef.current < 800) return;
-      lastScanRef.current = now;
-
-      if (typeof requestIdleCallback === "function") {
-        cancelIdleCallback(idleId);
-        idleId = requestIdleCallback(() => scanCardsIdle(), { timeout: 500 });
-      } else {
-        setTimeout(() => scanCardsIdle(), 150);
+    // 处理进入视口的卡片
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const card = entry.target as HTMLElement;
+            void processCard(card);
+            // 这里我们不在此处 unobserve，因为图片可能会更新
+          }
+        }
+      },
+      {
+        rootMargin: "300px", // 提前 300px 预加载取色
       }
-    };
+    );
 
-    // 首次扫描
-    scheduleScan();
+    // 监听 DOM 树变化以发现新插入的卡片
+    const domObserver = new MutationObserver((mutations) => {
+      if (document.documentElement.classList.contains("view-transitioning")) return;
+      
+      let hasNewCards = false;
+      for (const mutation of mutations) {
+        if (mutation.addedNodes.length > 0) {
+          hasNewCards = true;
+          break;
+        }
+      }
 
-    // 定时轮询（低频，仅兜底）
-    const timer = setInterval(scheduleScan, 4000);
-
-    // MutationObserver：仅观察 .main 容器，大幅减少回调
-    const mainEl = document.querySelector(".main");
-    const observer = new MutationObserver(() => {
-      if (!document.documentElement.classList.contains("view-transitioning")) {
-        scheduleScan();
+      if (hasNewCards) {
+        // 采用节流的方式绑定新的 Observer
+        if (typeof requestIdleCallback === "function") {
+          requestIdleCallback(observeCards, { timeout: 1000 });
+        } else {
+          setTimeout(observeCards, 500);
+        }
       }
     });
 
-    if (mainEl) {
-      observer.observe(mainEl, { childList: true, subtree: true });
-    } else {
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
+    const observeCards = () => {
+      const cards = document.querySelectorAll<HTMLElement>(CARD_SELECTOR);
+      for (const card of cards) {
+        if (!processedRef.current.has(card)) {
+          processedRef.current.add(card);
+          observer.observe(card);
+        }
+      }
+    };
+
+    // 首次启动
+    observeCards();
+
+    // 观察整个文档的 DOM 插入，以捕获路由变化或无限滚动带来的新卡片
+    const mainEl = document.querySelector(".main");
+    domObserver.observe(mainEl || document.body, { childList: true, subtree: true });
 
     return () => {
-      clearInterval(timer);
       observer.disconnect();
-      if (typeof cancelIdleCallback === "function") {
-        cancelIdleCallback(idleId);
-      }
+      domObserver.disconnect();
     };
   }, []);
 
