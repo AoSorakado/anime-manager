@@ -134,7 +134,7 @@ button:disabled {
 
 .app {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 252px 1fr;
   height: 100vh;
   min-height: 0;
   padding-top: 42px;
@@ -142,7 +142,7 @@ button:disabled {
 }
 
 .app.sidebar-collapsed {
-  grid-template-columns: 78px 1fr;
+  grid-template-columns: 90px 1fr;
 }
 
 /* 鎬ц兘妯″紡锛氫晶杈规爮绉诲姩鏈熼棿绂佺敤楂樿礋杞界壒鏁?*/
@@ -286,17 +286,26 @@ button:disabled {
 
 .sidebar {
   position: sticky;
-  top: 42px;
-  height: calc(100vh - 42px);
+  top: 54px;
+  height: calc(100vh - 66px);
+  margin: 12px 0 12px 12px;
   overflow-y: auto;
-  border-right: 1px solid var(--glass-border-soft);
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 32px;
   background: linear-gradient(180deg, rgba(255, 244, 249, 0.48), rgba(255, 228, 242, 0.22));
   backdrop-filter: blur(46px) saturate(205%) brightness(1.05);
   -webkit-backdrop-filter: blur(46px) saturate(205%) brightness(1.05);
   transform: translateZ(0);
   padding: 18px 14px;
-  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--glass-shadow-soft);
   transition: all 320ms var(--motion-fluid);
+  z-index: 10;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar.collapsed {
@@ -862,12 +871,20 @@ button:disabled {
   gap: 2px;
 }
 
+.main, .sidebar, .custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.main::-webkit-scrollbar, .sidebar::-webkit-scrollbar, .custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .main {
   min-width: 0;
   height: calc(100vh - 42px);
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: thin;
   scrollbar-color: rgba(188, 91, 134, 0.4) transparent;
   padding: 10px 26px 34px;
   /* GPU 托管滚动层，不预分配整个滚动区域为单一 GPU 纹理 */
@@ -995,7 +1012,7 @@ button:disabled {
   backdrop-filter: blur(28px) saturate(180%) brightness(1.04);
   -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.04);
   border: 1px solid var(--glass-border);
-  border-radius: 28px;
+  border-radius: 32px;
   padding: 12px 14px;
   box-shadow: var(--glass-shadow-soft);
   overflow: visible;
@@ -2643,7 +2660,7 @@ h3 {
   grid-template-columns: 220px 1fr;
   gap: 22px;
   border: 1px solid var(--glass-border);
-  border-radius: 28px;
+  border-radius: 32px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(255, 229, 243, 0.36)), var(--glass-bg-strong);
   backdrop-filter: blur(58px) saturate(230%) brightness(1.08);
   -webkit-backdrop-filter: blur(58px) saturate(230%) brightness(1.08);
@@ -7584,7 +7601,7 @@ h3 {
   backdrop-filter: blur(54px) saturate(210%);
   -webkit-backdrop-filter: blur(54px) saturate(210%);
   border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 28px;
+  border-radius: 32px;
   box-shadow: 0 32px 72px rgba(180, 60, 100, 0.17), inset 0 1px 1px rgba(255, 255, 255, 0.58);
 }
 
@@ -9739,7 +9756,7 @@ h3 {
     0 20px 56px rgba(119, 44, 90, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
     inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-  border-radius: 28px;
+  border-radius: 32px;
   margin-bottom: 32px;
   padding: 16px 20px;
   display: flex;
@@ -9817,14 +9834,17 @@ h3 {
 
 /* ---------- 7. 瀵艰埅鏍忓拰鏍囬鏍忥細杈圭紭鏇村儚鍘氱幓鐠?---------- */
 .app.theme-liquid .sidebar {
+  border-radius: 32px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.08) 44%, rgba(255, 79, 161, 0.12)),
-    rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.46);
+    linear-gradient(165deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.06) 45%, rgba(255, 119, 171, 0.12)),
+    rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(54px) saturate(190%) brightness(1.02);
+  -webkit-backdrop-filter: blur(54px) saturate(190%) brightness(1.02);
+  border: 1px solid rgba(255, 255, 255, 0.48);
   box-shadow:
-    18px 0 46px rgba(120, 43, 89, 0.10),
-    inset -1px 0 0 rgba(255, 255, 255, 0.36),
-    inset 1px 0 0 rgba(255, 255, 255, 0.55);
+    0 24px 80px rgba(164, 80, 118, 0.12),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.55),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .app.theme-liquid .navButton,
@@ -9837,13 +9857,13 @@ h3 {
 .app.theme-liquid .sourceButton:hover,
 .app.theme-liquid .navButton.active {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.18) 48%, rgba(255, 79, 161, 0.14)),
-    rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.56);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.28) 48%, rgba(255, 119, 171, 0.24)),
+    rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.68);
   box-shadow:
-    0 14px 30px rgba(157, 50, 100, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.84),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+    0 18px 42px rgba(157, 50, 100, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .app.theme-liquid .titleBar,
@@ -10206,7 +10226,7 @@ h3 {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 28px;
+  border-radius: 32px;
   padding: 28px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
   display: flex;
@@ -10362,7 +10382,7 @@ h3 {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border-soft);
-  border-radius: 28px;
+  border-radius: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11769,19 +11789,10 @@ h3 {
 
 /* Modal 窄滚动条 */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
+  display: none;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(188, 91, 134, 0.25);
-  border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(188, 91, 134, 0.45);
-}
+
 .custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(188, 91, 134, 0.25) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }

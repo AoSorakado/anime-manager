@@ -32,9 +32,29 @@ export function TagsPage() {
   const [tintColor, setTintColor] = useState("180, 180, 180");
   const lastScrollY = useRef(0);
 
-  // 1. 滚动管理
+  // 1. 滚动与状态持久化：进入详情重置到顶，退出恢复位置；跨页面导航持久化
+  const STORAGE_KEY = "localAnime.tagsPageState";
+
+  useEffect(() => {
+    const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "{}");
+    if (saved.selectedAnime) {
+      setSelectedAnime(saved.selectedAnime);
+    }
+    if (saved.lastScrollY) {
+      lastScrollY.current = saved.lastScrollY;
+    }
+    // 注意：selectedTag 不持久化，因为 TagsPage 主要是列表流
+  }, []);
+
   useEffect(() => {
     const main = document.querySelector(".main");
+    
+    // 始终同步当前状态到 sessionStorage，确保导航回来时状态正确
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+      selectedAnime,
+      lastScrollY: lastScrollY.current
+    }));
+
     if (selectedAnime) {
       if (main && lastScrollY.current === 0) {
         lastScrollY.current = main.scrollTop;
@@ -44,9 +64,14 @@ export function TagsPage() {
       if (lastScrollY.current > 0) {
         const target = lastScrollY.current;
         lastScrollY.current = 0;
-        requestAnimationFrame(() => {
-          document.querySelector(".main")?.scrollTo({ top: target, behavior: "instant" });
-        });
+        
+        // 增加延时确保列表渲染完成
+        const id = setTimeout(() => {
+          const mainEl = document.querySelector(".main");
+          mainEl?.scrollTo({ top: target, behavior: "instant" });
+          requestAnimationFrame(() => mainEl?.scrollTo({ top: target, behavior: "instant" }));
+        }, 40);
+        return () => clearTimeout(id);
       }
     }
   }, [selectedAnime]);

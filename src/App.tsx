@@ -7,7 +7,7 @@ import LiquidGlassRuntime from "./LiquidGlassRuntime";
 import "./styles.css";
 
 // ─── Utils ─────────────────────────────────────────────────────
-import { CardTransitionPayload, getMainScrollY, Page, scrollMainTo } from "./utils";
+import { CardTransitionPayload, Page, scrollMainTo } from "./utils";
 
 // ─── Basic Components (default exports) ────────────────────────
 import BangumiCollectionModal from "./components/BangumiCollectionModal";
@@ -84,18 +84,42 @@ function App() {
   const [syncingBangumi, setSyncingBangumi] = useState(false);
   const [scrapeIssues, setScrapeIssues] = useState<ScrapeIssue[]>([]);
   const [watchStats, setWatchStats] = useState<WatchStats | null>(null);
-  const [libraryScrollY, setLibraryScrollY] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const lastCardTransition = useRef<CardTransitionPayload | null>(null);
   const [showBangumiCollections, setShowBangumiCollections] = useState(false);
   const [showBangumiStatus, setShowBangumiStatus] = useState(false);
 
-  // Restore scroll position when returning to library page
-  useEffect(() => {
-    if (page === "library") {
-      scrollMainTo(libraryScrollY);
+  // 页面滚动位置持久化：导航前同步捕获，双 rAF 恢复（抵消 content-visibility 估算偏差）
+  const scrollPositions = useRef<Record<string, number>>({});
+
+  function captureScroll() {
+    const main = document.querySelector(".main");
+    if (main) {
+      scrollPositions.current[page] = main.scrollTop;
     }
-  }, [page, libraryScrollY]);
+  }
+
+  function goTo(next: Page) {
+    if (next === page) return;
+    captureScroll();
+    setPage(next);
+  }
+
+  useEffect(() => {
+    const saved = scrollPositions.current[page];
+    if (saved !== undefined && saved > 0) {
+      // 使用 requestAnimationFrame + setTimeout 确保 React 条件渲染的组件完整挂载且布局稳定
+      const id = setTimeout(() => {
+        scrollMainTo(saved);
+        // 双重保险：处理 content-visibility 可能带来的异步高度变化
+        requestAnimationFrame(() => scrollMainTo(saved));
+      }, 32);
+      return () => clearTimeout(id);
+    } else {
+      // 如果没有保存的位置，重置到顶部，避免继承上一个页面的滚动位置
+      scrollMainTo(0);
+    }
+  }, [page]);
 
   const refreshSources = async () => setSources(await window.libraryApi.sources.list());
 
@@ -302,15 +326,15 @@ function App() {
             </button>
           </div>
           <nav className="sidebarNav">
-            <NavButton active={page === "library"} icon={<MonitorPlay size={20} />} label="本地库" onClick={() => setPage("library")} />
-            <NavButton active={page === "subscriptions"} icon={<Rss size={20} />} label="订阅更新" onClick={() => setPage("subscriptions")} />
-            <NavButton active={page === "tags"} icon={<Tag size={20} />} label="动画标签" onClick={() => setPage("tags")} />
-            <NavButton active={page === "scrape"} icon={<Sparkles size={20} />} label="刮削修正" onClick={() => setPage("scrape")} />
-            <NavButton active={page === "stats"} icon={<BarChart3 size={20} />} label="统计页" onClick={() => setPage("stats")} />
+            <NavButton active={page === "library"} icon={<MonitorPlay size={20} />} label="本地库" onClick={() => goTo("library")} />
+            <NavButton active={page === "subscriptions"} icon={<Rss size={20} />} label="订阅更新" onClick={() => goTo("subscriptions")} />
+            <NavButton active={page === "tags"} icon={<Tag size={20} />} label="动画标签" onClick={() => goTo("tags")} />
+            <NavButton active={page === "scrape"} icon={<Sparkles size={20} />} label="刮削修正" onClick={() => goTo("scrape")} />
+            <NavButton active={page === "stats"} icon={<BarChart3 size={20} />} label="统计页" onClick={() => goTo("stats")} />
             <NavButton active={false} icon={<Heart size={20} />} label="我的收藏" onClick={() => setShowBangumiCollections(true)} />
             <NavButton active={false} icon={<Activity size={20} />} label="服务状态" onClick={() => setShowBangumiStatus(true)} />
-            <NavButton active={page === "settings"} icon={<Settings size={20} />} label="应用设置" onClick={() => setPage("settings")} />
-            <NavButton active={page === "logs"} icon={<Database size={20} />} label="运行日志" onClick={() => setPage("logs")} />
+            <NavButton active={page === "settings"} icon={<Settings size={20} />} label="应用设置" onClick={() => goTo("settings")} />
+            <NavButton active={page === "logs"} icon={<Database size={20} />} label="运行日志" onClick={() => goTo("logs")} />
           </nav>
           <div className="themeToggleArea">
             <button
@@ -336,6 +360,7 @@ function App() {
               issues={scrapeIssues}
               stats={watchStats}
               onOpenIssue={(id) => {
+                captureScroll();
                 setSelectedId(id);
                 setPage("scrape-detail");
                 scrollMainTo(0);
@@ -371,8 +396,8 @@ function App() {
                 onRefresh={refreshItems}
                 onOpenItem={(id: number, transition: CardTransitionPayload) => {
                   lastCardTransition.current = transition;
+                  captureScroll();
                   runRouteTransition("enter", transition, () => {
-                    setLibraryScrollY(getMainScrollY());
                     setSelectedId(id);
                     setPage("detail");
                     scrollMainTo(0);
@@ -380,8 +405,8 @@ function App() {
                 }}
                 onOpenCollection={(collectionItems: MediaItem[], transition: CardTransitionPayload) => {
                   lastCardTransition.current = transition;
+                  captureScroll();
                   runRouteTransition("enter", transition, () => {
-                    setLibraryScrollY(getMainScrollY());
                     setSelectedCollectionItems(collectionItems);
                     setPage("collection");
                     scrollMainTo(0);
@@ -432,16 +457,17 @@ function App() {
                 items={selectedCollectionItems}
                 onBack={() => {
                   const transition = lastCardTransition.current;
+                  captureScroll();
                   if (transition) {
                     runRouteTransition("exit", transition, () => {
                       setPage("library");
-                      scrollMainTo(libraryScrollY);
                     });
                   } else {
-                    setPage("library");
+                    goTo("library");
                   }
                 }}
                 onOpen={(id: number) => {
+                  captureScroll();
                   setSelectedId(id);
                   setPage("detail");
                   scrollMainTo(0);
@@ -455,16 +481,19 @@ function App() {
                 id={selectedId}
                 onBack={() => {
                   const transition = lastCardTransition.current;
+                  captureScroll();
                   if (transition) {
                     runRouteTransition("exit", transition, () => {
                       setPage("library");
-                      scrollMainTo(libraryScrollY);
                     });
                   } else {
-                    setPage("library");
+                    goTo("library");
                   }
                 }}
-                onScrape={() => setPage("scrape-detail")}
+                onScrape={() => {
+                  captureScroll();
+                  setPage("scrape-detail");
+                }}
                 onChanged={async () => {
                   await refreshItems();
                   await refreshSideInfo();
@@ -478,6 +507,7 @@ function App() {
                 issues={scrapeIssues}
                 onRefresh={refreshSideInfo}
                 onOpen={(id: number) => {
+                  captureScroll();
                   setSelectedId(id);
                   setPage("scrape-detail");
                 }}
@@ -488,10 +518,10 @@ function App() {
               <ScrapePage
                 id={selectedId}
                 fallbackName={selected?.clean_name || ""}
-                onBack={() => setPage("scrape")}
+                onBack={() => goTo("scrape")}
                 onApplied={async () => {
                   await refreshItems();
-                  setPage("scrape");
+                  goTo("scrape");
                   scrollMainTo(0);
                 }}
               />
