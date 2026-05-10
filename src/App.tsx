@@ -53,10 +53,10 @@ function App() {
     const isCollapsed = !sidebarRef.current;
     sidebarRef.current = isCollapsed;
     localStorage.setItem("sidebar_collapsed", String(isCollapsed));
-    
+
     const appEl = document.querySelector(".app");
     const sidebarEl = document.getElementById("main-sidebar");
-    
+
     if (appEl && sidebarEl) {
       if (isCollapsed) {
         appEl.classList.add("sidebar-collapsed");
@@ -311,8 +311,15 @@ function App() {
           <div className="blob blob1"></div>
           <div className="blob blob2"></div>
           <div className="blob blob3"></div>
+          <div className="blob blob4"></div>
+          <div className="blob blob5"></div>
+          <div className="blob blob6"></div>
+          <div className="blob blob7"></div>
+          <div className="blob blob8"></div>
+          <div className="blob blob9"></div>
+          <div className="blob blob10"></div>
         </div>
-        <div className="dragTitlebar">Local Anime Library</div>
+        <div className="dragTitlebar"></div>
         <WindowControls />
         <aside className={`sidebar ${sidebarRef.current ? "collapsed" : ""}`} id="main-sidebar">
           <div className="sidebarHeader">

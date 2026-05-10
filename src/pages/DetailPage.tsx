@@ -126,6 +126,17 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
     void load();
   }, [id]);
 
+  // 同步色值到全局 .app 容器，使背景流动能感知当前番剧颜色
+  useEffect(() => {
+    const app = document.querySelector(".app");
+    if (app) {
+      (app as HTMLElement).style.setProperty("--cover-rgb", tintColor);
+    }
+    return () => {
+      if (app) (app as HTMLElement).style.removeProperty("--cover-rgb");
+    };
+  }, [tintColor]);
+
   const fileGroups = useMemo(() => item ? groupMediaFiles(files, item.folder_path) : [], [files, item?.folder_path]);
 
   if (!item) return <div className="panel">加载中</div>;

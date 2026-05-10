@@ -34,19 +34,22 @@ export default function GlassSelect({
       </button>
       {open && (
         <div className="glassSelectMenu">
-          {options.map((option) => (
-            <button
-              type="button"
-              key={option.value}
-              className={option.value === value ? "active" : ""}
-              onClick={() => {
-                onChange(option.value);
-                setOpen(false);
-              }}
-            >
-              {option.label}
-            </button>
-          ))}
+          <div className="glassSelectMenuBg" />
+          <div className="glassSelectMenuContent">
+            {options.map((option) => (
+              <button
+                type="button"
+                key={option.value}
+                className={option.value === value ? "active" : ""}
+                onClick={() => {
+                  onChange(option.value);
+                  setOpen(false);
+                }}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
