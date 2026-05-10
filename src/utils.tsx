@@ -22,7 +22,7 @@ export const MIKAN_HUB_STATE_KEY = "localAnime.mikanHubState";
 
 // ─── Types ────────────────────────────────────────────────────
 
-export type Page = "library" | "online" | "collection" | "detail" | "scrape" | "scrape-detail" | "settings" | "logs" | "stats" | "subscriptions" | "tags";
+export type Page = "library" | "online" | "collection" | "detail" | "scrape" | "scrape-detail" | "settings" | "logs" | "stats" | "subscriptions" | "tags" | "search-aggregation";
 
 export interface CardTransitionPayload {
   rect: DOMRect;
