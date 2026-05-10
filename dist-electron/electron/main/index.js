@@ -235,7 +235,7 @@ function registerIpc() {
     ipcMain.handle("scraper:getBangumiCalendar", () => getBangumiCalendar());
     ipcMain.handle("bangumi:testToken", (_, token) => testBangumiToken(token));
     ipcMain.handle("bangumi:syncLocalStatus", () => syncLocalWatchStatusToBangumi());
-    ipcMain.handle("bangumi:listCollections", () => listBangumiCollections());
+    ipcMain.handle("bangumi:listCollections", (_, token) => listBangumiCollections(token));
     ipcMain.handle("bangumi:serviceStatus", () => fetchBangumiServiceStatus());
     // New season API (Bangumi API driven, no scraping)
     ipcMain.handle("season:getAnime", (_, year, season, options) => getSeasonAnime(year, season, options));

@@ -1,3 +1,4 @@
+import { RefreshCw } from "lucide-react";
 import type { ScrapeIssue, WatchStats } from "../../electron/shared/types";
 import { formatStatDuration } from "../utils";
 
@@ -22,7 +23,17 @@ export default function SidebarInsights({ issues, stats, onOpenIssue }: { issues
         </>
       )}
 
-      <div className="sideTitle">观看概览</div>
+      <div className="sideTitleArea">
+        <div className="sideTitle">观看概览</div>
+        <button className="sideRefreshBtn" onClick={() => {
+          const btn = document.querySelector(".sideRefreshBtn");
+          btn?.classList.add("spin");
+          window.dispatchEvent(new CustomEvent("refresh-side-info"));
+          setTimeout(() => btn?.classList.remove("spin"), 1000);
+        }} title="刷新状态">
+          <RefreshCw size={14} />
+        </button>
+      </div>
       <div className="sideCard glassStatsCard">
         <div className="mainStatRow">
           <div className="statItem">
@@ -47,6 +58,42 @@ export default function SidebarInsights({ issues, stats, onOpenIssue }: { issues
           ) : (
             <p className="sideEmpty">暂无观看记录</p>
           )}
+        </div>
+      </div>
+
+      {/* Bangumi 状态概览 */}
+      <div className="sideTitle">Bangumi</div>
+      <div className="sideCard glassStatsCard">
+        <div className="bangumiMiniStatus">
+          <div className="bgmStatItem">
+            <div
+              className="bgmStatusDot"
+              style={{
+                background:
+                  stats?.bangumi_status === "operational"
+                    ? "#27ae60"
+                    : stats?.bangumi_status === "degraded"
+                    ? "#f39c12"
+                    : stats?.bangumi_status === "outage"
+                    ? "#e74c3c"
+                    : "#bdc3c7",
+              }}
+              title={
+                stats?.bangumi_status === "operational"
+                  ? "Bangumi 服务正常"
+                  : stats?.bangumi_status === "degraded"
+                  ? "Bangumi 服务降级"
+                  : stats?.bangumi_status === "outage"
+                  ? "Bangumi 服务中断"
+                  : "Bangumi 状态未知"
+              }
+            />
+            <span className="bgmStatLabel">服务状态</span>
+          </div>
+          <div className="bgmStatItem">
+            <span className="bgmStatValue">{stats?.bangumi_collection_total ?? "--"}</span>
+            <span className="bgmStatLabel">我的收藏</span>
+          </div>
         </div>
       </div>
     </div>

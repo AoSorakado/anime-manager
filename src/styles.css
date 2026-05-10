@@ -590,6 +590,77 @@ button:disabled {
   margin-top: 16px;
 }
 
+.sideTitleArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.sideTitleArea .sideTitle {
+  margin: 0;
+}
+
+.sideRefreshBtn {
+  background: none;
+  border: none;
+  color: rgba(74, 48, 62, 0.4);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.sideRefreshBtn:hover {
+  color: rgba(74, 48, 62, 0.8);
+}
+
+.sideRefreshBtn.spin svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.bangumiMiniStatus {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  margin: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bgmStatItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bgmStatusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.bgmStatValue {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2d1d27;
+}
+
+.bgmStatLabel {
+  font-size: 11px;
+  color: rgba(74, 48, 62, 0.6);
+}
+
 .onlineHeroStats>div {
   display: grid;
   gap: 4px;
@@ -11694,4 +11765,23 @@ h3 {
   content-visibility: auto;
   /* 预估一个最小占位高度，防止视口外元素剔除时滚动条剧烈跳动 */
   contain-intrinsic-size: auto 300px;
+}
+
+/* Modal 窄滚动条 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(188, 91, 134, 0.25);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(188, 91, 134, 0.45);
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(188, 91, 134, 0.25) transparent;
 }

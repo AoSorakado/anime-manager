@@ -100,12 +100,31 @@ function App() {
   const refreshSources = async () => setSources(await window.libraryApi.sources.list());
 
   const refreshSideInfo = async () => {
-    const [issues, stats] = await Promise.all([
-      window.libraryApi.media.issues(200),
-      window.libraryApi.media.watchStats()
-    ]);
-    setScrapeIssues(issues);
-    setWatchStats(stats);
+    try {
+      const [issues, stats, bgmStatus] = await Promise.all([
+        window.libraryApi.media.issues(200),
+        window.libraryApi.media.watchStats(),
+        window.libraryApi.bangumi.serviceStatus().catch(() => null)
+      ]);
+
+      // 尝试获取收藏总数（如果已配置 Token）
+      let bgmCollectionTotal: number | undefined = undefined;
+      try {
+        const collections = await window.libraryApi.bangumi.listCollections();
+        bgmCollectionTotal = collections.length;
+      } catch (err) {
+        console.warn("Failed to fetch Bangumi collections:", err);
+      }
+
+      setScrapeIssues(issues);
+      setWatchStats({
+        ...stats,
+        bangumi_status: bgmStatus?.overall || "operational", // 默认正常
+        bangumi_collection_total: bgmCollectionTotal
+      });
+    } catch (error) {
+      console.error("Failed to refresh side info:", error);
+    }
   };
 
   const refreshItems = async () => {
@@ -134,6 +153,10 @@ function App() {
   useEffect(() => {
     void refreshSources();
     void refreshSideInfo();
+
+    const handleRefresh = () => void refreshSideInfo();
+    window.addEventListener("refresh-side-info", handleRefresh);
+    return () => window.removeEventListener("refresh-side-info", handleRefresh);
   }, []);
 
   useEffect(() => {

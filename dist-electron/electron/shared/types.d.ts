@@ -101,6 +101,8 @@ export interface WatchStats {
     today_count: number;
     total_count: number;
     completed_count: number;
+    bangumi_status?: "operational" | "degraded" | "outage";
+    bangumi_collection_total?: number;
     recent: Array<{
         id: number;
         title: string;
@@ -469,8 +471,17 @@ export interface BangumiStatusIncident {
     updated: string;
     link: string;
 }
+export interface BangumiStatusComponent {
+    name: string;
+    url: string;
+    status: "operational" | "degraded" | "outage";
+    statusCode?: number;
+    latencyMs?: number;
+}
 export interface BangumiStatusReport {
     overall: "operational" | "degraded" | "outage";
     updated: string;
+    source: "feed" | "probe";
     incidents: BangumiStatusIncident[];
+    components?: BangumiStatusComponent[];
 }

@@ -39,9 +39,13 @@ export function SettingsPage({
 
   async function save(key: keyof SettingsMap, value: string) {
     setSettings((current) => ({ ...current, [key]: value }));
-    await window.libraryApi.settings.set(key, value);
-    setMessage(`已保存：${settingLabel(key)}`);
-    setError("");
+    try {
+      await window.libraryApi.settings.set(key, value);
+      setMessage(`已保存：${settingLabel(key)}`);
+      setError("");
+    } catch (err) {
+      setError(`保存失败：${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   async function addPathFromInput() {

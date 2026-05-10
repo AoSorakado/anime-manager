@@ -14,7 +14,7 @@ const STATUS_TYPE_LABELS: Record<number, string> = {
 
 const STATUS_ORDER = [3, 1, 2, 4, 5]; // 在看 → 想看 → 看过 → 搁置 → 抛弃
 
-export default function BangumiStatusModal({ onClose }: { onClose: () => void }) {
+export default function BangumiCollectionModal({ onClose }: { onClose: () => void }) {
   const [entries, setEntries] = useState<BangumiCollectionEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -86,11 +86,8 @@ export default function BangumiStatusModal({ onClose }: { onClose: () => void })
               borderRadius: "inherit",
             }}
           />
-          <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center" }}>
             <h2 style={{ margin: 0, color: "#2a1a24" }}>Bangumi 我的收藏</h2>
-            <button className="textButton modalClose" onClick={onClose}>
-              关闭
-            </button>
           </div>
 
           <div
