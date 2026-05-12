@@ -26,6 +26,7 @@ const api = {
   },
   scraper: {
     searchBangumi: (mediaItemId, keyword) => ipcRenderer.invoke("scraper:searchBangumi", mediaItemId, keyword),
+    bangumiSearch: (keyword) => ipcRenderer.invoke("scraper:bangumiSearch", keyword),
     applyBangumi: (mediaItemId, externalId) => ipcRenderer.invoke("scraper:applyBangumi", mediaItemId, externalId),
     getPerson: (personId) => ipcRenderer.invoke("scraper:getPerson", personId),
     getAnimeByTag: (tag, offset, limit, options) => ipcRenderer.invoke("scraper:getAnimeByTag", tag, offset, limit, options),

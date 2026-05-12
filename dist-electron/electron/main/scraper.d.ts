@@ -1,4 +1,4 @@
-import type { BangumiCandidate, BangumiSubjectDetail, BangumiTag, BangumiTagAnimeResponse, BatchIdRefreshResult, BatchScrapeResult, MediaItem } from "../shared/types.js";
+import type { BangumiCandidate, BangumiSubjectDetail, BangumiTag, BangumiTagAnimeResponse, BatchIdRefreshResult, BatchScrapeResult, MediaItem, NormalizedAnimeItem } from "../shared/types.js";
 export declare function searchBangumi(mediaItemId: number, keyword?: string, enrichDetails?: boolean): Promise<BangumiCandidate[]>;
 export declare function batchSearchBangumi(options?: {
     unmatchedOnly?: boolean;
@@ -29,3 +29,4 @@ export declare function getAnimeByTag(tagName: string, offset?: number, limit?: 
     airDate?: string[];
 }): Promise<BangumiTagAnimeResponse>;
 export declare function getPopularTags(): Promise<BangumiTag[]>;
+export declare function bangumiSearchApi(keyword: string): Promise<NormalizedAnimeItem[]>;

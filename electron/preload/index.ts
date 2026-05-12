@@ -27,6 +27,7 @@ const api = {
   },
   scraper: {
     searchBangumi: (mediaItemId: number, keyword?: string) => ipcRenderer.invoke("scraper:searchBangumi", mediaItemId, keyword) as Promise<void>,
+    bangumiSearch: (keyword: string) => ipcRenderer.invoke("scraper:bangumiSearch", keyword) as Promise<import("../shared/types.js").NormalizedAnimeItem[]>,
     applyBangumi: (mediaItemId: number, externalId: string) => ipcRenderer.invoke("scraper:applyBangumi", mediaItemId, externalId) as Promise<MediaItem>,
     getBangumiSubject: (subjectId: string) => ipcRenderer.invoke("scraper:getBangumiSubject", subjectId) as Promise<BangumiSubjectDetail | null>,
     getPerson: (personId: string | number) => ipcRenderer.invoke("scraper:getPerson", personId) as Promise<Record<string, unknown> | null>,

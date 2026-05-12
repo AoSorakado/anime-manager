@@ -552,3 +552,42 @@ export async function getPopularTags() {
         return FALLBACK_TAGS;
     }
 }
+export async function bangumiSearchApi(keyword) {
+    const response = await fetch("https://api.bgm.tv/v0/search/subjects", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "User-Agent": "local-anime-library/0.1.0"
+        },
+        body: JSON.stringify({ keyword, sort: "match", filter: { type: [2] } })
+    });
+    if (!response.ok) {
+        log("error", "scraper", `Bangumi search API failed: ${response.status}`);
+        throw new Error(`Bangumi 搜索失败：HTTP ${response.status}`);
+    }
+    const json = await response.json();
+    const rawList = (json.data || []).slice(0, 30);
+    return rawList.map((raw) => {
+        const images = raw.images || {};
+        return {
+            bangumiId: Number(raw.id) || 0,
+            name: String(raw.name || ""),
+            nameCn: String(raw.name_cn || raw.name || ""),
+            summary: String(raw.summary || ""),
+            airDate: raw.air_date ? String(raw.air_date) : null,
+            eps: raw.eps_count != null ? Number(raw.eps_count) : null,
+            score: raw.score != null ? Number(raw.score) : null,
+            rank: raw.rank != null ? Number(raw.rank) : null,
+            ratingTotal: raw.rating?.total != null ? Number(raw.rating.total) : null,
+            weekday: 0,
+            images: {
+                small: images.small || null,
+                grid: images.grid || null,
+                large: images.large || null,
+                common: images.common || null,
+            },
+            tags: Array.isArray(raw.tags) ? raw.tags : [],
+            raw,
+        };
+    });
+}

@@ -606,6 +606,7 @@ button:disabled {
 }
 
 .sidebar.collapsed .navButton,
+.sidebar.collapsed .navButton.active,
 .sidebar.collapsed .sourceButton {
   justify-content: center;
   padding: 0;
@@ -613,6 +614,7 @@ button:disabled {
   height: 50px;
   margin: 0 auto 10px;
   border-radius: 16px;
+  display: flex;
 }
 
 .sidebar.collapsed .navButton svg,
@@ -620,13 +622,23 @@ button:disabled {
   margin: 0 !important;
 }
 
-.navButton.active,
+.navButton.active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 228, 242, 0.34));
+  border-color: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 2px 2px rgba(255, 255, 255, 0.55) inset, 0 14px 34px rgba(176, 82, 124, 0.14);
+  color: #2d1d27;
+  width: auto;
+  display: inline-flex;
+}
+
 .navButton:hover,
 .sourceButton:hover {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 228, 242, 0.34));
   border-color: rgba(255, 255, 255, 0.58);
   box-shadow: 0 2px 2px rgba(255, 255, 255, 0.55) inset, 0 14px 34px rgba(176, 82, 124, 0.14);
   color: #2d1d27;
+  width: auto;
+  display: inline-flex;
 }
 
 .navButton:active,
@@ -4803,13 +4815,128 @@ h3 {
 }
 
 .scheduleTab.active {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 248, 252, 0.68)) !important;
-  color: var(--accent) !important;
-  box-shadow:
-    0 4px 12px rgba(255, 79, 161, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  background: var(--accent) !important;
+  color: #fff !important;
   font-weight: 700;
+  box-shadow: 0 4px 18px rgba(255, 79, 161, 0.36);
+  transform: scale(1.05);
+}
+
+.yearPicker {
+  position: relative;
+}
+
+.yearPickerTrigger {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  color: var(--text-main, rgba(55, 38, 47, 0.86));
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.yearPickerTrigger::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  opacity: 0.5;
+}
+
+
+.bangumiSearchGrid {
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.bangumiSearchCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: inherit;
+}
+
+.bangumiSearchCard:hover {
+  background: rgba(255, 255, 255, 0.62);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(180, 80, 120, 0.12);
+}
+
+.bangumiSearchMeta {
+  min-width: 0;
+  flex: 1;
+}
+
+.bangumiSearchMeta strong {
+  display: block;
+  font-size: 13px;
+  color: #2a1a24;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bangumiSearchMeta>span {
+  display: block;
+  font-size: 11px;
+  color: #704d5f;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bangumiSearchBadges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #94627b;
+  flex-wrap: wrap;
+}
+
+.scoreBadge {
+  color: #d4a017;
+  font-weight: 600;
+}
+
+.rankBadge {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.app.theme-liquid .bangumiSearchCard {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.app.theme-liquid .bangumiSearchCard:hover {
+  background: rgba(255, 255, 255, 0.48);
 }
 
 .scheduleGrid {
@@ -5504,35 +5631,51 @@ h3 {
 }
 
 .mikanGroupSidebar {
-  width: 180px;
+  width: 220px;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(45, 90, 39, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(160, 80, 110, 0.08);
 }
 
 .mikanGroupSidebar h4 {
-  padding: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 12px 14px;
   margin: 0;
-  background: #36b9c9;
+  background: rgba(54, 185, 201, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: white;
   font-size: 14px;
   font-weight: 600;
+  flex-shrink: 0;
+  border-radius: 14px 14px 0 0;
 }
 
 .mikanGroupBtn {
-  padding: 10px 16px;
+  padding: 12px 14px;
   text-align: left;
   background: none;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-  font-size: 13px;
+  font-size: 14px;
   color: #5a6a5a;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 1.3;
 }
 
 .mikanGroupBtn:hover {
@@ -7009,6 +7152,8 @@ h3 {
   border-radius: 14px;
   color: var(--text-dim);
   transition: all 0.32s var(--motion-fluid);
+  width: auto;
+  display: inline-flex;
 }
 
 .app.theme-liquid .navButton:hover {
@@ -7020,23 +7165,47 @@ h3 {
   background: rgba(255, 107, 157, 0.14);
   color: var(--accent);
   font-weight: 700;
+  width: auto;
+  display: inline-flex;
 }
 
 .app.theme-liquid .sourceBtn {
-  background: var(--glass-material-light);
-  border: 1px solid var(--glass-border-soft);
-  border-radius: 12px;
-  color: var(--text-dim);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
+  background:
+    linear-gradient(135deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.12) 42%,
+      rgba(255, 79, 161, 0.16) 72%,
+      rgba(255, 255, 255, 0.15) 100%),
+    rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  color: #4a303e;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 6px 16px rgba(119, 44, 90, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .app.theme-liquid .sourceBtn:hover {
-  background: rgba(255, 107, 157, 0.1);
-  border-color: var(--accent-soft);
-  color: var(--accent);
-  transform: translateY(-1px);
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 248, 252, 0.62) 42%,
+      rgba(255, 79, 161, 0.20) 72%,
+      rgba(128, 244, 255, 0.16) 100%),
+    rgba(255, 252, 255, 0.82);
+  border-color: rgba(255, 255, 255, 0.92);
+  transform: scale(1.1) rotate(15deg);
+  box-shadow:
+    0 10px 24px rgba(119, 44, 90, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .app.theme-liquid .sourceBtn.active {
@@ -7199,8 +7368,8 @@ h3 {
   justify-content: space-between;
   gap: 10px;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.38);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   color: var(--text-main);
   font-size: 13px;
@@ -7362,14 +7531,21 @@ h3 {
 
 
 .app.theme-liquid .globalSearchBox {
-  background: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(135deg,
+      rgba(255, 255, 255, 0.32) 0%,
+      rgba(255, 255, 255, 0.08) 36%,
+      rgba(255, 120, 180, 0.12) 62%,
+      rgba(255, 255, 255, 0.16) 100%),
+    rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-radius: 18px;
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-radius: 22px;
   box-shadow:
-    0 8px 24px rgba(119, 44, 90, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 12px 34px rgba(119, 44, 90, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .app.theme-liquid .globalSearchBox:focus-within {
@@ -7392,10 +7568,10 @@ h3 {
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   10. GLASS SELECT 鈥?Custom dropdown component
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 .app.theme-liquid .glassSelect {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  backdrop-filter: var(--glass-blur-soft);
-  -webkit-backdrop-filter: var(--glass-blur-soft);
+  background: transparent;
+  border: 1px solid transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(180, 60, 100, 0.06);
 }
@@ -7409,13 +7585,16 @@ h3 {
 
 /* 鍘嗗勾琛細骞翠唤閫夋嫨鏀逛负 3 鍒楃綉鏍硷紝鏇撮珮鏁?*/
 .app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
   width: 360px;
-  padding: 20px;
   max-height: 420px;
   overflow-y: auto;
+}
+
+.app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenuContent {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 8px;
 }
 
 .app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenu button {
@@ -7430,10 +7609,10 @@ h3 {
 
 .app.theme-liquid .glassSelectMenu {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.78) 45%, rgba(255, 107, 157, 0.12) 100%),
-    rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(60px) saturate(200%);
-  -webkit-backdrop-filter: blur(60px) saturate(200%);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%),
+    rgba(255, 230, 245, 0.15);
+  backdrop-filter: blur(64px) saturate(220%);
+  -webkit-backdrop-filter: blur(64px) saturate(220%);
   border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow:
     0 15px 45px rgba(119, 44, 90, 0.15),
@@ -7859,23 +8038,60 @@ h3 {
 }
 
 .app.theme-liquid .scheduleTabs {
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 111, 176, 0.25) 45%,
+      rgba(255, 255, 255, 0.12) 100%),
+    rgba(255, 240, 250, 0.32) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
+  box-shadow:
+    0 18px 42px rgba(255, 111, 176, 0.14),
+    0 8px 24px rgba(120, 43, 89, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(54px) saturate(240%) !important;
+  -webkit-backdrop-filter: blur(54px) saturate(240%) !important;
+  position: relative;
+  display: flex;
+}
+
+.app.theme-liquid .scheduleIndicator {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 7);
+  height: calc(100% - 8px);
+  background: #ff3880 !important;
+  border-radius: 12px;
+  transition: transform 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+  box-shadow: 0 4px 18px rgba(255, 56, 128, 0.4);
+  z-index: 0;
 }
 
 .app.theme-liquid .scheduleTab {
-  color: var(--text-dim);
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  flex: 1;
+  color: rgba(120, 60, 80, 0.6);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: none !important;
 }
 
 .app.theme-liquid .scheduleTab:hover {
   background: rgba(255, 255, 255, 0.35);
+  color: rgba(120, 60, 80, 0.65);
 }
 
 .app.theme-liquid .scheduleTab.active {
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--accent);
-  box-shadow: 0 2px 10px rgba(255, 107, 157, 0.14);
+  background: transparent !important;
+  color: #fff !important;
+  font-weight: 800;
+  box-shadow: none;
+  transform: scale(1.05);
+  transition: none !important;
 }
 
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   18. SCHEDULE CARDS 鈥?Mikan Hub weekly grid
@@ -7991,8 +8207,12 @@ h3 {
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   20. MIKAN / TORRENT 鈥?Download resource tables
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 .app.theme-liquid .mikanGroupSidebar h4 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   background: var(--accent);
   color: #fff;
+  border-radius: 14px 14px 0 0;
 }
 
 .app.theme-liquid .mikanGroupBtn {
@@ -8949,11 +9169,11 @@ h3 {
 .app.theme-liquid .statusSelect,
 .app.theme-liquid .themeToggleButton {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.18) 52%, rgba(144, 245, 255, 0.10)),
-    rgba(255, 255, 255, 0.12);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18);
   border-color: rgba(255, 255, 255, 0.52);
   color: var(--ios27-ink);
-  backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05);
   -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
   box-shadow:
     0 10px 24px rgba(128, 44, 90, 0.10),
@@ -9258,8 +9478,15 @@ h3 {
 .app.theme-liquid .statsPanel,
 .app.theme-liquid .statTile,
 .app.theme-liquid .issueBigCard,
-.app.theme-liquid .searchHeader,
-.app.theme-liquid .globalSearchResults,
+.app.theme-liquid .globalSearchResults {
+  background: var(--glass-bg-generic);
+  border-color: var(--ios27-border-soft);
+  box-shadow: var(--ios27-shadow-soft);
+  backdrop-filter: var(--glass-blur-core);
+  -webkit-backdrop-filter: var(--glass-blur-core);
+  transform: translateZ(0);
+}
+
 .app.theme-liquid .subscriptionsSearchPage {
   background: var(--glass-bg-generic);
   border-color: var(--ios27-border-soft);
@@ -9267,6 +9494,29 @@ h3 {
   backdrop-filter: var(--glass-blur-core);
   -webkit-backdrop-filter: var(--glass-blur-core);
   transform: translateZ(0);
+  border-radius: 32px;
+  margin: 12px 24px;
+  padding: 24px;
+  border: 1px solid var(--ios27-border-soft);
+}
+
+.app.theme-liquid .searchHeader {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  margin-bottom: 24px;
+}
+
+.app.theme-liquid .searchHeader h1 {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: var(--ios27-ink);
+  color: var(--ios27-ink);
+  font-weight: 850;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  letter-spacing: -0.01em;
 }
 
 .app.theme-liquid .toolbar,
@@ -9349,7 +9599,6 @@ h3 {
   .linkButton,
   .statusSelect,
   .themeToggleButton,
-  .scheduleTab,
   .mikanTimeMachineButton,
   .mikanGroupBtn,
   .mikanGroupPanel button,
@@ -9382,7 +9631,6 @@ h3 {
 }
 
 .app.theme-liquid .primaryButton,
-.app.theme-liquid .scheduleTab.active,
 .app.theme-liquid .mikanGroupBtn.active,
 .app.theme-liquid .mikanGroupPanel button.active,
 .app.theme-liquid .navButton.active {
@@ -9394,9 +9642,14 @@ h3 {
 }
 
 .app.theme-liquid .glassSelectMenuBg {
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.72), rgba(255, 240, 248, 0.42));
-  backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
-  -webkit-backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
+  background:
+    linear-gradient(165deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(255, 111, 176, 0.38) 45%,
+      rgba(255, 255, 255, 0.28) 100%),
+    rgba(255, 240, 252, 0.62) !important;
+  backdrop-filter: blur(64px) saturate(280%) brightness(0.98) contrast(1.02) !important;
+  -webkit-backdrop-filter: blur(64px) saturate(280%) brightness(0.98) contrast(1.02) !important;
   filter: url(#liquid-glass-filter);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
@@ -9724,13 +9977,21 @@ h3 {
 }
 
 .app.theme-liquid .historyControls {
-  background: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 111, 176, 0.25) 45%,
+      rgba(255, 255, 255, 0.12) 100%),
+    rgba(255, 240, 250, 0.32) !important;
   padding: 6px 12px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
+  backdrop-filter: blur(54px) saturate(240%) !important;
+  -webkit-backdrop-filter: blur(54px) saturate(240%) !important;
   box-shadow:
-    inset 0 1px 6px rgba(119, 44, 90, 0.04),
-    0 2px 8px rgba(0, 0, 0, 0.02);
+    0 18px 42px rgba(255, 111, 176, 0.14),
+    0 8px 24px rgba(120, 43, 89, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
   display: flex;
   gap: 8px;
 }
@@ -9744,8 +10005,8 @@ h3 {
 }
 
 .app.theme-liquid .historyControls .glassSelectButton {
-  background: rgba(255, 255, 255, 0.42);
-  border: 1px solid rgba(255, 255, 255, 0.52);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 14px;
   height: 34px;
   font-size: 13px;
@@ -10013,10 +10274,22 @@ h3 {
 }
 
 .app.theme-liquid .scheduleTabs {
-  background: rgba(255, 255, 255, 0.22);
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 248, 252, 0.62) 34%,
+      rgba(255, 111, 176, 0.25) 58%,
+      rgba(240, 253, 255, 0.52) 100%),
+    rgba(255, 248, 252, 0.78) !important;
   padding: 4px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(72px) saturate(280%) !important;
+  -webkit-backdrop-filter: blur(72px) saturate(280%) !important;
+  box-shadow:
+    0 24px 58px rgba(255, 111, 176, 0.22),
+    0 12px 32px rgba(120, 43, 89, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
 }
 
 .app.theme-liquid .scheduleTab {
@@ -10025,6 +10298,7 @@ h3 {
   padding: 0 12px;
   border-radius: 12px;
   font-weight: 700;
+  transition: none !important;
 }
 
 
@@ -11227,8 +11501,8 @@ h3 {
 
 .app.theme-liquid .mikanGroupBtn {
   border-radius: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 10px 20px;
   font-weight: 600;
 }
@@ -11559,10 +11833,30 @@ h3 {
 
 
 .app.theme-liquid .mikanGroupSidebar {
-  background: transparent;
-  backdrop-filter: none;
-  border: none;
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(160, 80, 110, 0.04);
+  overflow-y: auto;
+  max-height: 100%;
+  border-radius: 24px;
+  padding: 12px;
+  padding-right: 16px;
+  /* Space for scrollbar */
+}
+
+.app.theme-liquid .mikanGroupSidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.app.theme-liquid .mikanGroupSidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.app.theme-liquid .mikanGroupSidebar::before {
+  opacity: 0.18;
 }
 
 .app.theme-liquid .mikanGroupBtn {
@@ -11588,6 +11882,8 @@ h3 {
   overflow-y: auto;
   /* 开启滚动条 */
   padding-right: 10px;
+  border-radius: 24px;
+  margin-left: 10px;
 }
 
 /* 2. 这里的背景必须彻底透明，否则滚动时会发白 */
@@ -11598,7 +11894,7 @@ h3 {
 
 /* 3. 美化滚动条，使其符合液态风格 */
 .app.theme-liquid .mikanResourceMain::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .app.theme-liquid .mikanResourceMain::-webkit-scrollbar-thumb {
@@ -11634,12 +11930,14 @@ h3 {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 4px;
   border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  /* Ensure content doesn't bleed into corners */
 }
 
 
@@ -11727,7 +12025,7 @@ h3 {
     radial-gradient(circle at 0% 0%, rgba(var(--cover-rgb), 0.12) 0%, transparent 45%),
     radial-gradient(circle at 100% 100%, rgba(var(--cover-rgb), 0.08) 0%, transparent 55%),
     linear-gradient(135deg, rgba(var(--cover-rgb), 0.04), rgba(var(--cover-rgb), 0.01)),
-    rgba(255, 255, 255, 0.42) !important;
+    rgba(255, 255, 255, 0.12) !important;
   border: 1.5px solid rgba(var(--cover-rgb), 0.35) !important;
   box-shadow:
     0 24px 64px rgba(var(--cover-rgb), 0.12),
@@ -11755,10 +12053,12 @@ h3 {
 
 /* 增强：角色卡片等小容器也可以稍微带一点色 */
 .detail.cover-tinted .characterCard,
+.detail.cover-tinted .characterItem,
 .detail.cover-tinted .staffItem,
 .detail.cover-tinted .relatedSubject {
-  background: rgba(var(--cover-rgb), 0.06) !important;
+  background: rgba(var(--cover-rgb), 0.04) !important;
   border-color: rgba(var(--cover-rgb), 0.1) !important;
+  backdrop-filter: none !important;
   transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 

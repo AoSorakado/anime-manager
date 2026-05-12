@@ -38,6 +38,7 @@ declare const api: {
     };
     scraper: {
         searchBangumi: (mediaItemId: number, keyword?: string) => Promise<void>;
+        bangumiSearch: (keyword: string) => Promise<import("../shared/types.js").NormalizedAnimeItem[]>;
         applyBangumi: (mediaItemId: number, externalId: string) => Promise<MediaItem>;
         getBangumiSubject: (subjectId: string) => Promise<BangumiSubjectDetail | null>;
         getPerson: (personId: string | number) => Promise<Record<string, unknown> | null>;

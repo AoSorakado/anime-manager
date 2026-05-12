@@ -3,7 +3,7 @@ import path from "node:path";
 import { clearCoverPaths, getCoverRecord, getDb, getMediaItem, getUserDataPath, listMediaItems, log, now, repairMissingCovers, updateCoverPath } from "./db.js";
 import { simpleMatchScore } from "./nameCleaner.js";
 import { normalizeBangumiSubject } from "./bangumiSeason.js";
-import type { BangumiCandidate, BangumiSubjectDetail, BangumiTag, BangumiTagAnimeResponse, BatchIdRefreshResult, BatchScrapeResult, MediaItem } from "../shared/types.js";
+import type { BangumiCandidate, BangumiSubjectDetail, BangumiTag, BangumiTagAnimeResponse, BatchIdRefreshResult, BatchScrapeResult, MediaItem, NormalizedAnimeItem } from "../shared/types.js";
 
 export async function searchBangumi(mediaItemId: number, keyword?: string, enrichDetails = true) {
   const item = getMediaItem(mediaItemId);
@@ -610,4 +610,47 @@ export async function getPopularTags(): Promise<BangumiTag[]> {
     log("error", "scraper", `getPopularTags error: ${err}`);
     return FALLBACK_TAGS;
   }
+}
+
+export async function bangumiSearchApi(keyword: string): Promise<NormalizedAnimeItem[]> {
+  const response = await fetch("https://api.bgm.tv/v0/search/subjects", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": "local-anime-library/0.1.0"
+    },
+    body: JSON.stringify({ keyword, sort: "match", filter: { type: [2] } })
+  });
+
+  if (!response.ok) {
+    log("error", "scraper", `Bangumi search API failed: ${response.status}`);
+    throw new Error(`Bangumi 搜索失败：HTTP ${response.status}`);
+  }
+
+  const json = await response.json() as { data?: Array<Record<string, unknown>> };
+  const rawList = (json.data || []).slice(0, 30);
+
+  return rawList.map((raw): NormalizedAnimeItem => {
+    const images = (raw.images as Record<string, string>) || {};
+    return {
+      bangumiId: Number(raw.id) || 0,
+      name: String(raw.name || ""),
+      nameCn: String(raw.name_cn || raw.name || ""),
+      summary: String(raw.summary || ""),
+      airDate: raw.air_date ? String(raw.air_date) : null,
+      eps: raw.eps_count != null ? Number(raw.eps_count) : null,
+      score: raw.score != null ? Number(raw.score) : null,
+      rank: raw.rank != null ? Number(raw.rank) : null,
+      ratingTotal: (raw.rating as any)?.total != null ? Number((raw.rating as any).total) : null,
+      weekday: 0,
+      images: {
+        small: images.small || null,
+        grid: images.grid || null,
+        large: images.large || null,
+        common: images.common || null,
+      },
+      tags: Array.isArray(raw.tags) ? (raw.tags as Array<{ name: string; count: number }>) : [],
+      raw,
+    };
+  });
 }

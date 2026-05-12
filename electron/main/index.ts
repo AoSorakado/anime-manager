@@ -21,7 +21,7 @@ import {
 } from "./db.js";
 import { scanLocalSource } from "./scanner.js";
 import { addWebDavSourceAndTest, downloadWebDavSyncState, scanWebDavSource, uploadWebDavSyncState } from "./webdav.js";
-import { applyBangumiCandidate, batchRefreshBangumiById, batchSearchBangumi, clearCoverCache, getAnimeByTag, getBangumiCalendar, getBangumiPersonDetail, getBangumiSubjectDetail, getPopularTags, refreshBangumiById, repairCoverCache, resolveMediaCover, searchBangumi } from "./scraper.js";
+import { applyBangumiCandidate, bangumiSearchApi, batchRefreshBangumiById, batchSearchBangumi, clearCoverCache, getAnimeByTag, getBangumiCalendar, getBangumiPersonDetail, getBangumiSubjectDetail, getPopularTags, refreshBangumiById, repairCoverCache, resolveMediaCover, searchBangumi } from "./scraper.js";
 import { playFile, playUrl, setFileStatus, setFileWatched, setItemWatchStatus } from "./player.js";
 import { syncLocalWatchStatusToBangumi, testBangumiToken } from "./bangumiSync.js";
 import { listOnlineRules, onlineEpisodes, onlineSearch, sniffAndPlay } from "./online.js";
@@ -231,6 +231,8 @@ function registerIpc() {
   ipcMain.handle("scraper:getAnimeByTag", (_, tag: string, offset?: number, limit?: number, options?: any) => getAnimeByTag(tag, offset, limit, options));
   ipcMain.handle("scraper:getPopularTags", () => getPopularTags());
   ipcMain.handle("scraper:getPerson", (_, personId: string | number) => getBangumiPersonDetail(personId));
+  ipcMain.handle("scraper:bangumiSearch", (_, keyword: string) => bangumiSearchApi(keyword));
+
   ipcMain.handle("scraper:refreshBangumiById", async (_, mediaItemId: number) => {
     const item = await refreshBangumiById(mediaItemId);
     coverPathCache.delete(mediaItemId);

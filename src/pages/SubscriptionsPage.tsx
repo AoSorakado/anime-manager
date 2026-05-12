@@ -31,7 +31,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
   const [detailTab, setDetailTab] = useState("概览");
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [globalSearchResult, setGlobalSearchResult] = useState<{ mikan: RssItem[], online: OnlineSearchResult[] } | null>(null);
+  const [globalSearchResult, setGlobalSearchResult] = useState<NormalizedAnimeItem[] | null>(null);
   const [tintColor, setTintColor] = useState("180, 180, 180");
   const lastScrollY = useRef(0);
 
@@ -50,7 +50,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
 
   useEffect(() => {
     const main = document.querySelector(".main");
-    
+
     // 始终同步当前状态到 sessionStorage，确保导航回来时状态正确
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
       selectedAnime,
@@ -66,7 +66,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
       if (lastScrollY.current > 0) {
         const target = lastScrollY.current;
         lastScrollY.current = 0;
-        
+
         // 增加延时确保列表渲染完成
         const id = setTimeout(() => {
           const mainEl = document.querySelector(".main");
@@ -119,8 +119,6 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
   const [selectedWeeklyResult, setSelectedWeeklyResult] = useState<OnlineSearchResult | null>(null);
   const [mikanDownloadResults, setMikanDownloadResults] = useState<RssItem[]>([]);
   const [selectedSubtitleGroup, setSelectedSubtitleGroup] = useState<string>("全部");
-  const [selectedSearchSubtitleGroup, setSelectedSearchSubtitleGroup] = useState<string>("全部");
-
   const [activeCharacter, setActiveCharacter] = useState<Record<string, unknown> | null>(null);
   const [activePerson, setActivePerson] = useState<Record<string, unknown> | null>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -153,12 +151,10 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
     const q = searchQuery.trim();
     if (!q) return;
     setBusy("searching");
+    setError("");
     try {
-      const [mikan, online] = await Promise.all([
-        window.libraryApi.subscriptions.searchMikan(q),
-        window.libraryApi.online.search({ keyword: q })
-      ]);
-      setGlobalSearchResult({ mikan, online });
+      const bangumiResults = await window.libraryApi.scraper.bangumiSearch(q);
+      setGlobalSearchResult(bangumiResults);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -579,98 +575,38 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
         <header className="searchHeader">
           <button className="iconButton" onClick={() => setGlobalSearchResult(null)}><ArrowLeft size={20} /></button>
           <h1>搜索结果: {searchQuery}</h1>
+          <span className="countBadge">Bangumi 找到 {globalSearchResult.length} 个条目</span>
         </header>
 
-        <div className="mikanDownloadLayout">
-          <aside className="mikanGroupSidebar">
-            <h4>过滤字幕组</h4>
+        <div className="bangumiSearchGrid">
+          {globalSearchResult.map((anime) => (
             <button
-              className={`mikanGroupBtn ${selectedSearchSubtitleGroup === "全部" ? "active" : ""}`}
-              onClick={() => setSelectedSearchSubtitleGroup("全部")}
-            >全部</button>
-            {Array.from(new Set(globalSearchResult.mikan.map(i => i.subtitle_group || "未知")))
-              .filter(g => g !== "未知")
-              .sort()
-              .map(group => (
-                <button
-                  key={group}
-                  className={`mikanGroupBtn ${selectedSearchSubtitleGroup === group ? "active" : ""}`}
-                  onClick={() => setSelectedSearchSubtitleGroup(group)}
-                >{group}</button>
-              ))
-            }
-          </aside>
-
-          <main className="mikanResourceMain">
-            <section className="resourceSubSection">
-              <div className="resourceHeading">
-                <h3>在线播放资源</h3>
-                <span className="countBadge">找到 {globalSearchResult.online.length} 个结果</span>
-              </div>
-              <div className="onlineSearchGrid">
-                {globalSearchResult.online.map((item, idx) => (
-                  <div key={idx} className="onlineSearchCard" onClick={async (e) => {
-                    const posterEl = e.currentTarget.querySelector(".poster") as HTMLElement;
-                    await openAnimeDetail({
-                      id: item.bangumi_id ?? 0,
-                      name: item.title,
-                      name_cn: item.title,
-                      images: { large: item.cover || "", common: item.cover || "", grid: item.cover || "", medium: item.cover || "", small: item.cover || "" },
-                      tags: [],
-                      summary: "",
-                      score: 0,
-                      rank: 0,
-                      air_date: "",
-                      weekday: 0,
-                      rating_total: 0,
-                      bangumi_id: item.bangumi_id ?? 0,
-                      external_id: item.bangumi_id ?? 0
-                    } as any, posterEl);
-                  }}>
-                    <div className="onlineSearchCoverWrapper">
-                      <Poster src={item.cover || ""} title={item.title} />
-                    </div>
-                    <div className="onlineSearchInfo">
-                      <h3>{item.title.replace(/\[\s*复制磁链\s*\]|\(\s*复制磁链\s*\)|【\s*复制磁链\s*】|复制磁链/gi, "")}</h3>
-                      <p>{item.rule_name || "未知源"}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="resourceSubSection" style={{ marginTop: "32px" }}>
-              <div className="resourceHeading">
-                <h3>BT/RSS 资源 (蜜柑)</h3>
-                <span className="countBadge">找到 {globalSearchResult.mikan.length} 个纪录</span>
-              </div>
-              <div className="torrentTable">
-                <div className="torrentTableHeader">
-                  <div className="colTitle">标题</div>
-                  <div className="colSize">大小</div>
-                  <div className="colDate">发布日期</div>
-                  <div className="colActions">操作</div>
+              key={anime.bangumiId}
+              className="bangumiSearchCard"
+              data-liquid-glass
+              onClick={async () => {
+                await openAnimeDetail(anime);
+              }}
+            >
+              <Poster
+                src={anime.images?.large || anime.images?.common || ""}
+                title={anime.nameCn || anime.name}
+                small
+              />
+              <div className="bangumiSearchMeta">
+                <strong>{anime.nameCn || anime.name}</strong>
+                {anime.nameCn && anime.name && anime.name !== anime.nameCn && (
+                  <span>{anime.name}</span>
+                )}
+                <div className="bangumiSearchBadges">
+                  {anime.score != null && <span className="scoreBadge">★ {anime.score.toFixed(1)}</span>}
+                  {anime.rank != null && <span className="rankBadge">#{anime.rank}</span>}
+                  {anime.eps != null && <span>{anime.eps}话</span>}
+                  {anime.airDate && <span>{String(anime.airDate).slice(0, 4)}</span>}
                 </div>
-                {globalSearchResult.mikan
-                  .filter(item => {
-                    return selectedSearchSubtitleGroup === "全部" || item.subtitle_group === selectedSearchSubtitleGroup;
-                  })
-                  .map((item, idx) => (
-                    <div key={idx} className="torrentRow">
-                      <div className="colTitle" title={item.title}>
-                        <span className="groupBadge">[{item.subtitle_group || "未知"}]</span>
-                        {item.title.replace(/\[\s*复制磁链\s*\]|\(\s*复制磁链\s*\)|【\s*复制磁链\s*】|复制磁链/gi, "")}
-                      </div>
-                      <div className="colSize">{item.size_text || "--"}</div>
-                      <div className="colDate">{item.pub_date ? new Date(item.pub_date).toLocaleDateString() : "--"}</div>
-                      <div className="colActions">
-                        <button title="qBittorrent" onClick={() => window.libraryApi.subscriptions.sendUrl(item.link || "", undefined, item.title, searchQuery)}><Download size={14} /></button>
-                      </div>
-                    </div>
-                  ))}
               </div>
-            </section>
-          </main>
+            </button>
+          ))}
         </div>
       </div>
     );
@@ -687,8 +623,8 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
             <div className="historyControls">
               <GlassSelect
                 value={String(seasonYear)}
-                onChange={(value) => changeSeason(parseInt(value), seasonKey)}
-                options={Array.from({ length: new Date().getFullYear() - 2011 }, (_, i) => {
+                onChange={(val) => changeSeason(Number(val), seasonKey)}
+                options={Array.from({ length: new Date().getFullYear() - 2010 + 2 }, (_, i) => {
                   const y = new Date().getFullYear() + 1 - i;
                   return { value: String(y), label: `${y}年` };
                 })}
@@ -749,6 +685,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
           )}
 
           <div className="scheduleTabs">
+            <div className="scheduleIndicator" style={{ transform: `translateX(${selectedWeekdayIndex * 100}%)` }} />
             {["一", "二", "三", "四", "五", "六", "日"].map((day, i) => (
               <button
                 key={day}

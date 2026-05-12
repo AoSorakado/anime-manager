@@ -25,6 +25,7 @@ const api = {
     },
     scraper: {
         searchBangumi: (mediaItemId, keyword) => ipcRenderer.invoke("scraper:searchBangumi", mediaItemId, keyword),
+        bangumiSearch: (keyword) => ipcRenderer.invoke("scraper:bangumiSearch", keyword),
         applyBangumi: (mediaItemId, externalId) => ipcRenderer.invoke("scraper:applyBangumi", mediaItemId, externalId),
         getBangumiSubject: (subjectId) => ipcRenderer.invoke("scraper:getBangumiSubject", subjectId),
         getPerson: (personId) => ipcRenderer.invoke("scraper:getPerson", personId),
