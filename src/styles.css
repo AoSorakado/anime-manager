@@ -1394,6 +1394,12 @@ select option {
   animation: menuDrop 420ms var(--motion-spring) both;
 }
 
+/* Portal 渲染的下拉菜单：脱离所有 stacking context */
+.glassSelectMenuPortal {
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+
 .glassSelectMenuBg {
   position: absolute;
   inset: 0;
@@ -1824,6 +1830,10 @@ h2 {
   color: #2d1d27;
 }
 
+.fileTable h2 {
+  margin-bottom: 8px;
+}
+
 h3 {
   margin: 0 0 5px;
   color: #2d1d27;
@@ -2078,14 +2088,12 @@ h3 {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 8px 16px;
   background: rgba(255, 255, 255, 0.34);
-  border-top: 1px solid var(--glass-border-soft);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 16px;
   color: #37262f;
-}
-
-.fileGroup:first-of-type .groupHeader {
-  border-top: 0;
+  margin-bottom: 0;
 }
 
 .tableHead,
@@ -2094,7 +2102,7 @@ h3 {
   grid-template-columns: minmax(200px, 1fr) 100px 180px 125px 110px;
   gap: 16px;
   align-items: center;
-  padding: 8px 16px;
+  padding: 6px 14px;
   overflow: visible !important;
 }
 
@@ -2137,6 +2145,8 @@ h3 {
   color: rgba(74, 48, 62, 0.62);
   background: rgba(255, 255, 255, 0.38);
   font-size: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .tableRow {
@@ -2183,9 +2193,9 @@ h3 {
 .fileTable {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 24px;
-  padding: 18px 20px;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 12px 18px;
   overflow-x: auto;
   overflow-y: visible;
 }
@@ -2195,14 +2205,41 @@ h3 {
   flex-direction: column;
   gap: 4px;
   overflow: visible !important;
+  margin-bottom: 4px;
 }
 
 .tableRow {
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.42);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  transition: all 0.25s var(--motion-fluid);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 230, 244, 0.55)), var(--glass-bg);
+  border: 1px solid var(--glass-border-soft);
+  box-shadow: var(--glass-shadow-soft);
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.55s var(--motion-fluid);
   position: relative;
+}
+
+.tableRow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, 0.62), transparent 18%, transparent 72%, rgba(255, 255, 255, 0.22)),
+    radial-gradient(520px 220px at 16% 0%, rgba(255, 255, 255, 0.58), transparent 62%);
+  opacity: 0.24;
+  z-index: -1;
+}
+
+.tableRow > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tableRow:hover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(255, 223, 239, 0.34)), var(--glass-bg-strong);
+  border-color: rgba(255, 255, 255, 0.74);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(164, 80, 118, 0.14), 0 2px 3px rgba(255, 255, 255, 0.72) inset;
 }
 
 /* 鏍稿績淇锛氬綋琛屽唴涓嬫媺鑿滃崟鎵撳紑鏃讹紝寮鸿鎻愬崌鏁磋鐨勫眰绾э紝闃叉琚笅涓€琛屾尅浣?*/
@@ -2634,7 +2671,7 @@ h3 {
   padding: 12px;
   border-radius: 18px;
   border: 1px solid var(--glass-border-soft);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 231, 243, 0.22));
+  background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
   -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
   transition: all 0.3s var(--motion-fluid);
@@ -2806,7 +2843,7 @@ h3 {
   color: inherit;
   border: 1px solid var(--glass-border-soft);
   border-radius: 16px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 231, 243, 0.22));
+  background: rgba(255, 255, 255, 0.42);
   padding: 8px 12px;
   backdrop-filter: blur(30px) saturate(200%) brightness(1.05);
   -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.05);
@@ -4856,19 +4893,19 @@ h3 {
 
 
 .bangumiSearchGrid {
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
 }
 
 .bangumiSearchCard {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: 16px;
+  padding: 14px 18px;
   border: 1px solid var(--glass-border-soft);
-  border-radius: 14px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.38);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -4891,7 +4928,8 @@ h3 {
 
 .bangumiSearchMeta strong {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 700;
   color: #2a1a24;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4900,9 +4938,9 @@ h3 {
 
 .bangumiSearchMeta>span {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: #704d5f;
-  margin-top: 2px;
+  margin-top: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -4911,9 +4949,9 @@ h3 {
 .bangumiSearchBadges {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-  font-size: 11px;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
   color: #94627b;
   flex-wrap: wrap;
 }
@@ -4942,7 +4980,7 @@ h3 {
 .scheduleGrid {
   padding: 12px 16px 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 14px;
 }
 
@@ -5048,7 +5086,8 @@ h3 {
 
 .scheduleCardStats {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   margin-top: 4px;
   font-size: 13px;
   align-items: center;
@@ -5061,9 +5100,24 @@ h3 {
   gap: 4px;
 }
 
-.scheduleCardStats .rating {
-  color: #ff9f43;
-  font-weight: 700;
+.scheduleCardSecondaryTitle {
+  font-size: 11px;
+  color: rgba(61, 26, 46, 0.48);
+  margin-top: -4px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scheduleCardStats .epsBadge {
+  background: rgba(255, 255, 255, 0.28);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .floatingSearchBtn {
@@ -7564,6 +7618,82 @@ h3 {
   color: rgba(61, 26, 46, 0.38);
 }
 
+.searchHistoryDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(119, 44, 90, 0.18);
+  padding: 8px;
+  z-index: 1000;
+  animation: historySlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes historySlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.searchHistoryHeader {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(61, 26, 46, 0.4);
+  padding: 4px 12px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.searchHistoryItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  color: #3d1a2e;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.searchHistoryItem:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.1);
+}
+
+.searchHistoryItem .historyIcon {
+  color: rgba(255, 107, 157, 0.6);
+}
+
+.searchHistoryFooter {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  color: rgba(255, 60, 120, 0.6);
+  text-align: center;
+  cursor: pointer;
+  padding-bottom: 4px;
+}
+
+.searchHistoryFooter:hover {
+  color: rgba(255, 60, 120, 0.9);
+  text-decoration: underline;
+}
+
 
 /* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   10. GLASS SELECT 鈥?Custom dropdown component
    鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
@@ -8193,7 +8323,7 @@ h3 {
 
 .app.theme-liquid .onlineEpBtn:hover .epNum,
 .app.theme-liquid .onlineEpBtn:hover .epLabel {
-  color: #fff;
+  color: var(--text-main);
 }
 
 .app.theme-liquid .epNum {
@@ -9860,6 +9990,7 @@ h3 {
 .app.theme-liquid .onlineResultCard,
 .app.theme-liquid .relatedSubject,
 .app.theme-liquid .characterCard,
+.app.theme-liquid .staffCard,
 .app.theme-liquid .timeMachineCard {
   --cover-rgb: 255, 111, 176;
   background:
@@ -10224,11 +10355,19 @@ h3 {
   z-index: 100;
 }
 
-.app.theme-liquid .headerTop,
-.app.theme-liquid .headerBottom {
+.app.theme-liquid .headerTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.app.theme-liquid .headerBottom {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 32px;
   width: 100%;
   position: relative;
 }
@@ -12046,14 +12185,64 @@ h3 {
   opacity: 0.7 !important;
 }
 
-/* 针对文件列表行的特殊着色 */
+/* 针对文件列表行的取色 — 与 posterCard 统一的玻璃质感 + 封面颜色融合 */
+.detail.cover-tinted .tableRow {
+  background: linear-gradient(145deg, rgba(var(--cover-rgb), 0.14), rgba(var(--cover-rgb), 0.06)), rgba(255, 244, 249, 0.38) !important;
+  border: 1px solid rgba(var(--cover-rgb), 0.14) !important;
+  box-shadow: var(--glass-shadow-soft) !important;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.55s var(--motion-fluid) !important;
+}
+
+.detail.cover-tinted .tableRow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(125deg, rgba(var(--cover-rgb), 0.18), transparent 18%, transparent 72%, rgba(var(--cover-rgb), 0.06)),
+    radial-gradient(520px 220px at 16% 0%, rgba(var(--cover-rgb), 0.12), transparent 62%);
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.detail.cover-tinted .groupHeader {
+  background: linear-gradient(145deg, rgba(var(--cover-rgb), 0.14), rgba(var(--cover-rgb), 0.06)), rgba(255, 244, 249, 0.32) !important;
+  border: 1px solid rgba(var(--cover-rgb), 0.14) !important;
+  box-shadow: var(--glass-shadow-soft) !important;
+  border-radius: 16px;
+}
+
+.detail.cover-tinted .groupHeader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(125deg, rgba(var(--cover-rgb), 0.12), transparent 22%, transparent 74%, rgba(var(--cover-rgb), 0.04)),
+    radial-gradient(420px 160px at 16% 0%, rgba(var(--cover-rgb), 0.08), transparent 68%);
+  opacity: 0.16;
+  z-index: -1;
+}
+
 .detail.cover-tinted .tableRow:hover {
-  background: rgba(var(--cover-rgb), 0.08) !important;
+  background: linear-gradient(145deg, rgba(var(--cover-rgb), 0.22), rgba(var(--cover-rgb), 0.12)), rgba(255, 248, 252, 0.54) !important;
+  border-color: rgba(var(--cover-rgb), 0.28) !important;
+  box-shadow: 0 16px 40px rgba(var(--cover-rgb), 0.18), 0 2px 3px rgba(255, 255, 255, 0.72) inset !important;
+  transform: translateY(-1px);
+}
+
+.detail.cover-tinted .groupHeader:hover {
+  background: linear-gradient(145deg, rgba(var(--cover-rgb), 0.22), rgba(var(--cover-rgb), 0.12)), rgba(255, 248, 252, 0.48) !important;
+  border-color: rgba(var(--cover-rgb), 0.28) !important;
+  box-shadow: 0 14px 34px rgba(var(--cover-rgb), 0.16), 0 2px 3px rgba(255, 255, 255, 0.7) inset !important;
 }
 
 /* 增强：角色卡片等小容器也可以稍微带一点色 */
 .detail.cover-tinted .characterCard,
 .detail.cover-tinted .characterItem,
+.detail.cover-tinted .staffCard,
 .detail.cover-tinted .staffItem,
 .detail.cover-tinted .relatedSubject {
   background: rgba(var(--cover-rgb), 0.04) !important;
@@ -12063,12 +12252,27 @@ h3 {
 }
 
 .detail.cover-tinted .characterCard:hover,
+.detail.cover-tinted .staffCard:hover,
 .detail.cover-tinted .staffItem:hover,
 .detail.cover-tinted .relatedSubject:hover {
   background: rgba(var(--cover-rgb), 0.1) !important;
   border-color: rgba(var(--cover-rgb), 0.25) !important;
   transform: translateY(-6px) scale(1.01);
   box-shadow: 0 16px 32px rgba(var(--cover-rgb), 0.12) !important;
+}
+
+/* 展开按钮取色 */
+.detail.cover-tinted .expandStaffBtn {
+  background: rgba(var(--cover-rgb), 0.06) !important;
+  border: 1px solid rgba(var(--cover-rgb), 0.18) !important;
+  color: var(--accent-dynamic) !important;
+  font-weight: 700;
+}
+
+.detail.cover-tinted .expandStaffBtn:hover {
+  background: rgba(var(--cover-rgb), 0.14) !important;
+  border-color: rgba(var(--cover-rgb), 0.3) !important;
+  box-shadow: 0 8px 20px rgba(var(--cover-rgb), 0.1) !important;
 }
 
 /* 增加底层稳定背景，防止远程图加载时的空白 */
@@ -12295,4 +12499,99 @@ h3 {
 .custom-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+/* --- 本地文件容器：与上方 panel 一致的玻璃背景 --- */
+.app.theme-liquid .detail.cover-tinted .fileTable {
+  margin-top: 22px !important;
+  overflow: visible !important;
+}
+
+.app.theme-liquid .detail.cover-tinted .fileTable h2 {
+  margin-bottom: 12px !important;
+  padding-left: 8px !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: #37262f !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* --- 文件夹折叠/展开按钮 --- */
+.groupHeader {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.groupHeader:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.groupToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: rgba(var(--cover-rgb, 180, 140, 160), 0.12);
+  border-radius: 6px;
+  color: rgba(var(--cover-rgb, 180, 140, 160), 0.8);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.groupToggle svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.groupToggle.expanded svg {
+  transform: rotate(90deg);
+}
+
+.groupToggle:hover {
+  background: rgba(var(--cover-rgb, 180, 140, 160), 0.22);
+  transform: scale(1.1);
+}
+
+.detail.cover-tinted .groupToggle {
+  background: rgba(var(--cover-rgb), 0.1);
+  color: var(--accent-dynamic);
+}
+
+.detail.cover-tinted .groupToggle:hover {
+  background: rgba(var(--cover-rgb), 0.2);
+}
+
+/* 文件组折叠动画 */
+.fileGroupFiles {
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.fileGroupFiles.collapsed {
+  max-height: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fileGroupFiles.expanded {
+  opacity: 1;
+  overflow: visible;
+}
+
+/* 表头栏取色 — 与顶部卡片统一的玻璃质感 */
+.detail.cover-tinted .tableHead {
+  background: rgba(var(--cover-rgb), 0.04) !important;
+  border: 1px solid rgba(var(--cover-rgb), 0.1) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: rgba(74, 48, 62, 0.75) !important;
+  font-weight: 600;
+  border-radius: 14px;
 }

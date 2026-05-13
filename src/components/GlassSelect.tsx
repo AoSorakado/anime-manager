@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function GlassSelect({
   value,
@@ -13,45 +14,71 @@ export default function GlassSelect({
 }) {
   const [open, setOpen] = useState(false);
   const [dropUp, setDropUp] = useState(false);
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 180 });
+  const btnRef = useRef<HTMLButtonElement>(null);
   const selected = options.find((option) => option.value === value) || options[0];
 
-  const handleToggle = (e: React.MouseEvent) => {
-    if (!open) {
-      const rect = e.currentTarget.getBoundingClientRect();
+  const handleToggle = () => {
+    if (!open && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
-      setDropUp(spaceBelow < 280);
+      const up = spaceBelow < 280;
+      setDropUp(up);
+      setMenuPos({
+        top: up ? rect.top : rect.bottom + 8,
+        left: rect.left,
+        width: Math.max(rect.width, 180)
+      });
     }
     setOpen(!open);
   };
 
   return (
-    <div className={`glassSelect ${open ? "open" : ""} ${dropUp ? "drop-up" : ""} ${className}`} tabIndex={-1} onBlur={(event) => {
-      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false);
-    }}>
-      <button type="button" className="glassSelectButton" onClick={handleToggle}>
+    <div className={`glassSelect ${open ? "open" : ""} ${dropUp ? "drop-up" : ""} ${className}`}>
+      <button type="button" ref={btnRef} className="glassSelectButton" onClick={handleToggle}>
         <span>{selected?.label || value}</span>
         <span className="glassSelectChevron">{dropUp ? "⌃" : "⌄"}</span>
       </button>
-      {open && (
-        <div className="glassSelectMenu">
-          <div className="glassSelectMenuBg" />
-          <div className="glassSelectMenuContent">
-            {options.map((option) => (
-              <button
-                type="button"
-                key={option.value}
-                className={option.value === value ? "active" : ""}
-                onClick={() => {
-                  onChange(option.value);
-                  setOpen(false);
-                }}
-              >
-                {option.label}
-              </button>
-            ))}
+      {open && createPortal(
+        <>
+          {/* 透明遮罩层：点击任意位置关闭 */}
+          <div
+            style={{ position: "fixed", inset: 0, zIndex: 999998 }}
+            onClick={() => setOpen(false)}
+          />
+          <div
+            className={`glassSelectMenu glassSelectMenuPortal ${dropUp ? "drop-up" : ""}`}
+            style={{
+              position: "fixed",
+              zIndex: 999999,
+              left: menuPos.left,
+              width: menuPos.width,
+              ...(dropUp
+                ? { bottom: window.innerHeight - menuPos.top + 8 }
+                : { top: menuPos.top }),
+            }}
+          >
+            <div className="glassSelectMenuBg" />
+            <div className="glassSelectMenuContent">
+              {options.map((option) => (
+                <button
+                  type="button"
+                  key={option.value}
+                  className={option.value === value ? "active" : ""}
+                  onClick={() => {
+                    onChange(option.value);
+                    setOpen(false);
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </>,
+        document.body
       )}
     </div>
   );
 }
+

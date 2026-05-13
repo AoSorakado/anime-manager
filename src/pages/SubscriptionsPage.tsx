@@ -1,6 +1,6 @@
 import { flushSync } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Activity, ArrowLeft, Download, Heart, RefreshCw, Search, Star, X } from "lucide-react";
+import { Activity, ArrowLeft, Download, Heart, History, RefreshCw, Search, Star, X } from "lucide-react";
 import type { AnimeSeason, BangumiSubjectDetail, NormalizedAnimeItem, OnlineEpisode, OnlineSearchResult, RssItem, SeasonAnimeResponse } from "../../electron/shared/types";
 import { extractDominantColor } from "../LiquidGlassRuntime";
 import CharacterModal from "../components/CharacterModal";
@@ -32,6 +32,11 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
 
   const [searchQuery, setSearchQuery] = useState("");
   const [globalSearchResult, setGlobalSearchResult] = useState<NormalizedAnimeItem[] | null>(null);
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
+    const saved = localStorage.getItem("search_history");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [showHistory, setShowHistory] = useState(false);
   const [tintColor, setTintColor] = useState("180, 180, 180");
   const lastScrollY = useRef(0);
 
@@ -155,6 +160,14 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
     try {
       const bangumiResults = await window.libraryApi.scraper.bangumiSearch(q);
       setGlobalSearchResult(bangumiResults);
+      
+      // Update history
+      setSearchHistory(prev => {
+        const next = [q, ...prev.filter(i => i !== q)].slice(0, 5);
+        localStorage.setItem("search_history", JSON.stringify(next));
+        return next;
+      });
+      setShowHistory(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -418,8 +431,8 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
               <section className="detailSection">
                 <h2>标签</h2>
                 <div className="detailTags">
-                  {selectedWeeklyDetail?.tags.map(tag => (
-                    <div key={tag.name} className="detailTag">
+                  {selectedWeeklyDetail?.tags.map((tag, idx) => (
+                    <div key={`${tag.name}-${idx}`} className="detailTag">
                       {tag.name} <span>{tag.count}</span>
                     </div>
                   ))}
@@ -473,19 +486,21 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
               <section className="resourceSubSection">
                 <div className="resourceHeading">
                   <h3>在线播放 (Kazumi Rules)</h3>
-                  <select
+                  <GlassSelect
                     value={selectedWeeklyResult?.url || ""}
-                    onChange={async (e) => {
-                      const found = weeklySearchResults.find(r => r.url === e.target.value);
+                    onChange={async (val) => {
+                      const found = weeklySearchResults.find(r => r.url === val);
                       if (found) {
                         setSelectedWeeklyResult(found);
                         const eps = await window.libraryApi.online.episodes({ ruleUrl: found.rule_url || undefined, url: found.url });
                         setWeeklyEpisodes(eps);
                       }
                     }}
-                  >
-                    {weeklySearchResults.map(res => <option key={res.url} value={res.url}>{res.rule_name || "未知源"}</option>)}
-                  </select>
+                    options={weeklySearchResults.map(res => ({
+                      value: res.url,
+                      label: res.rule_name || "未知源"
+                    }))}
+                  />
                 </div>
                 <div className="onlineEpisodeGrid">
                   {weeklyEpisodes.map((ep, idx) => (
@@ -578,35 +593,45 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
           <span className="countBadge">Bangumi 找到 {globalSearchResult.length} 个条目</span>
         </header>
 
-        <div className="bangumiSearchGrid">
-          {globalSearchResult.map((anime) => (
-            <button
-              key={anime.bangumiId}
-              className="bangumiSearchCard"
-              data-liquid-glass
-              onClick={async () => {
-                await openAnimeDetail(anime);
-              }}
-            >
-              <Poster
-                src={anime.images?.large || anime.images?.common || ""}
-                title={anime.nameCn || anime.name}
-                small
-              />
-              <div className="bangumiSearchMeta">
-                <strong>{anime.nameCn || anime.name}</strong>
-                {anime.nameCn && anime.name && anime.name !== anime.nameCn && (
-                  <span>{anime.name}</span>
-                )}
-                <div className="bangumiSearchBadges">
-                  {anime.score != null && <span className="scoreBadge">★ {anime.score.toFixed(1)}</span>}
-                  {anime.rank != null && <span className="rankBadge">#{anime.rank}</span>}
-                  {anime.eps != null && <span>{anime.eps}话</span>}
-                  {anime.airDate && <span>{String(anime.airDate).slice(0, 4)}</span>}
+        <div className="scheduleGrid">
+          {globalSearchResult.map((anime) => {
+            const title = anime.nameCn || anime.name;
+            const meta = anime.airDate ? `放送 · ${anime.airDate}` : (anime.eps ? `${anime.eps} 话` : "日期未知");
+            return (
+              <button
+                key={anime.bangumiId}
+                className="scheduleCard"
+                data-liquid-glass
+                onClick={async (e) => {
+                  await openAnimeDetail(anime, e.currentTarget.querySelector(".poster") as HTMLElement);
+                }}
+              >
+                <div className="scheduleCardCoverWrapper">
+                  <Poster
+                    style={{ "--card-bg": `url(online-image://?url=${encodeURIComponent(anime.images.large || anime.images.common || "")})` } as any}
+                    src={anime.images?.large || anime.images?.common || ""}
+                    title={title}
+                  />
                 </div>
-              </div>
-            </button>
-          ))}
+                <div className="scheduleCardContent">
+                  <h3>{title}</h3>
+                  {anime.nameCn && anime.name && anime.name !== anime.nameCn && (
+                    <div className="scheduleCardSecondaryTitle">
+                      {anime.name}
+                    </div>
+                  )}
+                  <p className="scheduleCardMeta">{meta}</p>
+                  <div className="scheduleCardStats">
+                    {anime.score != null && <span className="rating"><Star size={14} fill="currentColor" /> {anime.score.toFixed(1)}</span>}
+                    {anime.rank != null && <span><Activity size={14} /> #{anime.rank}</span>}
+                    {anime.ratingTotal != null && <span><Heart size={14} /> {anime.ratingTotal}</span>}
+                    {!!anime.eps && <span className="epsBadge">{anime.eps} 话</span>}
+                    {(!anime.score && !anime.rank && !anime.ratingTotal) && <span className="rating"><Star size={14} fill="currentColor" /> --</span>}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     );
@@ -659,6 +684,8 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
                 type="text"
                 placeholder="快速搜索番剧/资源..."
                 value={searchQuery}
+                onFocus={() => setShowHistory(true)}
+                onBlur={() => setTimeout(() => setShowHistory(false), 200)}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && performGlobalSearch()}
               />
@@ -666,6 +693,31 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
                 <button className="clearSearch" onClick={() => { setSearchQuery(""); setGlobalSearchResult(null); }}>
                   <X size={14} />
                 </button>
+              )}
+              
+              {showHistory && searchHistory.length > 0 && (
+                <div className="searchHistoryDropdown">
+                  <div className="searchHistoryHeader">历史记录</div>
+                  {searchHistory.map((item, i) => (
+                    <div 
+                      key={i} 
+                      className="searchHistoryItem"
+                      onClick={() => {
+                        setSearchQuery(item);
+                        setTimeout(performGlobalSearch, 0);
+                      }}
+                    >
+                      <History size={12} className="historyIcon" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                  <div className="searchHistoryFooter" onClick={() => {
+                    setSearchHistory([]);
+                    localStorage.removeItem("search_history");
+                  }}>
+                    清空历史
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -716,18 +768,29 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
             const meta = show.airDate ? `放送 · ${show.airDate}` : "日期未知";
 
             return (
-              <button key={show.bangumiId} className="scheduleCard" onClick={(e) => openAnimeDetail(show, e.currentTarget.querySelector(".poster") as HTMLElement)}>
+              <button 
+                key={show.bangumiId} 
+                className="scheduleCard" 
+                style={{ "--card-bg": `url(online-image://?url=${encodeURIComponent(show.images.large || show.images.common || "")})` } as any}
+                onClick={(e) => openAnimeDetail(show, e.currentTarget.querySelector(".poster") as HTMLElement)}
+              >
                 <div className="scheduleCardCoverWrapper">
                   <Poster src={cover} title={title} />
                 </div>
                 <div className="scheduleCardContent">
                   <h3>{title}</h3>
+                  {show.nameCn && show.name && show.name !== show.nameCn && (
+                    <div className="scheduleCardSecondaryTitle">
+                      {show.name}
+                    </div>
+                  )}
                   <p className="scheduleCardMeta">{meta}</p>
                   <div className="scheduleCardStats">
-                    {show.score && <span className="rating"><Star size={14} fill="currentColor" /> {show.score.toFixed(1)}</span>}
-                    {show.rank && <span><Activity size={14} /> #{show.rank}</span>}
-                    {show.ratingTotal && <span><Heart size={14} /> {show.ratingTotal}</span>}
-                    {!show.score && <span className="rating"><Star size={14} fill="currentColor" /> --</span>}
+                    {!!show.score && <span className="rating"><Star size={14} fill="currentColor" /> {show.score.toFixed(1)}</span>}
+                    {!!show.rank && <span><Activity size={14} /> #{show.rank}</span>}
+                    {!!show.ratingTotal && <span><Heart size={14} /> {show.ratingTotal}</span>}
+                    {!!show.eps && <span className="epsBadge">{show.eps} 话</span>}
+                    {!show.score && !show.rank && !show.ratingTotal && <span className="rating"><Star size={14} fill="currentColor" /> --</span>}
                   </div>
                 </div>
               </button>

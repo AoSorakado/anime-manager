@@ -628,20 +628,32 @@ export async function bangumiSearchApi(keyword: string): Promise<NormalizedAnime
   }
 
   const json = await response.json() as { data?: Array<Record<string, unknown>> };
-  const rawList = (json.data || []).slice(0, 30);
+  const rawList = (json.data || []).slice(0, 20); // Limit to 20 for performance
 
-  return rawList.map((raw): NormalizedAnimeItem => {
+  // Fetch details in parallel to get airDate, rank, etc.
+  const detailedResults = await Promise.all(rawList.map(async (raw) => {
+    try {
+      const detail = await fetchBangumiSubjectDetail(String(raw.id));
+      if (detail) return detail;
+    } catch (e) {
+      log("warning", "scraper", `搜索结果详情获取失败：${raw.id}`, String(e));
+    }
+    return raw;
+  }));
+
+  return detailedResults.map((raw): NormalizedAnimeItem => {
     const images = (raw.images as Record<string, string>) || {};
+    const rating = (raw.rating as any) || {};
     return {
       bangumiId: Number(raw.id) || 0,
       name: String(raw.name || ""),
       nameCn: String(raw.name_cn || raw.name || ""),
       summary: String(raw.summary || ""),
-      airDate: raw.air_date ? String(raw.air_date) : null,
-      eps: raw.eps_count != null ? Number(raw.eps_count) : null,
-      score: raw.score != null ? Number(raw.score) : null,
-      rank: raw.rank != null ? Number(raw.rank) : null,
-      ratingTotal: (raw.rating as any)?.total != null ? Number((raw.rating as any).total) : null,
+      airDate: (raw.date || raw.air_date) ? String(raw.date || raw.air_date) : null,
+      eps: (raw.eps_count || raw.eps || raw.total_episodes) != null ? Number(raw.eps_count || raw.eps || raw.total_episodes) : null,
+      score: (raw.score ?? rating.score) != null ? Number(raw.score ?? rating.score) : null,
+      rank: (raw.rank ?? rating.rank) != null ? Number(raw.rank ?? rating.rank) : null,
+      ratingTotal: rating.total != null ? Number(rating.total) : null,
       weekday: 0,
       images: {
         small: images.small || null,

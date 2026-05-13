@@ -3,6 +3,7 @@ import { ArrowLeft, Download, Heart, RefreshCw, Star, Tag } from "lucide-react";
 import type { BangumiSubjectDetail, BangumiTag, BangumiTagAnimeResponse, NormalizedAnimeItem, OnlineEpisode, OnlineSearchResult, RssItem } from "../../electron/shared/types";
 import { extractDominantColor } from "../LiquidGlassRuntime";
 import CharacterModal from "../components/CharacterModal";
+import GlassSelect from "../components/GlassSelect";
 import PersonModal from "../components/PersonModal";
 import Poster from "../components/Poster";
 import { ratingConsensus, ratingDeviation, trimNumber } from "../utils";
@@ -333,8 +334,8 @@ export function TagsPage() {
               <section className="detailSection">
                 <h2>标签</h2>
                 <div className="detailTags">
-                  {selectedWeeklyDetail?.tags.map(tag => (
-                    <div key={tag.name} className="detailTag">
+                  {selectedWeeklyDetail?.tags.map((tag, idx) => (
+                    <div key={`${tag.name}-${idx}`} className="detailTag">
                       {tag.name} <span>{tag.count}</span>
                     </div>
                   ))}
@@ -382,19 +383,21 @@ export function TagsPage() {
               <section className="resourceSubSection">
                 <div className="resourceHeading">
                   <h3>在线播放 (Kazumi Rules)</h3>
-                  <select
+                  <GlassSelect
                     value={selectedWeeklyResult?.url || ""}
-                    onChange={async (e) => {
-                      const found = weeklySearchResults.find(r => r.url === e.target.value);
+                    onChange={async (val) => {
+                      const found = weeklySearchResults.find(r => r.url === val);
                       if (found) {
                         setSelectedWeeklyResult(found);
                         const eps = await window.libraryApi.online.episodes({ ruleUrl: found.rule_url || undefined, url: found.url });
                         setWeeklyEpisodes(eps);
                       }
                     }}
-                  >
-                    {weeklySearchResults.map(res => <option key={res.url} value={res.url}>{res.rule_name || "未知源"}</option>)}
-                  </select>
+                    options={weeklySearchResults.map(res => ({
+                      value: res.url,
+                      label: res.rule_name || "未知源"
+                    }))}
+                  />
                 </div>
                 <div className="onlineEpisodeGrid">
                   {weeklyEpisodes.map((ep, idx) => (

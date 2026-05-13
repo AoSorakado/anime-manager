@@ -94,6 +94,53 @@ export async function fetchSeasonFromBangumi(year, season) {
             return -1;
         return a.airDate.localeCompare(b.airDate);
     });
+    // Full enrichment for ALL items to match the search result data density
+    log("info", "scraper", `开始深度补全 ${allItems.length} 部番剧的详情数据...`);
+    const startTime = Date.now();
+    const BATCH_SIZE = 10;
+    let enrichedCount = 0;
+    let errorCount = 0;
+    for (let i = 0; i < allItems.length; i += BATCH_SIZE) {
+        const batch = allItems.slice(i, i + BATCH_SIZE);
+        await Promise.all(batch.map(async (item, index) => {
+            await delay(index * 100);
+            try {
+                const url = `${API_BASE}/subjects/${item.bangumiId}`;
+                const resp = await fetch(url, {
+                    headers: {
+                        "User-Agent": USER_AGENT,
+                        "Accept": "application/json"
+                    }
+                });
+                if (resp.ok) {
+                    const detail = await resp.json();
+                    const enriched = normalizeBangumiSubject(detail);
+                    item.eps = enriched.eps;
+                    item.rank = enriched.rank;
+                    item.score = enriched.score;
+                    item.ratingTotal = enriched.ratingTotal;
+                    item.nameCn = enriched.nameCn;
+                    item.airDate = enriched.airDate;
+                    item.summary = enriched.summary;
+                    item.tags = enriched.tags;
+                    if (enriched.images.large)
+                        item.images = enriched.images;
+                    enrichedCount++;
+                }
+                else {
+                    errorCount++;
+                }
+            }
+            catch (e) {
+                errorCount++;
+            }
+        }));
+        if (i + BATCH_SIZE < allItems.length) {
+            await delay(400);
+        }
+    }
+    const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+    log("info", "scraper", `深度补全完成：耗时 ${duration}s，成功 ${enrichedCount} 条，失败 ${errorCount} 条`);
     return allItems;
 }
 async function fetchMonthFromBangumi(year, month) {
@@ -149,7 +196,7 @@ export function normalizeBangumiSubject(raw) {
         nameCn: raw.name_cn || raw.name || "",
         summary: raw.summary || "",
         airDate,
-        eps: raw.eps ?? raw.total_episodes ?? null,
+        eps: raw.eps || raw.eps_count || raw.total_episodes || null,
         score: rating.score ?? null,
         rank: rating.rank ?? null,
         ratingTotal: rating.total ?? null,

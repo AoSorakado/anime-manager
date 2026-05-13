@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Play, RefreshCw, Star, Wand2 } from "lucide-react";
+import { ArrowLeft, ChevronRight, Play, RefreshCw, Star, Wand2 } from "lucide-react";
 import type { BangumiSubjectDetail, MediaFile, MediaItem, OnlineEpisode, OnlineSearchResult, RssItem, WatchStatus } from "../../electron/shared/types";
 import { extractDominantColor } from "../LiquidGlassRuntime";
 import { characterImage, formatSize, groupMediaFiles, localFileUrl, parseInfobox, parseJson, personImage, ratingConsensus, ratingDeviation, trimNumber, watchStatusOptions } from "../utils";
@@ -21,6 +21,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
   const [refreshingById, setRefreshingById] = useState(false);
   const [isStaffExpanded, setIsStaffExpanded] = useState(false);
   const [showHeavyGrids, setShowHeavyGrids] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
   // --- Rich States from Subscriptions ---
   const [detailTab, setDetailTab] = useState("概览");
@@ -43,7 +44,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
     const src = `cover://${item.id}`;
     const img = new Image();
     img.crossOrigin = "anonymous";
-    
+
     img.onload = () => {
       if (!active) return;
       try {
@@ -53,12 +54,12 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
         // Canvas 被污染或取色失败时静默回退
       }
     };
-    
+
     img.onerror = () => {
       if (!active) return;
       // 本地封面加载失败，保持现状或回退
     };
-    
+
     img.src = src;
 
     // 瞬间取色（如果已加载）
@@ -180,10 +181,10 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
 
   return (
     <div className="detail cover-tinted" style={{ "--cover-rgb": tintColor } as any}>
-        <button className="backButtonGlass" onClick={onBack} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
-          <ArrowLeft size={16} />
-          <span>返回媒体库</span>
-        </button>
+      <button className="backButtonGlass" onClick={onBack} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
+        <ArrowLeft size={16} />
+        <span>返回媒体库</span>
+      </button>
 
       <section className="detailHeroSection">
         <div className="detailHeroBg">
@@ -277,145 +278,167 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
         </div>
       </section>
 
-        <section className="metadataGrid">
-          <div className="panel metadataPanel infoPanel">
-            <h2>条目信息</h2>
-            <dl className="infoList">
-              {infobox.map((row: { key: string; value: string }) => <InfoRow key={row.key} label={row.key} value={row.value} />)}
-              {rating?.total ? <InfoRow label="评分人数" value={`${rating.total}`} /> : null}
-              {item.rank ? <InfoRow label="排名" value={`#${item.rank}`} /> : null}
-            </dl>
+      <section className="metadataGrid">
+        <div className="panel metadataPanel infoPanel">
+          <h2>条目信息</h2>
+          <dl className="infoList">
+            {infobox.map((row: { key: string; value: string }) => <InfoRow key={row.key} label={row.key} value={row.value} />)}
+            {rating?.total ? <InfoRow label="评分人数" value={`${rating.total}`} /> : null}
+            {item.rank ? <InfoRow label="排名" value={`#${item.rank}`} /> : null}
+          </dl>
+        </div>
+        <div className="panel metadataPanel tagsPanel">
+          <h2>标签</h2>
+          <div className="tagCloud">
+            {tags.slice(0, 28).map((tag, index) => <span key={`${tag.name}-${index}`}>{tag.name}{tag.count ? ` ${tag.count}` : ""}</span>)}
           </div>
-          <div className="panel metadataPanel tagsPanel">
-            <h2>标签</h2>
-            <div className="tagCloud">
-              {tags.slice(0, 28).map((tag, index) => <span key={`${tag.name}-${index}`}>{tag.name}{tag.count ? ` ${tag.count}` : ""}</span>)}
-            </div>
-          </div>
+        </div>
 
-          <div className="panel metadataPanel charactersPanel">
-            <h2>角色介绍</h2>
-            <div className="characterGrid">
-              {characters.map((character, index) => (
-                <button className="characterCard" key={`${String(character.id)}-${index}`} disabled={loadingId === String(character.id)} onClick={async () => {
-                  const charId = String(character.id || "").trim();
-                  if (!charId) {
-                    setActiveCharacter(character);
-                    return;
+        <div className="panel metadataPanel charactersPanel">
+          <h2>角色介绍</h2>
+          <div className="characterGrid">
+            {characters.map((character, index) => (
+              <button className="characterCard" key={`${String(character.id)}-${index}`} disabled={loadingId === String(character.id)} onClick={async () => {
+                const charId = String(character.id || "").trim();
+                if (!charId) {
+                  setActiveCharacter(character);
+                  return;
+                }
+                setLoadingId(charId);
+                try {
+                  let detail = null;
+                  const scraper = (window.libraryApi as any)?.scraper;
+                  if (scraper && typeof scraper.getCharacter === "function") {
+                    detail = await scraper.getCharacter(charId).catch(() => null);
                   }
-                  setLoadingId(charId);
-                  try {
-                    let detail = null;
-                    const scraper = (window.libraryApi as any)?.scraper;
-                    if (scraper && typeof scraper.getCharacter === "function") {
-                      detail = await scraper.getCharacter(charId).catch(() => null);
-                    }
-                    if (!detail || !detail.infobox) {
-                      const resp = await fetch(`https://api.bgm.tv/v0/characters/${charId}`).catch(() => null);
-                      if (resp?.ok) detail = await resp.json();
-                    }
-                    setActiveCharacter({ ...character, ...(detail || {}) });
-                  } finally {
-                    setLoadingId(null);
+                  if (!detail || !detail.infobox) {
+                    const resp = await fetch(`https://api.bgm.tv/v0/characters/${charId}`).catch(() => null);
+                    if (resp?.ok) detail = await resp.json();
                   }
-                }}>
-                  <Poster src={characterImage(character)} title={String(character.name_cn || character.name || "")} small />
-                  <div className="charMeta">
-                    <strong>{loadingId === String(character.id) ? "加载中..." : String(character.name_cn || character.name || "")}</strong>
-                    <span>{String(character.relation || "")}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="panel metadataPanel staffPanel">
-            <h2>制作人员</h2>
-            <div className="staffGrid">
-              {(isStaffExpanded ? staff : staff.slice(0, 10)).map((person, index) => (
-                <button className="staffCard" key={`${String(person.id)}-${index}`} disabled={loadingId === String(person.id)} onClick={async () => {
-                  const personId = String(person.id || "").trim();
-                  if (!personId) {
-                    setActivePerson(person);
-                    return;
-                  }
-                  setLoadingId(personId);
-                  try {
-                    let detail = null;
-                    const scraper = (window.libraryApi as any)?.scraper;
-                    if (scraper && typeof scraper.getPerson === "function") {
-                      detail = await scraper.getPerson(personId).catch(() => null);
-                    }
-                    if (!detail || !detail.infobox) {
-                      const resp = await fetch(`https://api.bgm.tv/v0/persons/${personId}`).catch(() => null);
-                      if (resp?.ok) detail = await resp.json();
-                    }
-                    setActivePerson({ ...person, ...(detail || {}) });
-                  } finally {
-                    setLoadingId(null);
-                  }
-                }}>
-                  <Poster src={personImage(person)} title={String(person.name_cn || person.name || "")} small />
-                  <div className="staffMeta">
-                    <strong>{loadingId === String(person.id) ? "加载中..." : String(person.name_cn || person.name || "")}</strong>
-                    <span>{String(person.relation || "制作")}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            {staff.length > 10 && (
-              <button className="expandStaffBtn" onClick={() => setIsStaffExpanded(!isStaffExpanded)}>
-                {isStaffExpanded ? "收起" : `展开全部 (${staff.length})`}
+                  setActiveCharacter({ ...character, ...(detail || {}) });
+                } finally {
+                  setLoadingId(null);
+                }
+              }}>
+                <Poster src={characterImage(character)} title={String(character.name_cn || character.name || "")} small />
+                <div className="charMeta">
+                  <strong>{loadingId === String(character.id) ? "加载中..." : String(character.name_cn || character.name || "")}</strong>
+                  <span>{String(character.relation || "")}</span>
+                </div>
               </button>
-            )}
+            ))}
           </div>
+        </div>
 
-          <RelatedSubjectsPanel
-            relations={relations}
-            loadingId={loadingId}
-            onOpenSubject={(s) => setActiveSubject(s)}
-            onSetLoading={setLoadingId}
-          />
-        </section>
-
-        <section className="fileTable">
-          <h2>本地文件</h2>
-          <div className="tableHead">
-            <span>文件名</span>
-            <span>大小</span>
-            <span>修改时间</span>
-            <span>状态</span>
-            <span>操作</span>
+        <div className="panel metadataPanel staffPanel">
+          <h2>制作人员</h2>
+          <div className="staffGrid">
+            {(isStaffExpanded ? staff : staff.slice(0, 10)).map((person, index) => (
+              <button className="staffCard" key={`${String(person.id)}-${index}`} disabled={loadingId === String(person.id)} onClick={async () => {
+                const personId = String(person.id || "").trim();
+                if (!personId) {
+                  setActivePerson(person);
+                  return;
+                }
+                setLoadingId(personId);
+                try {
+                  let detail = null;
+                  const scraper = (window.libraryApi as any)?.scraper;
+                  if (scraper && typeof scraper.getPerson === "function") {
+                    detail = await scraper.getPerson(personId).catch(() => null);
+                  }
+                  if (!detail || !detail.infobox) {
+                    const resp = await fetch(`https://api.bgm.tv/v0/persons/${personId}`).catch(() => null);
+                    if (resp?.ok) detail = await resp.json();
+                  }
+                  setActivePerson({ ...person, ...(detail || {}) });
+                } finally {
+                  setLoadingId(null);
+                }
+              }}>
+                <Poster src={personImage(person)} title={String(person.name_cn || person.name || "")} small />
+                <div className="staffMeta">
+                  <strong>{loadingId === String(person.id) ? "加载中..." : String(person.name_cn || person.name || "")}</strong>
+                  <span>{String(person.relation || "制作")}</span>
+                </div>
+              </button>
+            ))}
           </div>
-          {fileGroups.map((group) => (
+          {staff.length > 10 && (
+            <button className="expandStaffBtn" onClick={() => setIsStaffExpanded(!isStaffExpanded)}>
+              {isStaffExpanded ? "收起" : `展开全部 (${staff.length})`}
+            </button>
+          )}
+        </div>
+
+        <RelatedSubjectsPanel
+          relations={relations}
+          loadingId={loadingId}
+          onOpenSubject={(s) => setActiveSubject(s)}
+          onSetLoading={setLoadingId}
+        />
+      </section>
+
+      <section className="fileTable">
+        <h2>本地文件</h2>
+        <div className="tableHead">
+          <span>文件名</span>
+          <span>大小</span>
+          <span>修改时间</span>
+          <span>状态</span>
+          <span>操作</span>
+        </div>
+        {fileGroups.map((group) => {
+          const isExpanded = expandedGroups.has(group.key);
+          const toggleGroup = () => {
+            setExpandedGroups(prev => {
+              const next = new Set(prev);
+              if (next.has(group.key)) {
+                next.delete(group.key);
+              } else {
+                next.add(group.key);
+              }
+              return next;
+            });
+          };
+          return (
             <div className="fileGroup" key={group.key}>
-              {fileGroups.length > 1 && (
-                <div className="groupHeader">
+              <div className="groupHeader" onClick={toggleGroup}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className={`groupToggle ${isExpanded ? 'expanded' : ''}`}>
+                    <ChevronRight size={14} />
+                  </span>
                   <strong>{group.title}</strong>
-                  <span>{group.files.length} 个文件</span>
                 </div>
-              )}
-              {group.files.map((file) => (
-                <div className="tableRow" key={file.id}>
-                  <span title={file.file_name}>{file.file_name}</span>
-                  <span>{formatSize(file.size)}</span>
-                  <span>{new Date(file.mtime).toLocaleDateString()}</span>
-                  <GlassSelect
-                    className="statusGlassSelect"
-                    value={file.watched === 1 ? "watched" : "unwatched"}
-                    onChange={async (value) => {
-                      await window.libraryApi.files.setStatus(file.id, value);
-                      await load();
-                      await onChanged();
-                    }}
-                    options={watchStatusOptions}
-                  />
-                  <button className="playButton" onClick={() => void play(file.id)}><Play size={16} />播放</button>
-                </div>
-              ))}
+                <span>{group.files.length} 个文件</span>
+              </div>
+              <div
+                className={`fileGroupFiles ${isExpanded ? 'expanded' : 'collapsed'}`}
+                style={{ maxHeight: isExpanded ? `${group.files.length * 48 + 12}px` : '0px' }}
+              >
+                {group.files.map((file) => (
+                  <div className="tableRow" key={file.id}>
+                    <span title={file.file_name}>{file.file_name}</span>
+                    <span>{formatSize(file.size)}</span>
+                    <span>{new Date(file.mtime).toLocaleDateString()}</span>
+                    <GlassSelect
+                      className="statusGlassSelect"
+                      value={file.watched === 1 ? "watched" : "unwatched"}
+                      onChange={async (value) => {
+                        await window.libraryApi.files.setStatus(file.id, value);
+                        await load();
+                        await onChanged();
+                      }}
+                      options={watchStatusOptions}
+                    />
+                    <button className="playButton" onClick={(e) => { e.stopPropagation(); void play(file.id); }}><Play size={16} />播放</button>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </section>
+          );
+        })}
+      </section>
 
       <footer className="detailFoot">
         <span>来源：{item.provider || "manual"}</span>

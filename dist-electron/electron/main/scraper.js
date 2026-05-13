@@ -566,19 +566,32 @@ export async function bangumiSearchApi(keyword) {
         throw new Error(`Bangumi 搜索失败：HTTP ${response.status}`);
     }
     const json = await response.json();
-    const rawList = (json.data || []).slice(0, 30);
-    return rawList.map((raw) => {
+    const rawList = (json.data || []).slice(0, 20); // Limit to 20 for performance
+    // Fetch details in parallel to get airDate, rank, etc.
+    const detailedResults = await Promise.all(rawList.map(async (raw) => {
+        try {
+            const detail = await fetchBangumiSubjectDetail(String(raw.id));
+            if (detail)
+                return detail;
+        }
+        catch (e) {
+            log("warning", "scraper", `搜索结果详情获取失败：${raw.id}`, String(e));
+        }
+        return raw;
+    }));
+    return detailedResults.map((raw) => {
         const images = raw.images || {};
+        const rating = raw.rating || {};
         return {
             bangumiId: Number(raw.id) || 0,
             name: String(raw.name || ""),
             nameCn: String(raw.name_cn || raw.name || ""),
             summary: String(raw.summary || ""),
-            airDate: raw.air_date ? String(raw.air_date) : null,
-            eps: raw.eps_count != null ? Number(raw.eps_count) : null,
-            score: raw.score != null ? Number(raw.score) : null,
-            rank: raw.rank != null ? Number(raw.rank) : null,
-            ratingTotal: raw.rating?.total != null ? Number(raw.rating.total) : null,
+            airDate: (raw.date || raw.air_date) ? String(raw.date || raw.air_date) : null,
+            eps: (raw.eps_count || raw.eps || raw.total_episodes) != null ? Number(raw.eps_count || raw.eps || raw.total_episodes) : null,
+            score: (raw.score ?? rating.score) != null ? Number(raw.score ?? rating.score) : null,
+            rank: (raw.rank ?? rating.rank) != null ? Number(raw.rank ?? rating.rank) : null,
+            ratingTotal: rating.total != null ? Number(rating.total) : null,
             weekday: 0,
             images: {
                 small: images.small || null,

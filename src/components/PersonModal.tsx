@@ -12,10 +12,9 @@ export default function PersonModal({ person, isLoading, onClose }: { person: Re
           {/* 液态玻璃背景层 */}
           <div className="modalGlassBg" style={{ position: "absolute", inset: 0, zIndex: 0, filter: "url(#liquid-glass-filter)", background: "inherit", borderRadius: "inherit" }} />
 
-          <button className="textButton modalClose" onClick={onClose} style={{ zIndex: 2 }}>关闭</button>
 
           <div style={{ position: "relative", zIndex: 1, display: "flex", gap: "28px", width: "100%", overflowY: "auto", maxHeight: "100%", paddingRight: "8px" }} className="custom-scrollbar">
-            <div style={{ flexShrink: 0, position: "sticky", top: 0, alignSelf: "flex-start" }}>
+            <div style={{ flexShrink: 0, position: "sticky", top: 0, alignSelf: "center" }}>
               <Poster src={personImage(person)} title={String(person.name_cn || person.name || "")} large />
             </div>
             <div className="characterModalInfo" style={{ flex: 1, minWidth: 0 }}>
