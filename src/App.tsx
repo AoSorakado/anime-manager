@@ -44,6 +44,10 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("app_theme", theme);
+    document.body.classList.remove("theme-default", "theme-liquid");
+    if (theme) {
+      document.body.classList.add(`theme-${theme}`);
+    }
   }, [theme]);
 
   // 使用 useRef 而非 useState 来管理 sidebar 状态，避免顶层重新渲染拖慢性能

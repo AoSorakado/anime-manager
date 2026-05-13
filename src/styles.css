@@ -1224,6 +1224,40 @@ button:disabled {
   max-width: none;
 }
 
+.toolbar>input.toolbarSearch {
+  flex: 0 0 160px;
+  min-width: 160px;
+  height: 42px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: var(--control-radius);
+  color: #37262f;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%237a5b6a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat left 13px center / 18px 18px,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 232, 244, 0.22));
+  backdrop-filter: blur(34px) saturate(210%) brightness(1.06);
+  -webkit-backdrop-filter: blur(34px) saturate(210%) brightness(1.06);
+  box-shadow: 0 2px 2px rgba(255, 255, 255, 0.58) inset, 0 10px 26px rgba(176, 82, 124, 0.1);
+  padding: 0 13px 0 36px;
+  font-size: clamp(12px, 1.05vw, 14px);
+  outline: none;
+  transition: flex 420ms var(--motion-fluid), border-color 360ms var(--motion-fluid), box-shadow 360ms var(--motion-fluid);
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  line-height: 1.16;
+}
+.toolbar>input.toolbarSearch::placeholder {
+  color: rgba(55, 38, 47, 0.55);
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+}
+.toolbar>input.toolbarSearch:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.68) inset, 0 16px 34px rgba(176, 82, 124, 0.14);
+}
+.toolbar>input.toolbarSearch:focus {
+  flex: 0 1 280px;
+  border-color: rgba(255, 107, 157, 0.42);
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.68) inset, 0 16px 34px rgba(176, 82, 124, 0.14);
+}
+
 .toolbar>.secondaryButton,
 .toolbar>.primaryButton {
   flex: 0 0 auto;
@@ -2230,7 +2264,7 @@ h3 {
   z-index: -1;
 }
 
-.tableRow > * {
+.tableRow>* {
   position: relative;
   z-index: 1;
 }
@@ -7536,30 +7570,26 @@ h3 {
   color: var(--text-main);
 }
 
-/* Search boxes: 鏈湴搴撴悳绱㈡潯鏀逛负鍙几缂?+ 娑叉€佺幓鐠冭川鎰?*/
 .app.theme-liquid .searchBox {
   flex: 0 0 160px;
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.48);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow:
-    0 8px 24px rgba(119, 44, 90, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.3s var(--motion-fluid);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
   overflow: hidden;
   height: 38px;
 }
 
 .app.theme-liquid .searchBox:focus-within {
   flex-basis: 360px;
-  background: rgba(255, 255, 255, 0.46);
-  border-color: rgba(255, 107, 157, 0.4);
-  box-shadow:
-    0 16px 42px rgba(119, 44, 90, 0.12),
-    0 0 0 4px rgba(255, 107, 157, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(255, 107, 157, 0.4) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
 }
 
 .app.theme-liquid .searchBox input {
@@ -7581,6 +7611,23 @@ h3 {
 .app.theme-liquid .searchBox svg {
   color: rgba(61, 26, 46, 0.52);
   flex-shrink: 0;
+}
+.app.theme-liquid input.toolbarSearch {
+  flex: 0 0 160px;
+  min-width: 160px;
+  border-radius: 16px;
+  padding: 0 13px 0 36px;
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%237a5b6a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat left 13px center / 18px 18px,
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18);
+  transition: flex 420ms var(--motion-fluid), border-color 360ms var(--motion-fluid), box-shadow 360ms var(--motion-fluid);
+}
+.app.theme-liquid input.toolbarSearch:focus {
+  flex: 0 1 300px;
 }
 
 
@@ -7739,11 +7786,11 @@ h3 {
 
 .app.theme-liquid .glassSelectMenu {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%),
-    rgba(255, 230, 245, 0.15);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)),
+    rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(64px) saturate(220%);
   -webkit-backdrop-filter: blur(64px) saturate(220%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   box-shadow:
     0 15px 45px rgba(119, 44, 90, 0.15),
     0 24px 80px rgba(0, 0, 0, 0.15),
@@ -9293,7 +9340,6 @@ h3 {
 .app.theme-liquid .iconButton,
 .app.theme-liquid .textButton,
 .app.theme-liquid .playButton,
-.app.theme-liquid .searchBox input,
 .app.theme-liquid .formGrid input,
 .app.theme-liquid select,
 .app.theme-liquid .statusSelect,
@@ -9342,16 +9388,15 @@ h3 {
 /* 涓嬫媺鑿滃崟锛氶€忔槑浣嗕笉绯婃枃瀛?*/
 .app.theme-liquid .glassSelectMenu {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.82) 48%, rgba(255, 95, 162, 0.12) 100%),
-    rgba(255, 255, 255, 0.60);
-  border-color: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(65px) saturate(2.5) brightness(1.05);
-  -webkit-backdrop-filter: blur(65px) saturate(2.5) brightness(1.05);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)),
+    rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(48px) saturate(210%) brightness(1.05);
+  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05);
   box-shadow:
-    0 40px 100px rgba(119, 43, 87, 0.32),
-    0 12px 36px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    0 22px 52px rgba(120, 52, 94, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.86) inset,
+    0 -18px 42px rgba(255, 99, 170, 0.055) inset;
 }
 
 .app.theme-liquid .glassSelectMenu button:hover,
@@ -9710,11 +9755,9 @@ h3 {
 }
 
 /* ---------- 3. 鎼滅储妗嗐€佽緭鍏ユ銆佹寜閽細鍘绘帀绾櫧锛屼繚鐣欐竻鏅板害 ---------- */
-.app.theme-liquid :is(.searchBox,
-  .sourceToggles,
+.app.theme-liquid :is(.sourceToggles,
   .scheduleTabs,
   .historyControls select,
-  .searchBox input,
   .formGrid input,
   .webdavGrid input,
   input,
@@ -9735,9 +9778,9 @@ h3 {
   .mikanDownloadActions .secondaryButton,
   .torrentAction,
   .downloadBtn) {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.17) 52%, rgba(128, 244, 255, 0.12)),
-    rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
   border-color: rgba(255, 255, 255, 0.54) !important;
   color: var(--ios27-ink) !important;
   backdrop-filter: var(--glass-blur-btn) !important;
@@ -12594,4 +12637,115 @@ h3 {
   color: rgba(74, 48, 62, 0.75) !important;
   font-weight: 600;
   border-radius: 14px;
+}
+
+/* ============================================================
+   FINAL OVERRIDES - 确保在任何全局规则之后生效
+   ============================================================ */
+
+/* 1. 搜索框去白：强制输入框透明，移除任何可能叠加的白色背景 */
+.app.theme-liquid .searchBox input {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.app.theme-liquid .searchBox {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 2. 下拉菜单取色：与顶部工具栏完全一致的玻璃质感 */
+.app.theme-liquid .glassSelectMenu {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)),
+    rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.62) !important;
+  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+  box-shadow:
+    0 22px 52px rgba(120, 52, 94, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.86) inset,
+    0 -18px 42px rgba(255, 99, 170, 0.055) inset !important;
+}
+
+/* 3. 移除下拉菜单中活跃选项的纯色背景，改为磨砂高亮 */
+.app.theme-liquid .glassSelectMenu button.active {
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.32), rgba(255, 255, 255, 0.18)) !important;
+  color: #ff007b !important;
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.12) !important;
+}
+
+/* EMERGENCY OVERRIDE FOR SEARCH BOX WHITENESS */
+.app.theme-liquid div.searchBox input {
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  appearance: none !important;
+}
+.app.theme-liquid .glassSelectMenu {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)), rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+}
+
+/* PORTALED MENU FIX */
+.glassSelectMenu.theme-liquid {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)), rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.32) !important;
+  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
+  box-shadow: 0 22px 52px rgba(120, 52, 94, 0.15), 0 1px 0 rgba(255, 255, 255, 0.86) inset !important;
+}
+
+/* AGGRESSIVE SEARCH BOX FIX */
+.searchBox input, .searchBox input:focus, .searchBox input:active {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.glassSelectMenu.theme-liquid button.active {
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.32), rgba(255, 255, 255, 0.18)) !important;
+  color: #ff007b !important;
+}
+
+/* FINAL ATTEMPT AT SEARCH BOX */
+.app.theme-liquid .searchBox input {
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* FINAL NUKING OF WHITE PLASTIC BOXES */
+.app.theme-liquid input, 
+.app.theme-liquid select, 
+.app.theme-liquid textarea {
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(160%) !important;
+}
+.app.theme-liquid .searchBox input {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }

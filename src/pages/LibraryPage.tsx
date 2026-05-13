@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { Search, RefreshCw, Sparkles, FolderPlus, Star } from "lucide-react";
+import { useMemo, useState } from "react";
+import { RefreshCw, Sparkles, FolderPlus, Star } from "lucide-react";
 import type { MediaItem, Source } from "../../electron/shared/types";
 import type { CardTransitionPayload } from "../utils";
 import { categoryMatches, groupLibraryEntries } from "../utils";
@@ -30,16 +30,21 @@ export function LibraryPage(props: {
   onOpenItem: (id: number, transition: CardTransitionPayload) => void;
   onOpenCollection: (items: MediaItem[], transition: CardTransitionPayload) => void;
 }) {
+  const [searchFocused, setSearchFocused] = useState(false);
   const visibleItems = useMemo(() => props.items.filter((item) => categoryMatches(item, props.categoryFilter)), [props.items, props.categoryFilter]);
   const entries = useMemo(() => groupLibraryEntries(visibleItems), [visibleItems]);
 
   return (
     <>
       <header className="toolbar">
-        <div className="searchBox">
-          <Search size={18} />
-          <input value={props.search} onChange={(event) => props.onSearch(event.target.value)} placeholder="搜索标题、文件夹名、别名" />
-        </div>
+        <input
+          className="toolbarSearch"
+          value={props.search}
+          onChange={(event) => props.onSearch(event.target.value)}
+          onFocus={() => setSearchFocused(true)}
+          onBlur={() => setSearchFocused(false)}
+          placeholder={searchFocused || props.search ? "搜索标题、文件夹名、别名" : "搜索"}
+        />
         <GlassSelect
           value={props.sourceFilter}
           onChange={props.onSourceFilter}

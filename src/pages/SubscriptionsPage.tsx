@@ -160,7 +160,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
     try {
       const bangumiResults = await window.libraryApi.scraper.bangumiSearch(q);
       setGlobalSearchResult(bangumiResults);
-      
+
       // Update history
       setSearchHistory(prev => {
         const next = [q, ...prev.filter(i => i !== q)].slice(0, 5);
@@ -648,6 +648,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
             <div className="historyControls">
               <GlassSelect
                 value={String(seasonYear)}
+                columns={3}
                 onChange={(val) => changeSeason(Number(val), seasonKey)}
                 options={Array.from({ length: new Date().getFullYear() - 2010 + 2 }, (_, i) => {
                   const y = new Date().getFullYear() + 1 - i;
@@ -656,6 +657,7 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
               />
               <GlassSelect
                 value={seasonKey}
+                columns={2}
                 onChange={(value) => changeSeason(seasonYear, value as AnimeSeason)}
                 options={[
                   { value: "winter", label: "冬季 (1月)" },
@@ -694,13 +696,13 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
                   <X size={14} />
                 </button>
               )}
-              
+
               {showHistory && searchHistory.length > 0 && (
                 <div className="searchHistoryDropdown">
                   <div className="searchHistoryHeader">历史记录</div>
                   {searchHistory.map((item, i) => (
-                    <div 
-                      key={i} 
+                    <div
+                      key={i}
                       className="searchHistoryItem"
                       onClick={() => {
                         setSearchQuery(item);
@@ -768,9 +770,9 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
             const meta = show.airDate ? `放送 · ${show.airDate}` : "日期未知";
 
             return (
-              <button 
-                key={show.bangumiId} 
-                className="scheduleCard" 
+              <button
+                key={show.bangumiId}
+                className="scheduleCard"
                 style={{ "--card-bg": `url(online-image://?url=${encodeURIComponent(show.images.large || show.images.common || "")})` } as any}
                 onClick={(e) => openAnimeDetail(show, e.currentTarget.querySelector(".poster") as HTMLElement)}
               >

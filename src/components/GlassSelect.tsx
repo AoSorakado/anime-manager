@@ -5,12 +5,14 @@ export default function GlassSelect({
   value,
   options,
   onChange,
-  className = ""
+  className = "",
+  columns = 1
 }: {
   value: string;
   options: Array<{ value: string; label: string }>;
   onChange: (value: string) => void;
   className?: string;
+  columns?: number;
 }) {
   const [open, setOpen] = useState(false);
   const [dropUp, setDropUp] = useState(false);
@@ -47,30 +49,43 @@ export default function GlassSelect({
             onClick={() => setOpen(false)}
           />
           <div
-            className={`glassSelectMenu glassSelectMenuPortal ${dropUp ? "drop-up" : ""}`}
+            className={`glassSelectMenu glassSelectMenuPortal ${dropUp ? "drop-up" : ""} ${document.querySelector('.app')?.classList.contains('theme-liquid') ? 'theme-liquid' : ''}`}
             style={{
               position: "fixed",
               zIndex: 999999,
-              left: menuPos.left,
-              width: menuPos.width,
+              left: columns > 1 ? Math.min(menuPos.left, window.innerWidth - (columns * 110) - 20) : menuPos.left,
+              width: columns > 1 ? columns * 110 : menuPos.width,
               ...(dropUp
                 ? { bottom: window.innerHeight - menuPos.top + 8 }
                 : { top: menuPos.top }),
             }}
           >
-            <div className="glassSelectMenuBg" />
-            <div className="glassSelectMenuContent">
-              {options.map((option) => (
+            <div 
+              className="glassSelectMenuContent"
+              style={{
+                display: columns > 1 ? 'grid' : 'block',
+                gridTemplateColumns: columns > 1 ? `repeat(${columns}, 1fr)` : 'none',
+                gap: '6px',
+                padding: columns > 1 ? '8px' : '0',
+                overflow: 'hidden'
+              }}
+            >
+              {options.map((opt) => (
                 <button
+                  key={opt.value}
                   type="button"
-                  key={option.value}
-                  className={option.value === value ? "active" : ""}
+                  className={value === opt.value ? "active" : ""}
+                  style={{
+                    padding: columns > 1 ? '10px 4px' : '10px 16px',
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap'
+                  }}
                   onClick={() => {
-                    onChange(option.value);
+                    onChange(opt.value);
                     setOpen(false);
                   }}
                 >
-                  {option.label}
+                  {opt.label}
                 </button>
               ))}
             </div>
