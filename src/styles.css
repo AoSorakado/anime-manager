@@ -147,7 +147,7 @@ button:disabled {
   grid-template-columns: 90px 1fr;
 }
 
-/* 鎬ц兘妯″紡锛氫晶杈规爮绉诲姩鏈熼棿绂佺敤楂樿礋杞界壒鏁?*/
+/* 閹嗗厴濡€崇础閿涙矮鏅舵潏瑙勭埉缁夎濮╅張鐔兼？缁備胶鏁ゆ妯跨鏉炵晫澹掗弫?*/
 .app.sidebar-moving .posterCard,
 .app.sidebar-moving .scheduleCard,
 .app.sidebar-moving .mikanWeeklyCard,
@@ -164,7 +164,7 @@ button:disabled {
 
 .app.sidebar-moving .ambientBackground {
   filter: none !important;
-  /* 鏆傛椂绂佺敤鑳屾櫙妯＄硦婊ら暅 */
+  /* 閺嗗倹妞傜粋浣烘暏閼冲本娅欏Ο锛勭ˇ濠娿倝鏆?*/
 }
 
 .ambientBackground {
@@ -304,7 +304,7 @@ button:disabled {
   animation-delay: -2s;
 }
 
-/* 详情页背景：根据封面取色自动变换 */
+/* 璇︽儏椤佃儗鏅細鏍规嵁灏侀潰鍙栬壊鑷姩鍙樻崲 */
 .app.page-detail .ambientBackground {
   background: linear-gradient(45deg,
       rgba(var(--cover-rgb), 0.12) 0%,
@@ -315,7 +315,7 @@ button:disabled {
 .app.page-detail .blob {
   background: rgba(var(--cover-rgb), 0.6) !important;
   mix-blend-mode: color-burn;
-  /* 颜色更深邃，适应背景 */
+  /* 棰滆壊鏇存繁閭冿紝閫傚簲鑳屾櫙 */
   opacity: 0.45;
 }
 
@@ -452,9 +452,9 @@ button:disabled {
 
 .sidebar {
   position: sticky;
-  top: 54px;
-  height: calc(100vh - 66px);
-  margin: 12px 0 12px 12px;
+  top: 52px;
+  height: calc(100vh - 64px);
+  margin: 10px 0 12px 12px;
   overflow-y: auto;
   border: 1px solid var(--glass-border-soft);
   border-radius: 32px;
@@ -475,10 +475,27 @@ button:disabled {
 }
 
 .sidebar.collapsed {
-  padding: 22px 0;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 12px;
+}
+
+.sidebar.collapsed .sidebarNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar.collapsed .brand {
+  display: none !important;
+}
+
+.sidebar.collapsed .themeToggleArea {
+  margin: 0;
+  padding: 0;
 }
 
 .sidebarHeader {
@@ -491,12 +508,12 @@ button:disabled {
 
 .sidebar.collapsed .sidebarHeader {
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 28px;
+  gap: 12px;
+  margin-bottom: 0;
   justify-content: center;
 }
 
-/* Sidebar DOM 状态解耦优化：纯 CSS 控制隐藏，避免 React 重新渲染 */
+/* Sidebar DOM 鐘舵€佽В鑰︿紭鍖栵細绾?CSS 鎺у埗闅愯棌锛岄伩鍏?React 閲嶆柊娓叉煋 */
 .sidebar .sidebar-text-only,
 .sidebar .sidebar-content-only {
   transition: opacity 0.2s ease, visibility 0.2s;
@@ -541,8 +558,15 @@ button:disabled {
 }
 
 .sidebar.collapsed .sidebarToggle {
-  width: 48px;
-  height: 48px;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.52) !important;
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08) !important;
+  box-shadow: 0 10px 24px rgba(128, 44, 90, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.82), inset 0 -1px 0 rgba(255, 255, 255, 0.26) !important;
+  color: #ff6b9d !important;
 }
 
 .sidebarToggle:hover {
@@ -608,18 +632,48 @@ button:disabled {
 .sidebar.collapsed .navButton,
 .sidebar.collapsed .navButton.active,
 .sidebar.collapsed .sourceButton {
-  justify-content: center;
-  padding: 0;
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 10px;
-  border-radius: 16px;
-  display: flex;
+  justify-content: center !important;
+  padding: 0 !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  margin: 0 auto !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  gap: 0 !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.52) !important;
+  color: #000000 !important;
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08) !important;
+  box-shadow: 0 10px 24px rgba(128, 44, 90, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.82), inset 0 -1px 0 rgba(255, 255, 255, 0.26) !important;
+  transition: all 0.25s var(--motion-fluid) !important;
 }
 
 .sidebar.collapsed .navButton svg,
 .sidebar.collapsed .sourceButton svg {
   margin: 0 !important;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed .navButton.active {
+  background: rgba(255, 107, 157, 0.12) !important;
+  border-color: #ff6b9d !important;
+  color: #ff107b !important;
+  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.18) !important;
+}
+.sidebar.collapsed .navButton:hover,
+.sidebar.collapsed .sidebarToggle:hover,
+.sidebar.collapsed .themeToggleButton:hover {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: #ffffff !important;
+  color: #ff107b !important;
+  box-shadow: 0 12px 30px rgba(128, 44, 90, 0.18) !important;
+  transform: translateY(-2px) !important;
 }
 
 .navButton.active {
@@ -637,8 +691,6 @@ button:disabled {
   border-color: rgba(255, 255, 255, 0.58);
   box-shadow: 0 2px 2px rgba(255, 255, 255, 0.55) inset, 0 14px 34px rgba(176, 82, 124, 0.14);
   color: #2d1d27;
-  width: auto;
-  display: inline-flex;
 }
 
 .navButton:active,
@@ -987,6 +1039,8 @@ button:disabled {
 .sourceButton {
   justify-content: space-between;
   font-size: 13px;
+  padding: 6px 12px;
+  gap: 8px;
 }
 
 .sidebarInsights {
@@ -1068,6 +1122,7 @@ button:disabled {
 
 .main,
 .sidebar,
+.detail,
 .custom-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -1075,6 +1130,7 @@ button:disabled {
 
 .main::-webkit-scrollbar,
 .sidebar::-webkit-scrollbar,
+.detail::-webkit-scrollbar,
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -1087,9 +1143,13 @@ button:disabled {
   overflow-y: auto;
   overflow-x: hidden;
   padding: 10px 26px 34px;
-  /* GPU 托管滚动层，不预分配整个滚动区域为单一 GPU 纹理 */
+  /* GPU 鎵樼婊氬姩灞傦紝涓嶉鍒嗛厤鏁翠釜婊氬姩鍖哄煙涓哄崟涓€ GPU 绾圭悊 */
   transform: translateZ(0);
   background: transparent;
+}
+
+.detail {
+  overflow-y: auto;
 }
 
 .main::-webkit-scrollbar {
@@ -1244,14 +1304,17 @@ button:disabled {
   font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
   line-height: 1.16;
 }
+
 .toolbar>input.toolbarSearch::placeholder {
   color: rgba(55, 38, 47, 0.55);
   font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
 }
+
 .toolbar>input.toolbarSearch:hover {
   border-color: rgba(255, 255, 255, 0.72);
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.68) inset, 0 16px 34px rgba(176, 82, 124, 0.14);
 }
+
 .toolbar>input.toolbarSearch:focus {
   flex: 0 1 280px;
   border-color: rgba(255, 107, 157, 0.42);
@@ -1421,14 +1484,14 @@ select option {
   max-height: 400px;
   border-radius: 24px;
   overflow: hidden;
-  /* 确保背景不溢出 */
+  /* 纭繚鑳屾櫙涓嶆孩鍑?*/
   box-shadow:
     0 32px 84px rgba(164, 80, 118, 0.28),
     0 4px 12px rgba(164, 80, 118, 0.08);
   animation: menuDrop 420ms var(--motion-spring) both;
 }
 
-/* Portal 渲染的下拉菜单：脱离所有 stacking context */
+/* Portal 娓叉煋鐨勪笅鎷夎彍鍗曪細鑴辩鎵€鏈?stacking context */
 .glassSelectMenuPortal {
   position: fixed !important;
   z-index: 999999 !important;
@@ -1442,7 +1505,7 @@ select option {
   backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
   -webkit-backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
   filter: url(#liquid-glass-filter);
-  /* 核心液态扭曲效果 */
+  /* 鏍稿績娑叉€佹壄鏇叉晥鏋?*/
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: inherit;
 }
@@ -1501,40 +1564,6 @@ select option {
   }
 }
 
-.glassSelectMenu button {
-  width: 100%;
-  min-height: 38px;
-  display: flex;
-  align-items: center;
-  border: 0;
-  border-radius: 12px;
-  color: #4a303e;
-  background: transparent;
-  padding: 0 14px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 240ms var(--motion-fluid);
-  margin-bottom: 2px;
-}
-
-.glassSelectMenu button:last-child {
-  margin-bottom: 0;
-}
-
-.glassSelectMenu button:hover {
-  background: rgba(255, 255, 255, 0.45);
-  color: #ff0090;
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(255, 124, 173, 0.1);
-}
-
-.glassSelectMenu button.active {
-  background: linear-gradient(135deg, #ff1493, #ff4d94);
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(255, 20, 147, 0.35);
-}
 
 .statusGlassSelect {
   width: 100%;
@@ -1673,7 +1702,7 @@ select option {
   text-align: left;
   border: 1px solid var(--glass-border-soft);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 230, 244, 0.55)), var(--glass-bg);
-  /* 鎬ц兘锛氱敤涓嶉€忔槑鑳屾櫙鏇夸唬 backdrop-filter锛岃瑙夊嚑涔庣浉鍚?*/
+  /* 閹嗗厴閿涙氨鏁ゆ稉宥夆偓蹇旀閼冲本娅欓弴澶稿敩 backdrop-filter閿涘矁顫嬬憴澶婂殤娑斿海娴夐崥?*/
   box-shadow: var(--glass-shadow-soft);
   color: inherit;
   border-radius: var(--panel-radius);
@@ -1719,7 +1748,7 @@ select option {
   filter: saturate(1.06);
 }
 
-/* 缃戞牸鑹骇鑳戒紭鍖栵細鍙覆鏌撳睆骞曞唴鍗＄墖锛屾暟鐧惧紶鍗＄墖鏃跺ぇ骞呴檷浣?GPU 鍐呭瓨 */
+/* 缂冩垶鐗搁懝楠囬懗鎴掔喘閸栨牭绱伴崣顏呰閺屾挸鐫嗛獮鏇炲敶閸楋紕澧栭敍灞炬殶閻ф儳绱堕崡锛勫閺冭泛銇囬獮鍛存娴?GPU 閸愬懎鐡?*/
 .mediaGrid .posterCard {
   content-visibility: auto;
   contain-intrinsic-size: auto 320px;
@@ -2189,7 +2218,7 @@ h3 {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* 绱у噾鍨?GlassSelect锛屼笓涓鸿〃鏍艰璁?*/
+/* 缁毖冨櫨閸?GlassSelect閿涘奔绗撴稉楦裤€冮弽鑹邦啎鐠?*/
 .statusGlassSelect {
   min-width: 0 !important;
   width: 100% !important;
@@ -2207,7 +2236,7 @@ h3 {
   font-size: 13px !important;
 }
 
-/* 琛ㄦ牸鍐呯殑鎾斁鎸夐挳涔熼渶瑕佺揣鍑戝寲 */
+/* 鐞涖劍鐗搁崘鍛畱閹绢厽鏂侀幐澶愭尦娑旂喖娓剁憰浣烘彛閸戞垵瀵?*/
 .tableRow .playButton {
   min-height: 32px !important;
   height: 32px !important;
@@ -2276,11 +2305,11 @@ h3 {
   box-shadow: 0 16px 40px rgba(164, 80, 118, 0.14), 0 2px 3px rgba(255, 255, 255, 0.72) inset;
 }
 
-/* 鏍稿績淇锛氬綋琛屽唴涓嬫媺鑿滃崟鎵撳紑鏃讹紝寮鸿鎻愬崌鏁磋鐨勫眰绾э紝闃叉琚笅涓€琛屾尅浣?*/
+/* 閺嶇绺炬穱顔碱槻閿涙艾缍嬬悰灞藉敶娑撳濯洪懣婊冨礋閹垫挸绱戦弮璁圭礉瀵缚顢戦幓鎰磳閺佺顢戦惃鍕湴缁狙嶇礉闂冨弶顒涚悮顐＄瑓娑撯偓鐞涘本灏呮担?*/
 .tableRow:has(.glassSelect.open) {
   z-index: 1000 !important;
   position: relative;
-  /* 纭繚 z-index 鐢熸晥 */
+  /* 绾喕绻?z-index 閻㈢喐鏅?*/
 }
 
 .tableRow>span:first-child {
@@ -2462,7 +2491,7 @@ h3 {
   align-items: stretch;
 }
 
-/* 网格内的 panel 由 grid gap 控制间距，清除 panel 自带的 margin-bottom */
+/* 缃戞牸鍐呯殑 panel 鐢?grid gap 鎺у埗闂磋窛锛屾竻闄?panel 鑷甫鐨?margin-bottom */
 .metadataGrid .panel {
   margin-bottom: 0;
 }
@@ -2871,7 +2900,7 @@ h3 {
   display: grid;
   grid-template-columns: 50px 1fr;
   gap: 18px;
-  /* 增加头像和文字之间的间距 */
+  /* 澧炲姞澶村儚鍜屾枃瀛椾箣闂寸殑闂磋窛 */
   align-items: center;
   text-align: left;
   color: inherit;
@@ -3579,7 +3608,7 @@ h3 {
   padding-right: 12px;
 }
 
-/* 锛侊紒锛佹牳鑳借鐩栵細涓嶅甫鐨偆鍓嶇紑锛屽己鍒跺彉鍦?锛侊紒锛?*/
+/* 閿涗緤绱掗敍浣圭壋閼冲€燁洬閻╂牭绱版稉宥呯敨閻喛鍋嗛崜宥囩磻閿涘苯宸遍崚璺哄綁閸?閿涗緤绱掗敍?*/
 .mikanHubPage .toolbar,
 .mikanHomeHeader,
 .mikanHeroPanel {
@@ -3623,7 +3652,7 @@ h3 {
   -webkit-backdrop-filter: var(--glass-blur-soft);
   box-shadow: var(--glass-shadow-soft);
   border-radius: 32px;
-  /* 寮哄埗鍙樺渾 */
+  /* 瀵搫鍩楅崣妯烘妇 */
   margin: 10px 0;
 }
 
@@ -3666,7 +3695,7 @@ h3 {
 .mikanTimeMachineButton {
   display: none;
   position: fixed;
-  top: 54px;
+  top: 52px;
   left: 18px;
   z-index: 24;
   width: 46px;
@@ -4781,32 +4810,14 @@ h3 {
 
 .mikanHubPage.greenTheme {
   padding: 12px 20px;
-  /* 澧炲姞澶栭儴闂磋窛锛岃宸ュ叿鏍忔诞璧锋潵 */
+  /* 婢х偛濮炴径鏍劥闂傜绐涢敍宀冾唨瀹搞儱鍙块弽蹇旇癁鐠ч攱娼?*/
   height: 100%;
   display: flex;
   flex-direction: column;
   background: transparent !important;
-  /* 缁熶竴浣跨敤鍔ㄦ€佽儗鏅?*/
+  /* 缂佺喍绔存担璺ㄦ暏閸斻劍鈧浇鍎楅弲?*/
 }
 
-.scheduleHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 12px 24px !important;
-  background: var(--glass-material-strong) !important;
-  backdrop-filter: var(--glass-blur-soft) !important;
-  -webkit-backdrop-filter: var(--glass-blur-soft) !important;
-  border: 1px solid var(--glass-border-soft) !important;
-  border-radius: 24px !important;
-  gap: 12px;
-  position: sticky;
-  top: 10px;
-  z-index: 100;
-  box-shadow: var(--glass-shadow-soft) !important;
-  margin: 0 16px 16px;
-}
 
 .headerLeft {
   display: flex;
@@ -4891,6 +4902,33 @@ h3 {
   font-weight: 700;
   box-shadow: 0 4px 18px rgba(255, 79, 161, 0.36);
   transform: scale(1.05);
+}
+
+.globalSearchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 306px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 232, 244, 0.22));
+  backdrop-filter: blur(34px) saturate(210%) brightness(1.06);
+  -webkit-backdrop-filter: blur(34px) saturate(210%) brightness(1.06);
+  box-shadow: 0 2px 2px rgba(255, 255, 255, 0.58) inset, 0 10px 26px rgba(176, 82, 124, 0.1);
+}
+.globalSearchBox input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 8px;
+  color: #37262f;
+  font-size: 13px;
+}
+.globalSearchBox input::placeholder {
+  color: rgba(55, 38, 47, 0.55);
 }
 
 .yearPicker {
@@ -5295,7 +5333,7 @@ h3 {
 .detailMetaItem label {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.5) !important;
-  /* 鍔犳繁鏍囩棰滆壊 */
+  /* 閸旂姵绻侀弽鍥╊劮妫版粏澹?*/
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -5306,7 +5344,7 @@ h3 {
   font-size: 16px;
   font-weight: 800;
   color: var(--text-main) !important;
-  /* 寮哄埗浣跨敤涓绘枃瀛楅鑹?*/
+  /* 瀵搫鍩楁担璺ㄦ暏娑撶粯鏋冪€涙顤侀懝?*/
 }
 
 .ratingStars {
@@ -6059,32 +6097,6 @@ h3 {
   color: #2d5a27;
 }
 
-.globalSearchBox {
-  display: flex;
-  align-items: center;
-  background: transparent !important;
-  border: 1px solid rgba(45, 90, 39, 0.1);
-  border-radius: 12px;
-  padding: 6px 12px;
-  gap: 8px;
-  width: 200px;
-  transition: all 0.2s;
-}
-
-.globalSearchBox:focus-within {
-  border-color: #2d5a27;
-  box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.05);
-  width: 280px;
-}
-
-.globalSearchBox input {
-  border: 0;
-  background: none;
-  outline: none;
-  font-size: 13px;
-  flex: 1;
-  color: #1a3a16;
-}
 
 .clearSearch {
   background: none;
@@ -6792,17 +6804,17 @@ h3 {
 }
 
 /* ============================================================
-   iOS 27 STYLE 鈹€鈹€ PINK LIQUID GLASS 路 绮夎壊娑叉€佺幓鐠?   Inspired by visionOS / iOS 18+ glass material principles:
-   路 Layered translucency with dynamic background bleed
-   路 Frosted blur + saturation boost for vibrant glass
-   路 Soft, diffused light borders with inner highlights
-   路 Continuous rounded corners (squircle aesthetic)
-   路 Depth through stacked glass surfaces
-   Primary: #FF6B9D (iOS Pink) 路 Accent: #E84A7A 路 Soft: #FFB8D0
+   iOS 27 STYLE 閳光偓閳光偓 PINK LIQUID GLASS 璺?缁澹婂☉鍙夆偓浣哄箵閻?   Inspired by visionOS / iOS 18+ glass material principles:
+   璺?Layered translucency with dynamic background bleed
+   璺?Frosted blur + saturation boost for vibrant glass
+   璺?Soft, diffused light borders with inner highlights
+   璺?Continuous rounded corners (squircle aesthetic)
+   璺?Depth through stacked glass surfaces
+   Primary: #FF6B9D (iOS Pink) 璺?Accent: #E84A7A 璺?Soft: #FFB8D0
    ============================================================ */
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   0. ROOT VARIABLES 鈥?The glass material system
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   0. ROOT VARIABLES 閳?The glass material system
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid {
   --bg-app: #fff0f5;
   --glass-material: rgba(255, 255, 255, 0.16);
@@ -6835,13 +6847,13 @@ h3 {
   --motion-spring: cubic-bezier(0.18, 0.9, 0.2, 1.12);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   1. AMBIENT BACKGROUND 鈥?Living pink gradients
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   1. AMBIENT BACKGROUND 閳?Living pink gradients
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .ambientBackground {
   background: linear-gradient(165deg, #fff0f5 0%, #ffe0eb 25%, #f5e0f0 50%, #eee8ff 75%, #ffe8f0 100%);
   overflow: hidden;
   perspective: 1200px;
-  /* 涓哄叏灞€娣诲姞閫忚鎰?*/
+  /* 娑撳搫鍙忕仦鈧ǎ璇插闁繗顫嬮幇?*/
 }
 
 .app.theme-liquid .blob {
@@ -6900,8 +6912,8 @@ h3 {
   }
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   2. FOUNDATION RESET 鈥?Strip all opaque backgrounds
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   2. FOUNDATION RESET 閳?Strip all opaque backgrounds
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid :is(.posterCard,
   .posterCard .posterMeta,
   .searchHeader,
@@ -6964,8 +6976,8 @@ h3 {
   background-color: transparent !important;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   3. PRIMARY GLASS SHELL 鈥?Major structural surfaces
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   3. PRIMARY GLASS SHELL 閳?Major structural surfaces
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .sidebar,
 .app.theme-liquid .panel,
 .app.theme-liquid .modalContent,
@@ -6999,8 +7011,8 @@ h3 {
   }
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   4. SECONDARY GLASS 鈥?Cards, tiles, panels
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   4. SECONDARY GLASS 閳?Cards, tiles, panels
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .toolbar,
 .app.theme-liquid .statsPanel,
 .app.theme-liquid .statTile,
@@ -7021,11 +7033,11 @@ h3 {
   border: 1px solid var(--glass-border-soft);
   box-shadow: var(--glass-shadow-soft);
   border-radius: 32px;
-  /* 澧炲姞鍦嗚锛屾洿鍍忚兌鍥?*/
+  /* 婢х偛濮為崷鍡氼潡閿涘本娲块崓蹇氬厡閸?*/
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   5. SIDEBAR 鈥?Frosted navigation rail
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   5. SIDEBAR 閳?Frosted navigation rail
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .sidebar {
   border-radius: 0 16px 16px 0;
   border-left: none;
@@ -7034,8 +7046,8 @@ h3 {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   5.1 SIDEBAR INSIGHTS 鈥?Bottom status & issues
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   5.1 SIDEBAR INSIGHTS 閳?Bottom status & issues
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .sidebarInsights {
   margin: 20px 12px 12px;
   display: flex;
@@ -7092,7 +7104,7 @@ h3 {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  /* 鍏抽敭锛氬厑璁稿瓙鍏冪礌鎴柇 */
+  /* 閸忔娊鏁敍姘帒鐠佺鐡欓崗鍐閹搭亝鏌?*/
   flex: 1;
 }
 
@@ -7116,7 +7128,7 @@ h3 {
 
 .app.theme-liquid .glassStatsCard {
   box-sizing: border-box;
-  /* 寮哄埗鍖呭惈 padding 鍜?border */
+  /* 瀵搫鍩楅崠鍛儓 padding 閸?border */
   width: 100%;
   padding: 12px;
   border-radius: 20px;
@@ -7173,7 +7185,7 @@ h3 {
   color: var(--text-main);
   width: 100%;
   max-width: 100%;
-  /* 涓ョ鍑虹晫 */
+  /* 娑撱儳顩﹂崙铏规櫕 */
   overflow: hidden;
 }
 
@@ -7207,7 +7219,7 @@ h3 {
 .app.theme-liquid .recentMiniTitle {
   flex: 1;
   width: 0;
-  /* 寮哄埗浠?0 寮€濮嬭绠楀脊鎬у搴?*/
+  /* 瀵搫鍩楁禒?0 瀵偓婵顓哥粻妤€鑴婇幀褍顔旀惔?*/
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -7218,11 +7230,11 @@ h3 {
 .app.theme-liquid .recentMiniTime {
   font-size: 11px;
   color: var(--text-dim);
-  /* 棰滆壊鍔犳繁涓€鐐圭偣 */
+  /* 妫版粏澹婇崝鐘崇箒娑撯偓閻愬湱鍋?*/
   font-weight: 700;
   padding-left: 8px;
   flex-shrink: 0;
-  /* 绂佹琚乏渚ф爣棰樻尋鍘?*/
+  /* 缁備焦顒涚悮顐箯娓氀勭垼妫版ɑ灏嬮崢?*/
   opacity: 0.9;
 }
 
@@ -7233,8 +7245,8 @@ h3 {
   padding: 10px 0;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   6. NAVIGATION 鈥?Sidebar nav buttons & source pills
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   6. NAVIGATION 閳?Sidebar nav buttons & source pills
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .navButton {
   margin: 4px 12px;
   border-radius: 14px;
@@ -7303,8 +7315,8 @@ h3 {
   box-shadow: 0 4px 16px var(--accent-glow);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   7. BUTTONS 鈥?All interactive controls
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   7. BUTTONS 閳?All interactive controls
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 /* Primary action buttons */
 .app.theme-liquid .primaryButton,
 .app.theme-liquid button.primary {
@@ -7392,8 +7404,8 @@ h3 {
   background: rgba(255, 107, 157, 0.14);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   8. INPUTS & TEXTAREAS 鈥?Glass-inset fields
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   8. INPUTS & TEXTAREAS 閳?Glass-inset fields
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid input[type="text"],
 .app.theme-liquid input[type="search"],
 .app.theme-liquid input[type="number"],
@@ -7402,7 +7414,7 @@ h3 {
 .app.theme-liquid input:not([type]),
 .app.theme-liquid textarea {
   background: transparent;
-  /* 褰诲簳绉婚櫎鍐呭眰鐧藉簳 */
+  /* 瑜拌绨崇粔濠氭珟閸愬懎鐪伴惂钘夌俺 */
   border: none;
   border-radius: 14px;
   color: var(--text-main);
@@ -7430,8 +7442,8 @@ h3 {
   color: var(--text-muted);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   9. SELECTS 鈥?Native & custom
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   9. SELECTS 閳?Native & custom
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid select {
   background: rgba(255, 255, 255, 0.32);
   border: 1px solid rgba(255, 255, 255, 0.42);
@@ -7443,8 +7455,8 @@ h3 {
   cursor: pointer;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   9.1 CUSTOM GLASS SELECT 鈥?The dropdown component
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   9.1 CUSTOM GLASS SELECT 閳?The dropdown component
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .glassSelect {
   position: relative;
   outline: none;
@@ -7456,21 +7468,23 @@ h3 {
   justify-content: space-between;
   gap: 10px;
   padding: 8px 16px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   border-radius: 16px;
-  color: var(--text-main);
+  color: #2b1824;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s var(--motion-fluid);
   min-width: 110px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .app.theme-liquid .glassSelectButton:hover {
-  background: rgba(255, 255, 255, 0.55);
-  border-color: var(--accent-soft);
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 107, 157, 0.3) !important;
   transform: translateY(-1px);
 }
 
@@ -7485,7 +7499,7 @@ h3 {
   color: var(--accent);
   transition: transform 0.4s var(--motion-fluid);
   margin-top: -1px;
-  /* 淇瀛楃鍩虹嚎瀵归綈 */
+  /* 娣囶喗顒滅€涙顑侀崺铏瑰殠鐎靛綊缍?*/
   font-weight: 900;
 }
 
@@ -7493,17 +7507,17 @@ h3 {
   transform: rotate(180deg);
 }
 
-.app.theme-liquid .glassSelectMenu {
+.theme-liquid .glassSelectMenu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
   min-width: 160px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(32px) saturate(1.8);
   -webkit-backdrop-filter: blur(32px) saturate(1.8);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 18px;
-  box-shadow: 0 15px 40px rgba(180, 60, 100, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: 0 12px 36px rgba(180, 60, 100, 0.08);
   padding: 6px;
   z-index: 1000;
   overflow: hidden;
@@ -7523,147 +7537,84 @@ h3 {
   }
 }
 
-.app.theme-liquid .glassSelectMenu button {
+.theme-liquid .glassSelectMenu button {
   display: block;
   width: 100%;
-  padding: 10px 14px 10px 20px;
-  text-align: left;
-  background: transparent;
+  padding: 10px 14px;
+  text-align: center;
+  background: transparent !important;
   border: none;
   border-radius: 12px;
   font-size: 13px;
-  color: var(--text-main);
+  color: #2b1824;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s var(--motion-fluid);
   position: relative;
-  font-weight: 500;
+  font-weight: 600;
+  outline: none;
 }
 
-.app.theme-liquid .glassSelectMenu button:hover {
-  background: rgba(255, 107, 157, 0.08);
-  color: var(--accent);
-  padding-left: 24px;
-}
-
-.app.theme-liquid .glassSelectMenu button.active {
-  background: rgba(255, 107, 157, 0.12);
-  color: var(--accent);
-  font-weight: 800;
-}
-
-.app.theme-liquid .glassSelectMenu button.active::after {
+.theme-liquid .glassSelectMenu button::before {
   content: "";
   position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-glow);
+  inset: 8px 12px;
+  background: transparent;
+  border-radius: 12px;
+  z-index: -1;
+  transition: all 0.3s var(--motion-fluid);
+}
+
+.theme-liquid .glassSelectMenu button:hover {
+  color: #ff007b;
+}
+
+.theme-liquid .glassSelectMenu button:hover::before {
+  background: rgba(255, 107, 157, 0.06);
+  inset: 6px 10px;
+}
+
+.theme-liquid .glassSelectMenu button.active {
+  color: #ffffff !important;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.theme-liquid .glassSelectMenu button.active::before {
+  background: #ff007b;
+  inset: 4px 8px;
+  box-shadow:
+    0 4px 12px rgba(255, 0, 123, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: none;
+  animation: pill-pop 0.4s var(--motion-fluid);
+}
+
+@keyframes pill-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.theme-liquid .glassSelectMenu button.active::after {
+  display: none;
 }
 
 .app.theme-liquid .historyControls select {
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  color: var(--text-main);
-}
-
-.app.theme-liquid .searchBox {
-  flex: 0 0 160px;
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-radius: 16px;
-  transition: all 0.3s var(--motion-fluid);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
-  overflow: hidden;
-  height: 38px;
-}
-
-.app.theme-liquid .searchBox:focus-within {
-  flex-basis: 360px;
-  background: rgba(255, 255, 255, 0.55) !important;
-  border-color: rgba(255, 107, 157, 0.4) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-}
-
-.app.theme-liquid .searchBox input {
-  background: transparent !important;
-  border: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: none !important;
-  color: #2b1824;
-  font-weight: 500;
-  height: 100%;
-  padding: 0;
-}
-
-.app.theme-liquid .searchBox input::placeholder {
-  color: rgba(61, 26, 46, 0.36);
-}
-
-.app.theme-liquid .searchBox svg {
-  color: rgba(61, 26, 46, 0.52);
-  flex-shrink: 0;
-}
-.app.theme-liquid input.toolbarSearch {
-  flex: 0 0 160px;
-  min-width: 160px;
-  border-radius: 16px;
-  padding: 0 13px 0 36px;
-  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%237a5b6a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat left 13px center / 18px 18px,
-    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
-    rgba(255, 240, 250, 0.18);
+  background: a(255, 240, 250, 0.18);
   transition: flex 420ms var(--motion-fluid), border-color 360ms var(--motion-fluid), box-shadow 360ms var(--motion-fluid);
 }
+
 .app.theme-liquid input.toolbarSearch:focus {
   flex: 0 1 300px;
 }
 
 
-.app.theme-liquid .globalSearchBox {
-  background:
-    linear-gradient(135deg,
-      rgba(255, 255, 255, 0.32) 0%,
-      rgba(255, 255, 255, 0.08) 36%,
-      rgba(255, 120, 180, 0.12) 62%,
-      rgba(255, 255, 255, 0.16) 100%),
-    rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border-radius: 22px;
-  box-shadow:
-    0 12px 34px rgba(119, 44, 90, 0.08),
-    0 4px 8px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.app.theme-liquid .globalSearchBox:focus-within {
-  background: rgba(255, 255, 255, 0.48);
-  border-color: rgba(255, 107, 157, 0.42);
-  box-shadow:
-    0 12px 32px rgba(119, 44, 90, 0.14),
-    0 0 0 4px rgba(255, 107, 157, 0.08);
-}
-
-.app.theme-liquid .globalSearchBox input {
-  color: #3d1a2e;
-}
-
-.app.theme-liquid .globalSearchBox input::placeholder {
-  color: rgba(61, 26, 46, 0.38);
-}
 
 .searchHistoryDropdown {
   position: absolute;
@@ -7742,8 +7693,8 @@ h3 {
 }
 
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   10. GLASS SELECT 鈥?Custom dropdown component
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   10. GLASS SELECT 閳?Custom dropdown component
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .glassSelect {
   background: transparent;
   border: 1px solid transparent;
@@ -7760,7 +7711,7 @@ h3 {
   color: #3d1a2e;
 }
 
-/* 鍘嗗勾琛細骞翠唤閫夋嫨鏀逛负 3 鍒楃綉鏍硷紝鏇撮珮鏁?*/
+/* 閸樺棗鍕剧悰顭掔窗楠炵繝鍞ら柅澶嬪閺€閫涜礋 3 閸掓缍夐弽纭风礉閺囨挳鐝弫?*/
 .app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenu {
   width: 360px;
   max-height: 420px;
@@ -7832,37 +7783,12 @@ h3 {
   }
 }
 
-.app.theme-liquid .glassSelectMenu button {
-  color: #3d1a2e;
-  font-weight: 600;
-  border-radius: 14px;
-  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.app.theme-liquid .glassSelectMenu button:hover {
-  background: rgba(255, 107, 157, 0.08);
-  color: #ff0090;
-  transform: translateX(4px);
-}
-
-/* 骞翠唤缃戞牸妯″紡涓嬬殑鎮仠鏁堟灉 */
-.app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenu button:hover {
-  transform: scale(1.08);
-}
-
-.app.theme-liquid .glassSelectMenu button.active {
-  background: linear-gradient(135deg, #ff7cad, #ff3d91);
-  color: #ffffff;
-  font-weight: 800;
-  box-shadow: 0 8px 20px rgba(255, 61, 145, 0.35);
-  transform: scale(1.05);
-}
 
 
 
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   11. TOOLBAR 鈥?Page action header
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   11. TOOLBAR 閳?Page action header
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .toolbar {
   backdrop-filter: var(--glass-blur-soft);
   -webkit-backdrop-filter: var(--glass-blur-soft);
@@ -7872,13 +7798,13 @@ h3 {
   box-shadow: var(--glass-shadow-soft);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   12. MEDIA CARDS 鈥?Library grid items
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   12. MEDIA CARDS 閳?Library grid items
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .posterCard {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--card-radius);
-  /* 鎬ц兘锛氱敤 content-visibility 鍋氳櫄鎷熸覆鏌撴浛浠?backdrop-filter */
+  /* 閹嗗厴閿涙氨鏁?content-visibility 閸嬫俺娅勯幏鐔歌閺屾挻娴涙禒?backdrop-filter */
 
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -7900,7 +7826,7 @@ h3 {
   position: relative;
 }
 
-/* 鍔ㄦ€佸弽鍏夊眰 - 浠跨湡鐜荤拑鐨勬牳蹇?*/
+/* 閸斻劍鈧礁寮介崗澶婄湴 - 娴犺法婀￠悳鑽ゆ嫅閻ㄥ嫭鐗宠箛?*/
 .app.theme-liquid .posterCard::before {
   content: "";
   position: absolute;
@@ -7922,10 +7848,10 @@ h3 {
   background: rgba(255, 248, 252, 0.85) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: var(--card-radius) !important;
-  /* 鎬ц兘锛氱Щ闄?backdrop-filter */
+  /* 閹嗗厴閿涙氨些闂?backdrop-filter */
   contain: layout style paint;
 
-  /* iOS 椋庢牸 Quartic Out 鏇茬嚎锛氭瀬鍏跺钩婊?*/
+  /* iOS 妞嬪孩鐗?Quartic Out 閺囪尙鍤庨敍姘€崗璺洪挬濠?*/
   transition:
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     background 0.4s ease,
@@ -7940,17 +7866,17 @@ h3 {
   transform: translateY(0) scale(1);
 }
 
-/* 闅愬舰纰版挒绠憋細闃叉涓婃诞鍚庨紶鏍囦涪澶卞鑷寸殑鎶芥悙 */
+/* 闂呮劕鑸扮喊鐗堟寬缁犳唻绱伴梼鍙夘剾娑撳﹥璇為崥搴ㄧ炊閺嶅洣娑径鍗烆嚤閼峰娈戦幎鑺ユ倷 */
 .posterCard::after {
   content: "";
   position: absolute;
   inset: 0;
   bottom: -30px;
-  /* 鍚戜笅寤朵几锛屽畧浣忛紶鏍?*/
+  /* 閸氭垳绗呭鏈靛嚑閿涘苯鐣ф担蹇涚炊閺?*/
   z-index: -1;
 }
 
-/* 娑蹭綋鎵厜 */
+/* 濞戣弓缍嬮幍顐㈠帨 */
 .posterCard::before {
   content: "";
   position: absolute;
@@ -7965,13 +7891,13 @@ h3 {
 }
 
 .posterCard:hover {
-  /* 浣跨敤 transform 鏁翠綋浣嶇Щ锛岀‘淇濇洸绾夸竴鑷?*/
+  /* 娴ｈ法鏁?transform 閺佺繝缍嬫担宥囆╅敍宀€鈥樻穱婵囨锤缁惧じ绔撮懛?*/
   transform: translateY(-5px) scale(1.012);
 
   background: rgba(255, 255, 255, 0.18) !important;
   border-color: rgba(255, 255, 255, 0.7) !important;
 
-  /* 娣卞害闅忓姩闃村奖锛氱缉鐭窛绂伙紝澧炲己鎹曟崏鎰?*/
+  /* 濞ｅ崬瀹抽梾蹇撳З闂冩潙濂栭敍姘辩級閻叀绐涚粋浼欑礉婢х偛宸遍幑鏇熷磸閹?*/
   box-shadow:
     calc(var(--m-x, 0) * -25px) calc(var(--m-y, 0) * -25px) 45px rgba(var(--cover-rgb, 255, 107, 157), 0.3),
     0 15px 35px rgba(0, 0, 0, 0.15) !important;
@@ -7988,7 +7914,7 @@ h3 {
 
 .app.theme-liquid .posterMeta {
   padding: 14px;
-  /* 鎬ц兘锛氭浛浠?backdrop-filter 浣跨敤涓嶉€忔槑鑳屾櫙 */
+  /* 閹嗗厴閿涙碍娴涙禒?backdrop-filter 娴ｈ法鏁ゆ稉宥夆偓蹇旀閼冲本娅?*/
   background: rgba(255, 248, 252, 0.88);
   flex-grow: 1;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -8013,8 +7939,8 @@ h3 {
   pointer-events: none;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   13. DETAIL PAGE 鈥?Hero, metadata, file table
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   13. DETAIL PAGE 閳?Hero, metadata, file table
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .detailHeroBg img {
   filter: blur(90px) brightness(1.2) saturate(1.1) !important;
   opacity: 0.9 !important;
@@ -8059,8 +7985,8 @@ h3 {
   border-radius: 10px;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   14. STATS PAGE 鈥?Chart tiles and data cards
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   14. STATS PAGE 閳?Chart tiles and data cards
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .statTile {
   backdrop-filter: var(--glass-blur-soft);
   -webkit-backdrop-filter: var(--glass-blur-soft);
@@ -8122,8 +8048,8 @@ h3 {
   color: var(--accent);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   15. SETTINGS PAGE 鈥?Form grids and controls
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   15. SETTINGS PAGE 閳?Form grids and controls
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .formGrid {
   backdrop-filter: var(--glass-blur-soft);
   -webkit-backdrop-filter: var(--glass-blur-soft);
@@ -8137,8 +8063,8 @@ h3 {
   color: var(--text-main);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   16. MODALS 鈥?Depth-separated overlay + card
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   16. MODALS 閳?Depth-separated overlay + card
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .modalOverlay,
 .app.theme-liquid .detailModalOverlay {
   background: rgba(200, 150, 170, 0.18);
@@ -8188,8 +8114,8 @@ h3 {
   background: rgba(255, 107, 157, 0.10);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   17. TABS 鈥?Detail & schedule tab bars
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   17. TABS 閳?Detail & schedule tab bars
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .detailTabs {
   border-bottom: 1px solid rgba(255, 255, 255, 0.28);
 }
@@ -8271,8 +8197,8 @@ h3 {
   transition: none !important;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   18. SCHEDULE CARDS 鈥?Mikan Hub weekly grid
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   18. SCHEDULE CARDS 閳?Mikan Hub weekly grid
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .scheduleCard {
   background:
     linear-gradient(145deg,
@@ -8330,8 +8256,8 @@ h3 {
 }
 
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   19. ONLINE PAGE 鈥?Rule panel, search, episodes
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   19. ONLINE PAGE 閳?Rule panel, search, episodes
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .onlineSearchCard {
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(14px);
@@ -8381,8 +8307,8 @@ h3 {
   color: var(--text-dim);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   20. MIKAN / TORRENT 鈥?Download resource tables
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   20. MIKAN / TORRENT 閳?Download resource tables
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .mikanGroupSidebar h4 {
   position: sticky;
   top: 0;
@@ -8456,15 +8382,15 @@ h3 {
   color: var(--accent);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   21. RESOURCE HEADING 鈥?Section title with accent bar
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   21. RESOURCE HEADING 閳?Section title with accent bar
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .resourceHeading h3 {
   border-left: 4px solid var(--accent);
   color: var(--text-main);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   22. SCRAPE PAGES 鈥?Issue cards & candidate list
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   22. SCRAPE PAGES 閳?Issue cards & candidate list
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .candidateList {
   display: flex;
   flex-direction: column;
@@ -8515,8 +8441,8 @@ h3 {
   color: var(--muted);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   23. CHARACTER & STAFF GRIDS 鈥?Cast/crew cards
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   23. CHARACTER & STAFF GRIDS 閳?Cast/crew cards
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .characterItem {
   display: flex;
   flex-direction: row;
@@ -8580,8 +8506,8 @@ h3 {
   color: var(--text-dim);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   24. LOGS PAGE 鈥?Log entry list
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   24. LOGS PAGE 閳?Log entry list
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .logEntry {
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -8595,8 +8521,8 @@ h3 {
   background: var(--glass-material-hover);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   25. FLOATING BUTTONS 鈥?FABs and overlays
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   25. FLOATING BUTTONS 閳?FABs and overlays
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .floatingSearchBtn,
 .app.theme-liquid .floatingBackBtn {
   background: rgba(255, 255, 255, 0.28);
@@ -8659,8 +8585,8 @@ h3 {
   box-shadow: none;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   26. TAGS & BADGES 鈥?Metadata chips
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   26. TAGS & BADGES 閳?Metadata chips
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .detailTag {
   background: rgba(255, 107, 157, 0.07);
   border: 1px solid rgba(255, 107, 157, 0.14);
@@ -8682,8 +8608,8 @@ h3 {
   background: #FF6B9D;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   27. RATINGS & CHARTS 鈥?Score bars and distribution
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   27. RATINGS & CHARTS 閳?Score bars and distribution
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .ratingDistribution {
   align-self: flex-start;
   background:
@@ -8783,8 +8709,8 @@ h3 {
   color: var(--accent);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   28. WINDOW CONTROLS 鈥?Custom title bar buttons
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   28. WINDOW CONTROLS 閳?Custom title bar buttons
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .windowControls {
   background: transparent;
 }
@@ -8808,8 +8734,8 @@ h3 {
   border-color: #FF6B9D;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   29. SECTION HEADERS 鈥?Search & content dividers
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   29. SECTION HEADERS 閳?Search & content dividers
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .sectionHeader {
   border-bottom: 2px solid rgba(255, 107, 157, 0.12);
 }
@@ -8829,8 +8755,8 @@ h3 {
   color: var(--text-main);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   30. SCROLLBAR 鈥?Themed thin scroll
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   30. SCROLLBAR 閳?Themed thin scroll
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid ::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -8844,8 +8770,8 @@ h3 {
   background: rgba(255, 107, 157, 0.32);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   31. GREEN THEME OVERRIDE 鈥?Subscriptions / Mikan 鈫?Pink
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   31. GREEN THEME OVERRIDE 閳?Subscriptions / Mikan 閳?Pink
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .greenTheme {
   --green-accent: #FF6B9D;
   --green-accent-soft: #FFB8D0;
@@ -8853,8 +8779,8 @@ h3 {
   --green-shadow: rgba(255, 107, 157, 0.15);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   32. GRAIN TEXTURE 鈥?Subtle noise on major glass surfaces
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   32. GRAIN TEXTURE 閳?Subtle noise on major glass surfaces
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .sidebar::after,
 .app.theme-liquid .panel::after,
 .app.theme-liquid .modalContent::after,
@@ -8868,8 +8794,8 @@ h3 {
   border-radius: inherit;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   33. RATING PANEL 鈥?Score distribution
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   33. RATING PANEL 閳?Score distribution
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .ratingDistribution {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: var(--glass-blur-soft);
@@ -8878,8 +8804,8 @@ h3 {
   border-radius: 20px;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   34. GLOBAL TRANSITIONS 鈥?Smooth glass animations
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   34. GLOBAL TRANSITIONS 閳?Smooth glass animations
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .panel,
 .app.theme-liquid .mediaCard,
 .app.theme-liquid .statTile,
@@ -8896,8 +8822,8 @@ h3 {
   transition: all 0.38s var(--motion-fluid);
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   35. MISC TEXT COLORS 鈥?Ensure readability on glass
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   35. MISC TEXT COLORS 閳?Ensure readability on glass
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .infoList dt,
 .app.theme-liquid .infoList dd {
   color: var(--text-dim);
@@ -8972,12 +8898,13 @@ h3 {
 }
 
 .sidebar.collapsed .themeToggleButton {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 16px;
   padding: 0;
   margin: 0 auto;
   justify-content: center;
+  gap: 0;
 }
 
 .sidebar.collapsed .themeToggleArea {
@@ -8995,9 +8922,9 @@ h3 {
 
 /* =====================================================================
    FINAL iOS 27 LIQUID GLASS MATERIAL PATCH
-   - 鍩轰簬褰撳墠鍙敤 styles.css 杩藉姞
-   - 鍙敼鏉愯川锛歜ackground / border / shadow / backdrop-filter / highlight
-   - 涓嶆敼 grid / flex / width / height / margin / padding / position top 绛夊竷灞€灞炴€?   ===================================================================== */
+   - 閸╄桨绨ぐ鎾冲閸欘垳鏁?styles.css 鏉╄棄濮?
+   - 閸欘亝鏁奸弶鎰窛閿涙瓬ackground / border / shadow / backdrop-filter / highlight
+   - 娑撳秵鏁?grid / flex / width / height / margin / padding / position top 缁涘绔风仦鈧仦鐐粹偓?   ===================================================================== */
 
 .app.theme-liquid {
   --ios27-pink: #ff5fa2;
@@ -9030,7 +8957,7 @@ h3 {
   color: var(--ios27-ink);
 }
 
-/* 鑳屾櫙蹇呴』鏇粹€滄湁鑹插僵鈥濓紝鐜荤拑鎵嶆湁鎶樺皠鎰?*/
+/* 閼冲本娅欒箛鍛淬€忛弴绮光偓婊勬箒閼规彃鍍甸垾婵撶礉閻滆崵鎷戦幍宥嗘箒閹舵ê鐨犻幇?*/
 .app.theme-liquid .ambientBackground {
   background:
     radial-gradient(1100px 760px at 8% -8%, rgba(255, 255, 255, 0.98), transparent 54%),
@@ -9075,7 +9002,7 @@ h3 {
   }
 }
 
-/* 涓昏鐜荤拑鏉愯川锛氬彧瑕嗙洊瑙嗚灞炴€э紝涓嶇甯冨眬 */
+/* 娑撴槒顩﹂悳鑽ゆ嫅閺夋劘宸濋敍姘涧鐟曞棛娲婄憴鍡氼潕鐏炵偞鈧嶇礉娑撳秶顫敮鍐ㄧ湰 */
 .app.theme-liquid :is(.sidebar,
   .toolbar,
   .backBar,
@@ -9147,7 +9074,7 @@ h3 {
   color: rgba(61, 26, 46, 0.54);
 }
 
-/* 椤堕儴宸ュ叿鏍忔洿鍍忎竴鏁村潡鎮诞鐜荤拑 */
+/* 妞ゅ爼鍎村銉ュ徔閺嶅繑娲块崓蹇庣閺佹潙娼￠幃顒佽癁閻滆崵鎷?*/
 .app.theme-liquid .toolbar,
 .app.theme-liquid .backBar {
   background:
@@ -9160,7 +9087,7 @@ h3 {
     0 -18px 42px rgba(255, 99, 170, 0.055) inset;
 }
 
-/* 渚ф爮锛氬乏渚т繚鎸佽交閫忥紝鍙宠竟缂樻湁鐜荤拑鍘氬害 */
+/* 娓氀勭埉閿涙艾涔忔笟褌绻氶幐浣戒氦闁骏绱濋崣瀹犵珶缂傛ɑ婀侀悳鑽ゆ嫅閸樻艾瀹?*/
 .app.theme-liquid .sidebar {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.16) 58%, rgba(135, 245, 255, 0.10)),
@@ -9173,7 +9100,7 @@ h3 {
     0 0 0 1px rgba(255, 255, 255, 0.13) inset;
 }
 
-/* 娴锋姤鍗＄墖锛氭牳蹇?Liquid Glass */
+/* 濞撮攱濮ら崡锛勫閿涙碍鐗宠箛?Liquid Glass */
 .app.theme-liquid :is(.posterCard,
   .mediaCard,
   .onlineResultCard,
@@ -9210,7 +9137,7 @@ h3 {
     inset -18px -22px 42px rgba(255, 95, 162, 0.07) !important;
 }
 
-/* 鐜荤拑杈圭紭锛氱敤浼厓绱犲仛鈥滃帤杈规鈥濓紝涓嶆尋鍘嬪竷灞€ */
+/* 閻滆崵鎷戞潏鍦喘閿涙氨鏁ゆ导顏勫帗缁辩姴浠涢垾婊冨袱鏉堣顢嬮垾婵撶礉娑撳秵灏嬮崢瀣鐏炩偓 */
 .app.theme-liquid :is(.posterCard,
   .toolbar,
   .detailHero,
@@ -9261,7 +9188,7 @@ h3 {
   mask-composite: exclude;
 }
 
-/* 鍐呴儴娑叉€佸厜鏂?*/
+/* 閸愬懘鍎村☉鍙夆偓浣稿帨閺?*/
 .app.theme-liquid .posterCard::after,
 .app.theme-liquid .onlineResultCard::after,
 .app.theme-liquid .sideCard::after,
@@ -9299,7 +9226,7 @@ h3 {
   z-index: 3;
 }
 
-/* 娴锋姤鍖哄煙锛氬浘鐗囦笉琚礂鐧斤紝浣嗚竟缂樻洿鍍忓祵鍏ョ幓鐠?*/
+/* 濞撮攱濮ら崠鍝勭厵閿涙艾娴橀悧鍥︾瑝鐞氼偅绀傞惂鏂ょ礉娴ｅ棜绔熺紓妯绘纯閸嶅繐绁甸崗銉у箵閻?*/
 .app.theme-liquid .poster {
   position: relative;
   background:
@@ -9333,7 +9260,7 @@ h3 {
   border-top: 1px solid rgba(255, 255, 255, 0.45);
 }
 
-/* 杈撳叆妗嗐€佷笅鎷夈€佹寜閽細姘存淮鐜荤拑鎺т欢 */
+/* 鏉堟挸鍙嗗鍡愨偓浣风瑓閹峰鈧焦瀵滈柦顕嗙窗濮樺瓨娣悳鑽ゆ嫅閹貉傛 */
 .app.theme-liquid .glassSelectButton,
 .app.theme-liquid .primaryButton,
 .app.theme-liquid .secondaryButton,
@@ -9348,7 +9275,7 @@ h3 {
     linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
     rgba(255, 240, 250, 0.18);
   border-color: rgba(255, 255, 255, 0.52);
-  color: var(--ios27-ink);
+  color: #000000;
   backdrop-filter: blur(32px) saturate(2.25) brightness(1.05);
   -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
   box-shadow:
@@ -9385,28 +9312,9 @@ h3 {
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
-/* 涓嬫媺鑿滃崟锛氶€忔槑浣嗕笉绯婃枃瀛?*/
-.app.theme-liquid .glassSelectMenu {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)),
-    rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(48px) saturate(210%) brightness(1.05);
-  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05);
-  box-shadow:
-    0 22px 52px rgba(120, 52, 94, 0.15),
-    0 1px 0 rgba(255, 255, 255, 0.86) inset,
-    0 -18px 42px rgba(255, 99, 170, 0.055) inset;
-}
+/* 娑撳濯洪懣婊冨礋閿涙岸鈧繑妲戞担鍡曠瑝缁﹥鏋冪€?*/
 
-.app.theme-liquid .glassSelectMenu button:hover,
-.app.theme-liquid .glassSelectMenu button.active {
-  background:
-    linear-gradient(135deg, rgba(255, 95, 162, 0.22), rgba(255, 255, 255, 0.26), rgba(126, 244, 255, 0.16));
-  color: #ec3e8d;
-}
-
-/* 鏅鸿兘鍚戜笂寮瑰嚭鏀寔 */
+/* 閺呴缚鍏橀崥鎴滅瑐瀵懓鍤弨顖涘瘮 */
 .glassSelect.drop-up .glassSelectMenu {
   top: auto !important;
   bottom: 100% !important;
@@ -9415,7 +9323,7 @@ h3 {
   transform-origin: bottom center !important;
 }
 
-/* 瀵艰埅鎸夐挳锛氶€変腑鐘舵€佸儚涓€棰楁祬绮夋按婊?*/
+/* 鐎佃壈鍩呴幐澶愭尦閿涙岸鈧鑵戦悩鑸碘偓浣稿剼娑撯偓妫版绁划澶嬫寜濠?*/
 .app.theme-liquid .navButton,
 .app.theme-liquid .sourceButton {
   background: rgba(255, 255, 255, 0.055);
@@ -9436,7 +9344,7 @@ h3 {
     inset 0 -1px 0 rgba(255, 255, 255, 0.22);
 }
 
-/* 鐘舵€併€佹爣绛俱€佸皬鑳跺泭 */
+/* 閻樿埖鈧降鈧焦鐖ｇ粵淇扁偓浣哥毈閼宠泛娉?*/
 .app.theme-liquid .status,
 .app.theme-liquid .tagCloud span,
 .app.theme-liquid .timeMachineYear,
@@ -9450,7 +9358,7 @@ h3 {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 8px 18px rgba(120, 44, 90, 0.07);
 }
 
-/* 鎮仠鏃跺姞涓€鐐规恫鎬佹诞璧凤紝涓嶆敼闈欐€佸竷灞€ */
+/* 閹剙浠犻弮璺哄娑撯偓閻愯鎭幀浣硅癁鐠у嚖绱濇稉宥嗘暭闂堟瑦鈧礁绔风仦鈧?*/
 .app.theme-liquid :is(.posterCard:hover,
   .mediaCard:hover,
   .onlineResultCard:hover,
@@ -9476,7 +9384,7 @@ h3 {
   filter: saturate(1.04) brightness(1.012);
 }
 
-/* 鏍囬涓庢绾ф枃鏈紝鍦ㄩ珮閫忔槑鐜荤拑涓婁繚鎸佸彲璇?*/
+/* 閺嶅洭顣芥稉搴㈩偧缁狙勬瀮閺堫剨绱濋崷銊╃彯闁繑妲戦悳鑽ゆ嫅娑撳﹣绻氶幐浣稿讲鐠?*/
 .app.theme-liquid :is(.posterMeta strong,
   .onlineResultMeta strong,
   .onlineRuleItem strong,
@@ -9505,7 +9413,7 @@ h3 {
   color: rgba(64, 39, 52, 0.68) !important;
 }
 
-/* 鏍囬鏍忥細椤堕儴绯荤粺鐜荤拑 */
+/* 閺嶅洭顣介弽蹇ョ窗妞ゅ爼鍎寸化鑽ょ埠閻滆崵鎷?*/
 .app.theme-liquid .titleBar {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22)),
@@ -9523,7 +9431,7 @@ h3 {
   -webkit-backdrop-filter: blur(18px) saturate(2.0);
 }
 
-/* 婊氬姩鏉′篃鐜荤拑鍖?*/
+/* 濠婃艾濮╅弶鈥茬瘍閻滆崵鎷戦崠?*/
 .app.theme-liquid .main::-webkit-scrollbar-thumb,
 .app.theme-liquid .sidebar::-webkit-scrollbar-thumb,
 .app.theme-liquid .onlineRuleList::-webkit-scrollbar-thumb {
@@ -9538,7 +9446,7 @@ h3 {
 }
 
 /* ================= iOS 27 LIQUID GLASS V5 FINAL =================
-   浣跨敤鏂瑰紡锛氭牴鑺傜偣淇濇寔 class="app theme-liquid"銆?   璇存槑锛氭湰娈靛彧瑕嗙洊鏉愯川銆佸崱鐗囨瘮渚嬪拰椤甸潰鐧藉簳锛屼笉鏀逛富甯冨眬銆?================================================================== */
+   娴ｈ法鏁ら弬鐟扮础閿涙碍鐗撮懞鍌滃仯娣囨繃瀵?class="app theme-liquid"閵?   鐠囧瓨妲戦敍姘拱濞堥潧褰х憰鍡欐磰閺夋劘宸濋妴浣稿幢閻楀洦鐦笟瀣嫲妞ょ敻娼伴惂钘夌俺閿涘奔绗夐弨閫涘瘜鐢啫鐪妴?================================================================== */
 
 :root {
   --ios27-pink: #ff4fa1;
@@ -9559,7 +9467,7 @@ h3 {
   --glass-bg-card: linear-gradient(145deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.145) 35%, rgba(138, 246, 255, 0.095) 58%, rgba(255, 95, 162, 0.13) 100%), rgba(255, 255, 255, 0.105);
 }
 
-/* ---------- 1. 鑳屾櫙锛氬噺灏戠櫧鏉挎劅锛岀粰鐜荤拑瓒冲鍙姌灏勭殑鑹插僵 ---------- */
+/* ---------- 1. 閼冲本娅欓敍姘櫤鐏忔垹娅ч弶鎸庡妳閿涘瞼绮伴悳鑽ゆ嫅鐡掑啿顧勯崣顖涘鐏忓嫮娈戦懝鎻掑兊 ---------- */
 .app.theme-liquid,
 .app.theme-liquid .mikanHubPage,
 .app.theme-liquid .mikanHubPage.greenTheme,
@@ -9608,7 +9516,7 @@ h3 {
   }
 }
 
-/* ---------- 2. 閫氱敤鐜荤拑鏉愯川锛氭妸鐧借壊鍧楁敼鎴愰€忔槑娑叉€佺幓鐠?---------- */
+/* ---------- 2. 闁氨鏁ら悳鑽ゆ嫅閺夋劘宸濋敍姘Ω閻у€熷閸ф鏁奸幋鎰扳偓蹇旀濞戝弶鈧胶骞撻悹?---------- */
 .app.theme-liquid .toolbar,
 .app.theme-liquid .backBar,
 .app.theme-liquid .sidebar,
@@ -9706,7 +9614,7 @@ h3 {
     inset 0 -22px 46px rgba(255, 79, 161, 0.07);
 }
 
-/* 鐜荤拑鍘氳竟楂樺厜灞?*/
+/* 閻滆崵鎷戦崢姘崇珶妤傛ê鍘滅仦?*/
 .app.theme-liquid :is(.toolbar::before,
   .panel::before,
   .fileTable::before,
@@ -9754,7 +9662,7 @@ h3 {
   z-index: 1;
 }
 
-/* ---------- 3. 鎼滅储妗嗐€佽緭鍏ユ銆佹寜閽細鍘绘帀绾櫧锛屼繚鐣欐竻鏅板害 ---------- */
+/* ---------- 3. 閹兼粎鍌ㄥ鍡愨偓浣界翻閸忋儲顢嬮妴浣瑰瘻闁筋噯绱伴崢缁樺竴缁绢垳娅ч敍灞肩箽閻ｆ瑦绔婚弲鏉垮 ---------- */
 .app.theme-liquid :is(.sourceToggles,
   .scheduleTabs,
   .historyControls select,
@@ -9814,24 +9722,8 @@ h3 {
   border-color: rgba(255, 255, 255, 0.74);
 }
 
-.app.theme-liquid .glassSelectMenuBg {
-  background:
-    linear-gradient(165deg,
-      rgba(255, 255, 255, 0.58) 0%,
-      rgba(255, 111, 176, 0.38) 45%,
-      rgba(255, 255, 255, 0.28) 100%),
-    rgba(255, 240, 252, 0.62) !important;
-  backdrop-filter: blur(64px) saturate(280%) brightness(0.98) contrast(1.02) !important;
-  -webkit-backdrop-filter: blur(64px) saturate(280%) brightness(0.98) contrast(1.02) !important;
-  filter: url(#liquid-glass-filter);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
 
-.app.theme-liquid .glassSelectMenu {
-  background: transparent !important;
-}
-
-/* ---------- 4. 鐣墽鍗＄墖锛氱粺涓€姣斾緥銆佽灏忓崱鐗囬珮搴﹀尮閰?---------- */
+/* ---------- 4. 閻ｎ亜澧介崡锛勫閿涙氨绮烘稉鈧В鏂剧伐閵嗕浇顔€鐏忓繐宕遍悧鍥彯鎼达箑灏柊?---------- */
 .app.theme-liquid .mediaGrid {
   align-items: stretch;
 }
@@ -9858,7 +9750,7 @@ h3 {
     0 16px 42px rgba(120, 43, 89, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.90),
     inset -24px -34px 58px rgba(var(--cover-rgb), 0.08);
-  /* 鎬ц兘锛氱Щ闄?backdrop-filter锛屼娇鐢ㄩ珮涓嶉€忔槑搴﹁儗鏅浛浠?*/
+  /* 閹嗗厴閿涙氨些闂?backdrop-filter閿涘奔濞囬悽銊╃彯娑撳秹鈧繑妲戞惔锕佸剹閺咁垱娴涙禒?*/
   transform: translateZ(0);
 }
 
@@ -9962,7 +9854,7 @@ h3 {
     rgba(255, 255, 255, 0.13);
   border-top: 1px solid rgba(255, 255, 255, 0.48);
   backdrop-filter: blur(24px) saturate(2.1) brightness(1.06);
-  /* 鎬ц兘锛氱Щ闄?posterMeta 鐨?backdrop-filter */
+  /* 閹嗗厴閿涙氨些闂?posterMeta 閻?backdrop-filter */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   background:
@@ -10026,7 +9918,7 @@ h3 {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
 }
 
-/* 鍏朵粬鐣墽灏忓崱涔熶娇鐢ㄥ彇鑹插彉閲?*/
+/* 閸忔湹绮悾顏勫⒔鐏忓繐宕辨稊鐔跺▏閻劌褰囬懝鎻掑綁闁?*/
 .app.theme-liquid .mikanWeeklyCard,
 .app.theme-liquid .mikanSearchResultCard,
 .app.theme-liquid .mikanShowItem,
@@ -10043,17 +9935,11 @@ h3 {
   box-shadow:
     0 18px 42px rgba(var(--cover-rgb), 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.82);
-  /* 鎬ц兘锛氱Щ闄?backdrop-filter */
+  /* 閹嗗厴閿涙氨些闂?backdrop-filter */
   transform: translateZ(0);
 }
 
-/* ---------- 5. Mikan / RSS / 鐣粍琛ㄩ〉闈細涓撻棬娑堥櫎澶х櫧鏉?---------- */
-.app.theme-liquid .scheduleHeader,
-.app.theme-liquid .mikanHomeHeader {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.13) 48%, rgba(128, 244, 255, 0.12)),
-    rgba(255, 255, 255, 0.08);
-}
+/* ---------- 5. Mikan / RSS / 閻ｎ亞绮嶇悰銊┿€夐棃顫窗娑撴捇妫☉鍫ユ珟婢堆呮閺?---------- */
 
 .app.theme-liquid :is(.headerCenter h1,
   .mikanHeroIntro h1,
@@ -10097,10 +9983,10 @@ h3 {
   -webkit-backdrop-filter: blur(16px) saturate(1.9) !important;
   transform: translateZ(0);
   position: relative;
-  /* 中 z-index 奠定基础 */
+  /* 涓?z-index 濂犲畾鍩虹 */
 }
 
-/* 閫氱敤淇锛氭彁鍗囨墍鏈夋恫鎬佷富棰樹笅娲诲姩琛岀殑灞傜骇 */
+/* 闁氨鏁ゆ穱顔碱槻閿涙碍褰侀崡鍥ㄥ閺堝鎭幀浣峰瘜妫版ü绗呭ú璇插З鐞涘瞼娈戠仦鍌滈獓 */
 .app.theme-liquid div:has(> .glassSelect.open),
 .app.theme-liquid .tableRow:has(.glassSelect.open),
 .app.theme-liquid .mikanResultRow:has(.glassSelect.open) {
@@ -10151,21 +10037,13 @@ h3 {
 }
 
 .app.theme-liquid .historyControls {
-  background:
-    linear-gradient(145deg,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 111, 176, 0.25) 45%,
-      rgba(255, 255, 255, 0.12) 100%),
-    rgba(255, 240, 250, 0.32) !important;
-  padding: 6px 12px;
-  border-radius: 24px;
-  border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
-  backdrop-filter: blur(54px) saturate(240%) !important;
-  -webkit-backdrop-filter: blur(54px) saturate(240%) !important;
-  box-shadow:
-    0 18px 42px rgba(255, 111, 176, 0.14),
-    0 8px 24px rgba(120, 43, 89, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  background: transparent !important;
+  padding: 0;
+  border-radius: 0;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
   display: flex;
   gap: 8px;
 }
@@ -10187,7 +10065,7 @@ h3 {
 }
 
 
-/* 闈㈡澘锛氬渾瑙?+ 鐜荤拑鑳屾櫙 + 鍐呭祵鍏夋辰 */
+/* 闂堛垺婢橀敍姘妇鐟?+ 閻滆崵鎷戦懗灞炬珯 + 閸愬懎绁甸崗澶嬭景 */
 .app.theme-liquid .settingsPage .panel {
   background:
     linear-gradient(145deg,
@@ -10207,7 +10085,7 @@ h3 {
   overflow: hidden;
 }
 
-/* 闈㈡澘鏍囬 */
+/* 闂堛垺婢橀弽鍥暯 */
 .app.theme-liquid .settingsPage .panel h2 {
   font-size: 16px;
   color: #3d1a2e;
@@ -10216,7 +10094,7 @@ h3 {
   border-bottom: 1px solid rgba(255, 79, 161, 0.12);
 }
 
-/* formGrid 鍜?webdavGrid锛氬彇娑堢嫭绔嬭儗鏅紝缁ф壙闈㈡澘 */
+/* formGrid 閸?webdavGrid閿涙艾褰囧☉鍫㈠缁斿鍎楅弲顖ょ礉缂佈勫闂堛垺婢?*/
 .app.theme-liquid .settingsPage .formGrid,
 .app.theme-liquid .settingsPage .webdavGrid,
 .app.theme-liquid .settingsPage .pathAddGrid {
@@ -10227,7 +10105,7 @@ h3 {
   -webkit-backdrop-filter: none;
 }
 
-/* label 琛岋細閫忔槑锛屼笉闇€瑕佺嫭绔嬭儗鏅?*/
+/* label 鐞涘矉绱伴柅蹇旀閿涘奔绗夐棁鈧憰浣哄缁斿鍎楅弲?*/
 .app.theme-liquid .settingsPage label {
   background: transparent;
   border: none;
@@ -10236,7 +10114,7 @@ h3 {
   font-weight: 500;
 }
 
-/* 杈撳叆妗嗭細娣＄矇鐜荤拑璐ㄦ劅 + 鍦嗚 */
+/* 鏉堟挸鍙嗗鍡窗濞ｏ紕鐭囬悳鑽ゆ嫅鐠愩劍鍔?+ 閸﹀棜顫?*/
 .app.theme-liquid .settingsPage input,
 .app.theme-liquid .settingsPage select,
 .app.theme-liquid .settingsPage textarea {
@@ -10266,12 +10144,12 @@ h3 {
     0 6px 16px rgba(119, 44, 90, 0.10);
 }
 
-/* 杈撳叆妗?placeholder */
+/* 鏉堟挸鍙嗗?placeholder */
 .app.theme-liquid .settingsPage input::placeholder {
   color: rgba(61, 26, 46, 0.36);
 }
 
-/* sourceRow锛氬渾瑙掑崱鐗囨牱寮?*/
+/* sourceRow閿涙艾娓剧憴鎺戝幢閻楀洦鐗卞?*/
 .app.theme-liquid .settingsPage .sourceRow {
   background:
     linear-gradient(135deg,
@@ -10300,7 +10178,7 @@ h3 {
   transform: translateY(-2px);
 }
 
-/* sourceNameInput锛氬渾瑙掞紝鏃犵櫧搴?*/
+/* sourceNameInput閿涙艾娓剧憴鎺炵礉閺冪姷娅ф惔?*/
 .app.theme-liquid .settingsPage .sourceNameInput {
   background: rgba(255, 255, 255, 0.32);
   border: 1px solid rgba(255, 255, 255, 0.38);
@@ -10314,12 +10192,12 @@ h3 {
   border-color: rgba(255, 79, 161, 0.30);
 }
 
-/* sourceRows 瀹瑰櫒锛氶棿璺?*/
+/* sourceRows 鐎圭懓娅掗敍姘舵？鐠?*/
 .app.theme-liquid .settingsPage .sourceRows {
   gap: 12px;
 }
 
-/* 鎸夐挳琛?*/
+/* 閹稿鎸崇悰?*/
 .app.theme-liquid .settingsPage .buttonRow {
   display: flex;
   gap: 10px;
@@ -10337,7 +10215,7 @@ h3 {
   flex: 1;
 }
 
-/* 鎻愮ず鏂囧瓧 */
+/* 閹绘劗銇氶弬鍥х摟 */
 .app.theme-liquid .settingsPage .hintText {
   color: rgba(61, 26, 46, 0.48);
   font-size: 12px;
@@ -10358,7 +10236,7 @@ h3 {
   accent-color: #ff4fa1;
 }
 
-/* notice 閫氱煡鏉?*/
+/* notice 闁氨鐓￠弶?*/
 .app.theme-liquid .settingsPage .notice {
   border-radius: 16px;
   background:
@@ -10375,47 +10253,45 @@ h3 {
 }
 
 .app.theme-liquid .scheduleHeader {
-  background:
-    linear-gradient(145deg,
-      rgba(255, 255, 255, 0.56) 0%,
-      rgba(255, 248, 252, 0.32) 42%,
-      rgba(255, 79, 161, 0.08) 68%,
-      rgba(128, 244, 255, 0.06) 100%),
-    rgba(255, 248, 252, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  box-shadow:
-    0 20px 56px rgba(119, 44, 90, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
   border-radius: 32px;
   margin-bottom: 32px;
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   position: sticky;
   top: 10px;
   z-index: 100;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
-.app.theme-liquid .headerTop {
+.app.theme-liquid .headerTopRow,
+.app.theme-liquid .headerBottomRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  position: relative;
+  gap: 24px;
 }
 
-.app.theme-liquid .headerBottom {
+.app.theme-liquid .headerLeftGroup {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 32px;
-  width: 100%;
-  position: relative;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* 褰撻《閮ㄦ湁涓嬫媺鑿滃崟鎵撳紑鏃讹紝鎻愬崌鏁翠釜椤堕儴琛岀殑灞傜骇 */
+.app.theme-liquid .headerRightGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* 瑜版捇銆婇柈銊︽箒娑撳濯洪懣婊冨礋閹垫挸绱戦弮璁圭礉閹绘劕宕岄弫缈犻嚋妞ゅ爼鍎寸悰宀€娈戠仦鍌滈獓 */
 .app.theme-liquid .headerTop:has(.glassSelect.open) {
   z-index: 100002;
 }
@@ -10456,22 +10332,13 @@ h3 {
 }
 
 .app.theme-liquid .scheduleTabs {
-  background:
-    linear-gradient(145deg,
-      rgba(255, 255, 255, 0.88) 0%,
-      rgba(255, 248, 252, 0.62) 34%,
-      rgba(255, 111, 176, 0.25) 58%,
-      rgba(240, 253, 255, 0.52) 100%),
-    rgba(255, 248, 252, 0.78) !important;
+  background: transparent !important;
   padding: 4px;
   border-radius: 24px;
-  border: 1.5px solid rgba(255, 255, 255, 0.72) !important;
-  backdrop-filter: blur(72px) saturate(280%) !important;
-  -webkit-backdrop-filter: blur(72px) saturate(280%) !important;
-  box-shadow:
-    0 24px 58px rgba(255, 111, 176, 0.22),
-    0 12px 32px rgba(120, 43, 89, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
 .app.theme-liquid .scheduleTab {
@@ -10484,7 +10351,44 @@ h3 {
 }
 
 
-/* ---------- 7. 瀵艰埅鏍忓拰鏍囬鏍忥細杈圭紭鏇村儚鍘氱幓鐠?---------- */
+/* ---------- 7. 鐎佃壈鍩呴弽蹇撴嫲閺嶅洭顣介弽蹇ョ窗鏉堝湱绱弴鏉戝剼閸樻氨骞撻悹?---------- */
+.theme-liquid .floatingRefreshBtn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 79, 161, 0.15)),
+    rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  color: #ff4fa1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 42px rgba(255, 79, 161, 0.22);
+  z-index: 999999;
+  transition: all 0.3s var(--motion-fluid);
+  cursor: pointer;
+}
+
+.theme-liquid .floatingRefreshBtn:hover {
+  transform: scale(1.1) translateY(-4px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 58px rgba(255, 79, 161, 0.32);
+}
+
+.theme-liquid .floatingRefreshBtn svg {
+  transition: transform 0.6s var(--motion-fluid);
+}
+
+.theme-liquid .floatingRefreshBtn:hover svg {
+  transform: rotate(180deg);
+}
+
 .app.theme-liquid .sidebar {
   border-radius: 32px;
   background:
@@ -10516,6 +10420,43 @@ h3 {
     0 18px 42px rgba(157, 50, 100, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
     inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.app.theme-liquid .sidebar.collapsed .navButton,
+.app.theme-liquid .sidebar.collapsed .navButton.active,
+.app.theme-liquid .sidebar.collapsed .sourceButton {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.52) !important;
+  color: rgba(55, 38, 47, 0.86) !important;
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08) !important;
+  box-shadow:
+    0 10px 24px rgba(128, 44, 90, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.26) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.app.theme-liquid .sidebar.collapsed .navButton.active {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 107, 157, 0.12) 52%, rgba(144, 245, 255, 0.15)),
+    rgba(255, 240, 250, 0.22) !important;
+  border-color: #ff6b9d !important;
+  color: #ff107b !important;
+  box-shadow: 
+    0 12px 30px rgba(255, 107, 157, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.app.theme-liquid .sidebar.collapsed .navButton:hover {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: #ffffff !important;
+  color: #ff107b !important;
+  box-shadow: 0 12px 30px rgba(128, 44, 90, 0.18) !important;
+  transform: translateY(-2px) !important;
 }
 
 .app.theme-liquid .titleBar {
@@ -10578,18 +10519,48 @@ h3 {
   font-weight: 800;
 }
 
-.app.theme-liquid .searchBar {
-  background: rgba(255, 255, 255, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 14px;
+.app.theme-liquid .globalSearchBox {
+  flex: 0 0 200px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.4s var(--motion-fluid);
+  height: 38px;
+}
+
+.app.theme-liquid .globalSearchBox:focus-within {
+  flex-basis: 300px;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 107, 157, 0.3);
+}
+
+.app.theme-liquid .globalSearchBox input {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 10px !important;
+  color: #2b1824;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.app.theme-liquid .globalSearchBox input::placeholder {
+  color: rgba(64, 39, 52, 0.4);
 }
 
 .app.theme-liquid .searchIcon {
-  color: var(--text-muted);
-  opacity: 0.8;
+  color: #ff007b;
+  opacity: 0.7;
 }
 
-/* ---------- 8. 鏂囧瓧鍙鎬?---------- */
+/* ---------- 8. 閺傚洤鐡ч崣顖濐嚢閹?---------- */
 .app.theme-liquid,
 .app.theme-liquid button,
 .app.theme-liquid input,
@@ -10627,7 +10598,7 @@ h3 {
   color: rgba(64, 39, 52, 0.66);
 }
 
-/* ---------- 9. 婊氬姩鏉?---------- */
+/* ---------- 9. 濠婃艾濮╅弶?---------- */
 .app.theme-liquid .main::-webkit-scrollbar-thumb,
 .app.theme-liquid .sidebar::-webkit-scrollbar-thumb,
 .app.theme-liquid .onlineRuleList::-webkit-scrollbar-thumb,
@@ -10638,7 +10609,7 @@ h3 {
   border-radius: 999px;
 }
 
-/* ---------- 10. 鎬ц兘涓庡吋瀹?---------- */
+/* ---------- 10. 閹嗗厴娑撳骸鍚嬬€?---------- */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
 
   .app.theme-liquid .toolbar,
@@ -10663,7 +10634,7 @@ h3 {
   }
 }
 
-/* 杩斿洖鎸夐挳锛氳兌鍥婃诞鍔ㄦ牱寮?*/
+/* 鏉╂柨娲栭幐澶愭尦閿涙俺鍏岄崶濠冭癁閸斻劍鐗卞?*/
 .app.theme-liquid .backBar {
   display: flex;
   align-items: center;
@@ -10706,7 +10677,7 @@ h3 {
   opacity: 0.8;
 }
 
-/* 锛侊紒锛?缁濆閫忔槑灏佹潃浠?锛侊紒锛?*/
+/* 閿涗緤绱掗敍?缂佹繂顕柅蹇旀鐏忎焦娼冩禒?閿涗緤绱掗敍?*/
 .app.theme-liquid div.backBar,
 .app.theme-liquid .detail>div.backBar {
   background: transparent;
@@ -10717,7 +10688,7 @@ h3 {
   box-shadow: none;
   width: auto;
   display: inline-flex;
-  /* 璁╁畠涓嶅啀妯法鍏ㄥ睆 */
+  /* 鐠佲晛鐣犳稉宥呭晙濡亣娉曢崗銊ョ潌 */
   margin: 5px 0 12px 20px;
 }
 
@@ -10725,7 +10696,7 @@ h3 {
   background: transparent;
   box-shadow: none;
   border: none;
-  /* 绉婚櫎骞叉壈 fixed 瀹氫綅鐨勫睘鎬?*/
+  /* 缁夊娅庨獮鍙夊 fixed 鐎规矮缍呴惃鍕潣閹?*/
   transform: none;
   contain: none;
   perspective: none;
@@ -10734,18 +10705,18 @@ h3 {
 .animeDetail {
   position: relative;
   z-index: 10;
-  /* 纭繚涓嶉檺鍒跺唴閮ㄥ脊绐?*/
+  /* 绾喕绻氭稉宥夋閸掕泛鍞撮柈銊ヨ剨缁?*/
   transform: none !important;
   contain: none !important;
 }
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   瑙嗗浘杩囨浮閲嶅锛氬共鎺夐粯璁ょ缉鏀撅紝鏀圭敤涓濇粦娓愬彉
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   鐟欏棗娴樻潻鍥ㄦ诞闁插秴顢栭敍姘叡閹哄绮拋銈囩級閺€鎾呯礉閺€鍦暏娑撴繃绮﹀〒鎰綁
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 
-/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?   瑙嗗浘杩囨浮閲嶅锛氳嫳闆勬捣鎶?(Hero) + 鍐呭娴幇
-   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
+/* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   鐟欏棗娴樻潻鍥ㄦ诞闁插秴顢栭敍姘冲闂嗗嫭鎹ｉ幎?(Hero) + 閸愬懎顔愬ù顔惧箛
+   閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 
-/* 1. 鍏ㄥ眬杩囨浮鍏滃簳锛氭瀬鍏跺揩閫熺殑娣″叆娣″嚭锛屾秷闄ゅ垏鎹㈢灛闂寸殑绌虹櫧鎰?*/
+/* 1. 閸忋劌鐪潻鍥ㄦ诞閸忔粌绨抽敍姘€崗璺烘彥闁喓娈戝ǎ鈥冲弳濞ｂ€冲毉閿涘本绉烽梽銈呭瀼閹广垻鐏涢梻瀵告畱缁岃櫣娅ч幇?*/
 ::view-transition-old(root) {
   animation: 0.2s ease-in-out both ios-fade-out;
 }
@@ -10774,7 +10745,7 @@ h3 {
   }
 }
 
-/* 2. 鑻遍泟娴锋姤鐨勬牳蹇冿細鏇村揩鐨勯€熷害涓庢洿绱у噾鐨勬洸绾?*/
+/* 2. 閼婚亶娉熷ù閿嬪Г閻ㄥ嫭鐗宠箛鍐跨窗閺囨潙鎻╅惃鍕偓鐔峰娑撳孩娲跨槐褍鍣鹃惃鍕锤缁?*/
 ::view-transition-group(shared-poster) {
   animation-duration: 0.45s !important;
   animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1) !important;
@@ -10782,7 +10753,7 @@ h3 {
   will-change: transform, opacity;
 }
 
-/* 淇濊瘉娴锋姤杞満鏃舵病鏈夐粦杈规垨鎷変几 */
+/* 娣囨繆鐦夊ù閿嬪Г鏉烆剙婧€閺冭埖鐥呴張澶愮拨鏉堣鍨ㄩ幏澶夊嚑 */
 ::view-transition-old(shared-poster),
 ::view-transition-new(shared-poster) {
   height: 100% !important;
@@ -10791,27 +10762,27 @@ h3 {
   background: transparent !important;
 }
 
-/* 璇︽儏椤电殑娴锋姤鍚嶅瓧蹇呴』鐒婃鍦?CSS 閲?*/
+/* 鐠囷附鍎忔い鐢垫畱濞撮攱濮ら崥宥呯摟韫囧懘銆忛悞濠冾劥閸?CSS 闁?*/
 .app.theme-liquid .detailHero .poster,
 .app.theme-liquid .detailHeroContent .poster {
   view-transition-name: shared-poster;
 }
 
-/* 寮哄埗甯冨眬鍖呭惈锛屾彁鍗囪繃娓℃€ц兘 */
+/* 瀵搫鍩楃敮鍐ㄧ湰閸栧懎鎯堥敍灞惧絹閸楀洩绻冨〒鈩冣偓褑鍏?*/
 .poster,
 .posterCard,
 .scheduleCard {
   isolation: isolate;
 }
 
-/* 3. 鍐呭娴幇锛氭捣鎶ュ揩椋炲埌鏃舵枃瀛楀啀鍑烘潵 */
+/* 3. 閸愬懎顔愬ù顔惧箛閿涙碍鎹ｉ幎銉ユ彥妞嬬偛鍩岄弮鑸垫瀮鐎涙鍟€閸戠儤娼?*/
 .app.theme-liquid .detailInfo,
 .app.theme-liquid .metadataGrid,
 .app.theme-liquid .detailSection,
 .app.theme-liquid .fileTable {
   animation: ios-content-float-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   animation-delay: 0.2s;
-  /* 鐣ュ井澧炲姞寤惰繜锛岀‘淇濅笉鎶?CPU */
+  /* 閻ｃ儱浜曟晶鐐插瀵ゆ儼绻滈敍宀€鈥樻穱婵呯瑝閹?CPU */
   will-change: transform, opacity;
 }
 
@@ -10827,13 +10798,13 @@ h3 {
   }
 }
 
-/* 褰撴鍦ㄨ浆鍦烘椂锛岄殣钘忎竴浜涢噸璐熻浇鏁堟灉 */
+/* 瑜版挻顒滈崷銊ㄦ祮閸︾儤妞傞敍宀勬閽樺繋绔存禍娑㈠櫢鐠愮喕娴囬弫鍫熺亯 */
 .view-transitioning .glass-panel {
   backdrop-filter: none !important;
-  /* 涓存椂绂佺敤楂樻柉妯＄硦锛岀渷鍑?GPU 璧勬簮缁欏姩鐢?*/
+  /* 娑撳瓨妞傜粋浣烘暏妤傛ɑ鏌夊Ο锛勭ˇ閿涘瞼娓烽崙?GPU 鐠у嫭绨紒娆忓З閻?*/
 }
 
-/* 4. 寮哄埗瑕嗙洊涔嬪墠鍙兘瀛樺湪鐨勭缉鏀剧被 */
+/* 4. 瀵搫鍩楃憰鍡欐磰娑斿澧犻崣顖濆厴鐎涙ê婀惃鍕級閺€鍓ц */
 .route-enter-card,
 .route-exit-card {
   transform: none !important;
@@ -10841,15 +10812,15 @@ h3 {
   animation: none !important;
 }
 
-/* 5. 璇︽儏椤垫暣浣撳鍣ㄩ€忓簳锛屼笉閬尅杩囨浮鍔ㄧ敾 */
+/* 5. 鐠囷附鍎忔い鍨殻娴ｆ挸顔愰崳銊┾偓蹇撶俺閿涘奔绗夐柆顔藉皡鏉╁洦娴崝銊ф暰 */
 .app.theme-liquid .detail {
   background: transparent;
   animation: none;
-  /* 绉婚櫎鏃х殑鏁翠綋鍔ㄧ敾锛屾敼鐢ㄥ唴閮ㄥ唴瀹规诞鐜?*/
+  /* 缁夊娅庨弮褏娈戦弫缈犵秼閸斻劎鏁鹃敍灞炬暭閻劌鍞撮柈銊ュ敶鐎硅璇為悳?*/
 }
 
-/* 鍏ㄥ眬鑳屾櫙淇濇寔绋冲畾娣″叆 */
-/* 4. 鏋佽嚧鎬ц兘淇濋殰锛氳浆鍦烘湡闂村仠鐢ㄦ槀璐电殑鑳屾櫙妯＄硦 */
+/* 閸忋劌鐪懗灞炬珯娣囨繃瀵旂粙鍐茬暰濞ｂ€冲弳 */
+/* 4. 閺嬩浇鍤ч幀褑鍏樻穱婵嬫閿涙俺娴嗛崷鐑樻埂闂傛潙浠犻悽銊︽鐠愮數娈戦懗灞炬珯濡紕纭?*/
 .view-transitioning .posterMeta,
 .view-transitioning .posterCard,
 .view-transitioning .scheduleCard,
@@ -10871,7 +10842,7 @@ h3 {
   transition: none !important;
 }
 
-/* 详情页区域全局样式 */
+/* 璇︽儏椤靛尯鍩熷叏灞€鏍峰紡 */
 .detailSection {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(24px);
@@ -10940,7 +10911,7 @@ h3 {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* 鏍囩骞垮満婊氬姩閿佸畾 - 绉婚櫎鏃х殑鍏ㄥ眬閿佸畾閫昏緫锛岄€氳繃 .app.page-tags 鏍囪瘑杩涜绮惧噯鎺у埗 */
+/* 閺嶅洨顒烽獮鍨簚濠婃艾濮╅柨浣哥暰 - 缁夊娅庨弮褏娈戦崗銊ョ湰闁夸礁鐣鹃柅鏄忕帆閿涘矂鈧俺绻?.app.page-tags 閺嶅洩鐦戞潻娑滎攽缁儳鍣幒褍鍩?*/
 .app.page-tags .main:has(.animeDetail) {
   overflow: hidden !important;
 }
@@ -10950,7 +10921,7 @@ h3 {
 }
 
 
-/* ---------- 8. Tags Page (鍔ㄧ敾鏍囩骞垮満) ---------- */
+/* ---------- 8. Tags Page (閸斻劎鏁鹃弽鍥╊劮楠炲灝婧€) ---------- */
 .tagsPage {
   padding: 32px 48px;
   min-height: 100vh;
@@ -10977,7 +10948,7 @@ h3 {
   color: #2b1824;
 }
 
-/* 鏍囩浜戠綉鏍?*/
+/* 閺嶅洨顒锋禍鎴犵秹閺?*/
 .tagCloudGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -11081,7 +11052,7 @@ h3 {
   z-index: 1;
 }
 
-/* 鏍囩缁撴灉鍒楄〃 */
+/* 閺嶅洨顒风紒鎾寸亯閸掓銆?*/
 .tagResultGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -11150,7 +11121,7 @@ h3 {
   color: #64748b;
 }
 
-/* 鏍囩璇︽儏椤典富棰樿壊 (Indigo/Purple) */
+/* 閺嶅洨顒风拠锔藉剰妞ゅ吀瀵屾０妯垮 (Indigo/Purple) */
 .animeDetail.tagsTheme {
   --accent-rgb: 99, 102, 241;
   --accent-glow: rgba(99, 102, 241, 0.2);
@@ -11248,7 +11219,7 @@ h3 {
   align-items: center !important;
   justify-content: center !important;
   z-index: 999999 !important;
-  /* 鏋侀珮灞傜骇 */
+  /* 閺嬩線鐝仦鍌滈獓 */
   padding: 40px !important;
   animation: ios-fade-in 0.3s ease-out !important;
 }
@@ -11363,11 +11334,11 @@ h3 {
 .detail.cover-tinted {
   --accent-dynamic: rgb(var(--cover-rgb));
   --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
-  /* 增加静谧感 */
+  /* 澧炲姞闈欒哀鎰?*/
   --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
   --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
 
-  /* 全页面微调色，让背景与封面更统一 */
+  /* 鍏ㄩ〉闈㈠井璋冭壊锛岃鑳屾櫙涓庡皝闈㈡洿缁熶竴 */
   background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
 }
 
@@ -11539,13 +11510,13 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   SCROLL PERFORMANCE — 已按用户要求关闭动态优化以避免闪烁
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SCROLL PERFORMANCE 鈥?宸叉寜鐢ㄦ埛瑕佹眰鍏抽棴鍔ㄦ€佷紭鍖栦互閬垮厤闂儊
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-/* ═══════════════════════════════════════════════════════════
-   NESTED GLASS DESIGN — 播放资源：大玻璃叠小玻璃重构
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   NESTED GLASS DESIGN 鈥?鎾斁璧勬簮锛氬ぇ鐜荤拑鍙犲皬鐜荤拑閲嶆瀯
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11566,7 +11537,7 @@ h3 {
   overflow: visible;
 }
 
-/* 消除内层矩形 */
+/* 娑堥櫎鍐呭眰鐭╁舰 */
 .app.theme-liquid .torrentTable,
 .app.theme-liquid .mikanDownloadLayout {
   background: transparent;
@@ -11632,9 +11603,9 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   LIQUID GLASS V2 — 极致通透、有机圆润重构
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS V2 鈥?鏋佽嚧閫氶€忋€佹湁鏈哄渾娑﹂噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11644,14 +11615,14 @@ h3 {
   -webkit-backdrop-filter: blur(40px) saturate(2.5) brightness(1.1);
   border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-radius: 40px;
-  /* 极大圆角，更圆润 */
+  /* 鏋佸ぇ鍦嗚锛屾洿鍦嗘鼎 */
   padding: 32px;
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.06),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
   margin-bottom: 35px;
   border-top-color: rgba(255, 255, 255, 0.6);
-  /* 顶部高光线 */
+  /* 椤堕儴楂樺厜绾?*/
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -11663,7 +11634,7 @@ h3 {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
-  /* 极大圆角 */
+  /* 鏋佸ぇ鍦嗚 */
   padding: 15px;
   box-shadow: none;
   transition: all 0.5s var(--motion-fluid);
@@ -11702,11 +11673,11 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   LIQUID GLASS V3 — 剥离冗余图层，实现极致透明
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS V3 鈥?鍓ョ鍐椾綑鍥惧眰锛屽疄鐜版瀬鑷撮€忔槑
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-/* 1. 彻底杀掉所有可能导致堆叠变白的父级背景 */
+/* 1. 褰诲簳鏉€鎺夋墍鏈夊彲鑳藉鑷村爢鍙犲彉鐧界殑鐖剁骇鑳屾櫙 */
 .app.theme-liquid .resourceContainer,
 .app.theme-liquid .mikanDownloadLayout,
 .app.theme-liquid .mikanResourceMain,
@@ -11718,11 +11689,11 @@ h3 {
   box-shadow: none;
 }
 
-/* 2. 极致透明的单层玻璃底座 */
+/* 2. 鏋佽嚧閫忔槑鐨勫崟灞傜幓鐠冨簳搴?*/
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
   background: rgba(255, 255, 255, 0.03);
-  /* 极低浓度，几乎透明 */
+  /* 鏋佷綆娴撳害锛屽嚑涔庨€忔槑 */
   background-color: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(40px) saturate(2.5);
   -webkit-backdrop-filter: blur(40px) saturate(2.5);
@@ -11733,7 +11704,7 @@ h3 {
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
-/* 3. 内层元素也要彻底通透，去掉任何实色残留 */
+/* 3. 鍐呭眰鍏冪礌涔熻褰诲簳閫氶€忥紝鍘绘帀浠讳綍瀹炶壊娈嬬暀 */
 .app.theme-liquid .onlineEpBtn,
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
@@ -11753,9 +11724,9 @@ h3 {
 
 
 
-/* ═══════════════════════════════════════════════════════════
-   LIQUID GLASS FINAL — 极致液态、圆润、透明
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS FINAL 鈥?鏋佽嚧娑叉€併€佸渾娑︺€侀€忔槑
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11764,7 +11735,7 @@ h3 {
   -webkit-backdrop-filter: blur(50px) saturate(3) brightness(0.9);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 60px;
-  /* 极大圆角 */
+  /* 鏋佸ぇ鍦嗚 */
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
   padding: 40px;
 }
@@ -11779,14 +11750,14 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   VISIBILITY & LAYOUT OPTIMIZATION — 文字增强与布局扩宽
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   VISIBILITY & LAYOUT OPTIMIZATION 鈥?鏂囧瓧澧炲己涓庡竷灞€鎵╁
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceHeading h3,
 .app.theme-liquid .mikanGroupSidebar h4 {
   color: #1e1b4b;
-  /* 极深蓝色，提高对比度 */
+  /* 鏋佹繁钃濊壊锛屾彁楂樺姣斿害 */
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
@@ -11797,7 +11768,7 @@ h3 {
   font-weight: 600;
 }
 
-/* 资源表列宽分配 - 彻底解决重叠 */
+/* 璧勬簮琛ㄥ垪瀹藉垎閰?- 褰诲簳瑙ｅ喅閲嶅彔 */
 .app.theme-liquid .colTitle {
   flex: 1;
   min-width: 0;
@@ -11827,25 +11798,25 @@ h3 {
   gap: 8px;
 }
 
-/* 扩宽整体内边距，利用更多空间 */
+/* 鎵╁鏁翠綋鍐呰竟璺濓紝鍒╃敤鏇村绌洪棿 */
 .app.theme-liquid .resourceSubSection {
   padding: 24px 20px;
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   LAYOUT CORRECTION — 恢复侧边栏并极致扩宽数据区
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LAYOUT CORRECTION 鈥?鎭㈠渚ц竟鏍忓苟鏋佽嚧鎵╁鏁版嵁鍖?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-/* 2. 扩宽详情页模态框整体宽度，给内部腾空间 */
+/* 2. 鎵╁璇︽儏椤垫ā鎬佹鏁翠綋瀹藉害锛岀粰鍐呴儴鑵剧┖闂?*/
 .app.theme-liquid .detailModalCard {
   width: 95vw;
-  /* 占据屏幕 95% 宽度 */
+  /* 鍗犳嵁灞忓箷 95% 瀹藉害 */
   max-width: 1400px;
-  /* 最大宽度上调 */
+  /* 鏈€澶у搴︿笂璋?*/
 }
 
-/* 3. 强制数据面板占满宽度 */
+/* 3. 寮哄埗鏁版嵁闈㈡澘鍗犳弧瀹藉害 */
 .app.theme-liquid .resourceContainer,
 .app.theme-liquid .resourceSubSection {
   width: 100%;
@@ -11853,30 +11824,30 @@ h3 {
   box-sizing: border-box;
 }
 
-/* 4. 优化列分配，不再强制截断番组名 */
+/* 4. 浼樺寲鍒楀垎閰嶏紝涓嶅啀寮哄埗鎴柇鐣粍鍚?*/
 .app.theme-liquid .colTitle {
   white-space: normal;
-  /* 允许换行，或者给足够宽度 */
+  /* 鍏佽鎹㈣锛屾垨鑰呯粰瓒冲瀹藉害 */
   line-height: 1.4;
   padding-right: 20px;
 }
 
 .app.theme-liquid .torrentRow {
   align-items: flex-start;
-  /* 多行文字时对齐顶部 */
+  /* 澶氳鏂囧瓧鏃跺榻愰《閮?*/
   padding: 16px;
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   SIDEBAR RESTORATION — 锁定左侧宽度，防止挤压
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SIDEBAR RESTORATION 鈥?閿佸畾宸︿晶瀹藉害锛岄槻姝㈡尋鍘?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .mikanGroupSidebar {
   width: 240px;
-  /* 大幅加宽 */
+  /* 澶у箙鍔犲 */
   flex-shrink: 0;
-  /* 核心：禁止被挤压 */
+  /* 鏍稿績锛氱姝㈣鎸ゅ帇 */
   padding-right: 20px;
   border-right: 1.5px solid rgba(255, 255, 255, 0.15);
 }
@@ -11884,7 +11855,7 @@ h3 {
 .app.theme-liquid .mikanGroupBtn {
   padding: 10px 16px;
   font-size: 13px;
-  /* 恢复字号 */
+  /* 鎭㈠瀛楀彿 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -11894,14 +11865,14 @@ h3 {
 
 .app.theme-liquid .mikanDownloadLayout {
   gap: 32px;
-  /* 增加左右间距 */
+  /* 澧炲姞宸﹀彸闂磋窛 */
   align-items: stretch;
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   COMPACT DOWNLOAD BUTTONS — 精致化下载按钮
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   COMPACT DOWNLOAD BUTTONS 鈥?绮捐嚧鍖栦笅杞芥寜閽?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .colActions {
   width: 140px;
@@ -11922,7 +11893,7 @@ h3 {
   color: #db2777;
   transition: all 0.3s;
   font-size: 10px;
-  /* 针对文字按钮 */
+  /* 閽堝鏂囧瓧鎸夐挳 */
   font-weight: 800;
   cursor: pointer;
 }
@@ -11934,7 +11905,7 @@ h3 {
   box-shadow: 0 4px 10px rgba(219, 39, 119, 0.2);
 }
 
-/* 专门针对 123 和 Pik 按钮的宽度微调 */
+/* 涓撻棬閽堝 123 鍜?Pik 鎸夐挳鐨勫搴﹀井璋?*/
 .app.theme-liquid .downloadIconBtn.pikpak {
   width: auto;
   min-width: 28px;
@@ -11942,9 +11913,9 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   COMPACT ROWS & ANIMATION FIX — 资源行瘦身与动画防遮挡
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   COMPACT ROWS & ANIMATION FIX 鈥?璧勬簮琛岀槮韬笌鍔ㄧ敾闃查伄鎸?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .torrentTable,
 .app.theme-liquid .mikanResourceMain,
@@ -11955,20 +11926,20 @@ h3 {
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
   padding: 8px 16px;
-  /* 深度瘦身，减少上下间距 */
+  /* 娣卞害鐦﹁韩锛屽噺灏戜笂涓嬮棿璺?*/
   min-height: 0;
   margin-bottom: 6px;
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* 调整上浮幅度，让它更轻盈但不至于撞墙 */
+/* 璋冩暣涓婃诞骞呭害锛岃瀹冩洿杞荤泩浣嗕笉鑷充簬鎾炲 */
 .app.theme-liquid .torrentRow:hover,
 .app.theme-liquid .fileRow:hover {
   transform: translateY(-2px) scale(1.005);
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* 给第一行留出起飞空间 */
+/* 缁欑涓€琛岀暀鍑鸿捣椋炵┖闂?*/
 .app.theme-liquid .torrentTable {
   padding-top: 5px;
 }
@@ -11990,15 +11961,15 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   PERFORMANCE & CLARITY — 移除行内模糊，解决长列表发白问题
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   PERFORMANCE & CLARITY 鈥?绉婚櫎琛屽唴妯＄硦锛岃В鍐抽暱鍒楄〃鍙戠櫧闂
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .onlineEpBtn,
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
   backdrop-filter: none;
-  /* 彻底移除行内模糊，防止叠加发白 */
+  /* 褰诲簳绉婚櫎琛屽唴妯＄硦锛岄槻姝㈠彔鍔犲彂鐧?*/
   -webkit-backdrop-filter: none;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -12048,33 +12019,33 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   SCROLL & HEIGHT FIX — 强制限高滚动，解决长列表发白与撑爆页面
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SCROLL & HEIGHT FIX 鈥?寮哄埗闄愰珮婊氬姩锛岃В鍐抽暱鍒楄〃鍙戠櫧涓庢拺鐖嗛〉闈?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-/* 1. 限制资源主区域高度，开启内部滚动 */
+/* 1. 闄愬埗璧勬簮涓诲尯鍩熼珮搴︼紝寮€鍚唴閮ㄦ粴鍔?*/
 .app.theme-liquid .mikanDownloadLayout {
   height: 650px;
-  /* 固定高度 */
+  /* 鍥哄畾楂樺害 */
   overflow: hidden;
 }
 
 .app.theme-liquid .mikanResourceMain {
   height: 100%;
   overflow-y: auto;
-  /* 开启滚动条 */
+  /* 寮€鍚粴鍔ㄦ潯 */
   padding-right: 10px;
   border-radius: 24px;
   margin-left: 10px;
 }
 
-/* 2. 这里的背景必须彻底透明，否则滚动时会发白 */
+/* 2. 杩欓噷鐨勮儗鏅繀椤诲交搴曢€忔槑锛屽惁鍒欐粴鍔ㄦ椂浼氬彂鐧?*/
 .app.theme-liquid .mikanResourceMain,
 .app.theme-liquid .torrentTable {
   background: transparent;
 }
 
-/* 3. 美化滚动条，使其符合液态风格 */
+/* 3. 缇庡寲婊氬姩鏉★紝浣垮叾绗﹀悎娑叉€侀鏍?*/
 .app.theme-liquid .mikanResourceMain::-webkit-scrollbar {
   width: 4px;
 }
@@ -12098,13 +12069,13 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   STICKY HEADER — 锁定表头，提升滚动体验
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   STICKY HEADER 鈥?閿佸畾琛ㄥご锛屾彁鍗囨粴鍔ㄤ綋楠?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .torrentTable {
   border-radius: 24px;
-  /* 必须移除 overflow: hidden 否则 sticky 会失效 */
+  /* 蹇呴』绉婚櫎 overflow: hidden 鍚﹀垯 sticky 浼氬け鏁?*/
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -12123,26 +12094,26 @@ h3 {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   DETAIL PAGE COLOR PICKING — 详情页极致取色重构
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   DETAIL PAGE COLOR PICKING 鈥?璇︽儏椤垫瀬鑷村彇鑹查噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-/* ═══════════════════════════════════════════════════════════
-   DETAIL PAGE COLOR PICKING — 详情页极致取色重构
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   DETAIL PAGE COLOR PICKING 鈥?璇︽儏椤垫瀬鑷村彇鑹查噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .detail.cover-tinted {
   --accent-dynamic: rgb(var(--cover-rgb));
   --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
-  /* 增加静谧感 */
+  /* 澧炲姞闈欒哀鎰?*/
   --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
   --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
 
-  /* 全页面微调色，让背景与封面更统一 */
+  /* 鍏ㄩ〉闈㈠井璋冭壊锛岃鑳屾櫙涓庡皝闈㈡洿缁熶竴 */
   background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
 }
 
-/* 动画：动态毛玻璃光晕漂移 - 增加幅度和速度 */
+/* 鍔ㄧ敾锛氬姩鎬佹瘺鐜荤拑鍏夋檿婕傜Щ - 澧炲姞骞呭害鍜岄€熷害 */
 @keyframes fluidGlow {
   0% {
     background-position: 0% 50%;
@@ -12165,7 +12136,7 @@ h3 {
   }
 }
 
-/* 顶部英雄区域背景取色融合 - 降低顶部的重色并加入动态效果 */
+/* 椤堕儴鑻遍泟鍖哄煙鑳屾櫙鍙栬壊铻嶅悎 - 闄嶄綆椤堕儴鐨勯噸鑹插苟鍔犲叆鍔ㄦ€佹晥鏋?*/
 .detail.cover-tinted .detailHeroSection {
   background:
     radial-gradient(circle at 20% 20%, rgba(var(--cover-rgb), 0.15) 0%, transparent 50%),
@@ -12182,10 +12153,10 @@ h3 {
   text-shadow: 0 4px 12px rgba(var(--cover-rgb), 0.1);
 }
 
-/* 统一详情页信息列表文字颜色，避免“随机”感 */
+/* 缁熶竴璇︽儏椤典俊鎭垪琛ㄦ枃瀛楅鑹诧紝閬垮厤鈥滈殢鏈衡€濇劅 */
 .detail.cover-tinted .infoList dt {
   color: rgba(var(--cover-rgb), 0.7);
-  /* label 稍微带一点取色但更暗 */
+  /* label 绋嶅井甯︿竴鐐瑰彇鑹蹭絾鏇存殫 */
   font-weight: 600;
 }
 
@@ -12194,7 +12165,7 @@ h3 {
   font-weight: 700;
 }
 
-/* 玻璃容器取色：增强下方容器颜色的比重，确保极高优先级 */
+/* 鐜荤拑瀹瑰櫒鍙栬壊锛氬寮轰笅鏂瑰鍣ㄩ鑹茬殑姣旈噸锛岀‘淇濇瀬楂樹紭鍏堢骇 */
 .app.theme-liquid .detail.cover-tinted .panel,
 .app.theme-liquid .detail.cover-tinted .detailSection,
 .app.theme-liquid .detail.cover-tinted .ratingDistribution,
@@ -12213,11 +12184,11 @@ h3 {
     0 24px 64px rgba(var(--cover-rgb), 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
   backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
-  /* 增加亮度提升通透感 */
+  /* 澧炲姞浜害鎻愬崌閫氶€忔劅 */
   -webkit-backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
 }
 
-/* 覆盖并加强高光层，使其产生“发光”的质感 */
+/* 瑕嗙洊骞跺姞寮洪珮鍏夊眰锛屼娇鍏朵骇鐢熲€滃彂鍏夆€濈殑璐ㄦ劅 */
 .app.theme-liquid .detail.cover-tinted .panel::before,
 .app.theme-liquid .detail.cover-tinted .detailSection::before,
 .app.theme-liquid .detail.cover-tinted .fileTable::before,
@@ -12228,7 +12199,7 @@ h3 {
   opacity: 0.7 !important;
 }
 
-/* 针对文件列表行的取色 — 与 posterCard 统一的玻璃质感 + 封面颜色融合 */
+/* 閽堝鏂囦欢鍒楄〃琛岀殑鍙栬壊 鈥?涓?posterCard 缁熶竴鐨勭幓鐠冭川鎰?+ 灏侀潰棰滆壊铻嶅悎 */
 .detail.cover-tinted .tableRow {
   background: linear-gradient(145deg, rgba(var(--cover-rgb), 0.14), rgba(var(--cover-rgb), 0.06)), rgba(255, 244, 249, 0.38) !important;
   border: 1px solid rgba(var(--cover-rgb), 0.14) !important;
@@ -12282,7 +12253,7 @@ h3 {
   box-shadow: 0 14px 34px rgba(var(--cover-rgb), 0.16), 0 2px 3px rgba(255, 255, 255, 0.7) inset !important;
 }
 
-/* 增强：角色卡片等小容器也可以稍微带一点色 */
+/* 澧炲己锛氳鑹插崱鐗囩瓑灏忓鍣ㄤ篃鍙互绋嶅井甯︿竴鐐硅壊 */
 .detail.cover-tinted .characterCard,
 .detail.cover-tinted .characterItem,
 .detail.cover-tinted .staffCard,
@@ -12304,7 +12275,7 @@ h3 {
   box-shadow: 0 16px 32px rgba(var(--cover-rgb), 0.12) !important;
 }
 
-/* 展开按钮取色 */
+/* 灞曞紑鎸夐挳鍙栬壊 */
 .detail.cover-tinted .expandStaffBtn {
   background: rgba(var(--cover-rgb), 0.06) !important;
   border: 1px solid rgba(var(--cover-rgb), 0.18) !important;
@@ -12318,7 +12289,7 @@ h3 {
   box-shadow: 0 8px 20px rgba(var(--cover-rgb), 0.1) !important;
 }
 
-/* 增加底层稳定背景，防止远程图加载时的空白 */
+/* 澧炲姞搴曞眰绋冲畾鑳屾櫙锛岄槻姝㈣繙绋嬪浘鍔犺浇鏃剁殑绌虹櫧 */
 .detailHeroBg::before {
   content: "";
   position: absolute;
@@ -12328,7 +12299,7 @@ h3 {
   z-index: -1;
 }
 
-/* 英雄区域背景毛玻璃增强 - 并加入动态效果 */
+/* 鑻遍泟鍖哄煙鑳屾櫙姣涚幓鐠冨寮?- 骞跺姞鍏ュ姩鎬佹晥鏋?*/
 .detail.cover-tinted .detailHeroBg::after {
   content: "";
   position: absolute;
@@ -12337,7 +12308,7 @@ h3 {
   z-index: 1;
 }
 
-/* 标题装饰线取色 - 增加外发光 */
+/* 鏍囬瑁呴グ绾垮彇鑹?- 澧炲姞澶栧彂鍏?*/
 .detail.cover-tinted .detailSection h2::before,
 .detail.cover-tinted section h2::before {
   background: var(--accent-dynamic) !important;
@@ -12345,7 +12316,7 @@ h3 {
   width: 5px !important;
 }
 
-/* 评分数字取色 - 极高权重 */
+/* 璇勫垎鏁板瓧鍙栬壊 - 鏋侀珮鏉冮噸 */
 .detail.cover-tinted .ratingScoreValue {
   color: var(--accent-dynamic) !important;
   font-size: 42px !important;
@@ -12355,7 +12326,7 @@ h3 {
   line-height: 1 !important;
 }
 
-/* 评分分布图表取色 - 更加灵动 */
+/* 璇勫垎鍒嗗竷鍥捐〃鍙栬壊 - 鏇村姞鐏靛姩 */
 .detail.cover-tinted .chartBar {
   background: var(--accent-dynamic) !important;
   opacity: 1 !important;
@@ -12375,7 +12346,7 @@ h3 {
   filter: brightness(0.9) saturate(0.8);
 }
 
-/* 主要按钮取色 - 呼吸感 */
+/* 涓昏鎸夐挳鍙栬壊 - 鍛煎惛鎰?*/
 .detail.cover-tinted .primaryButton {
   background: var(--accent-dynamic) !important;
   color: white !important;
@@ -12391,7 +12362,7 @@ h3 {
   box-shadow: 0 18px 45px var(--accent-dynamic-glow) !important;
 }
 
-/* 标签云取色 - 彻底覆盖旧样式 */
+/* 鏍囩浜戝彇鑹?- 褰诲簳瑕嗙洊鏃ф牱寮?*/
 .detail.cover-tinted .tagCloud span,
 .detail.cover-tinted .metadataPanel.tagsPanel .tagCloud span {
   background: var(--accent-dynamic-soft) !important;
@@ -12404,18 +12375,18 @@ h3 {
   border-radius: 16px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  /* 极致流畅的动力学过渡 */
+  /* 鏋佽嚧娴佺晠鐨勫姩鍔涘杩囨浮 */
 }
 
 .detail.cover-tinted .tagCloud span:hover {
   background: var(--accent-dynamic) !important;
   color: white !important;
   transform: translateY(-5px);
-  /* 纯垂直位移更显线性 */
+  /* 绾瀭鐩翠綅绉绘洿鏄剧嚎鎬?*/
   box-shadow: 0 12px 32px var(--accent-dynamic-glow) !important;
 }
 
-/* 信息列表数值取色 */
+/* 淇℃伅鍒楄〃鏁板€煎彇鑹?*/
 .detail.cover-tinted .detailMetaItem span,
 .detail.cover-tinted .infoList dd,
 .detail.cover-tinted .chartFoot b,
@@ -12425,7 +12396,7 @@ h3 {
   text-shadow: 0 0 1px var(--accent-dynamic-glow);
 }
 
-/* 播放按钮取色 */
+/* 鎾斁鎸夐挳鍙栬壊 */
 .detail.cover-tinted .playButton {
   background: var(--accent-dynamic-soft) !important;
   color: var(--accent-dynamic) !important;
@@ -12439,7 +12410,7 @@ h3 {
   box-shadow: 0 8px 20px var(--accent-dynamic-glow) !important;
 }
 
-/* 返回按钮取色 */
+/* 杩斿洖鎸夐挳鍙栬壊 */
 .detail.cover-tinted .backButtonGlass {
   color: var(--accent-dynamic) !important;
   background: var(--accent-dynamic-soft) !important;
@@ -12452,13 +12423,13 @@ h3 {
   color: white !important;
 }
 
-/* 底部脚注取色 */
+/* 搴曢儴鑴氭敞鍙栬壊 */
 .detail.cover-tinted .detailFoot span {
   color: var(--accent-dynamic-muted) !important;
   opacity: 0.8;
 }
 
-/* ����ҳ���Ż���ȥ�����ذ�ť��ı����� */
+/* 锟斤拷锟斤拷页锟斤拷锟脚伙拷锟斤拷去锟斤拷锟斤拷锟截帮拷钮锟斤拷谋锟斤拷锟斤拷锟?*/
 .app.theme-liquid .scrapePage .backBar {
   background: transparent !important;
   border-bottom: none !important;
@@ -12493,9 +12464,9 @@ h3 {
 }
 
 /* ========================================================================= */
-/* 🚀 PERFORMANCE OPTIMIZATION PATCH - 强制 GPU 硬件加速层，解决卡顿与掉帧 */
+/* 馃殌 PERFORMANCE OPTIMIZATION PATCH - 寮哄埗 GPU 纭欢鍔犻€熷眰锛岃В鍐冲崱椤夸笌鎺夊抚 */
 /* ========================================================================= */
-/* 为包含大面积毛玻璃/阴影/取色的核心组件独立创建合成层 (Composite Layer) */
+/* 涓哄寘鍚ぇ闈㈢Н姣涚幓鐠?闃村奖/鍙栬壊鐨勬牳蹇冪粍浠剁嫭绔嬪垱寤哄悎鎴愬眰 (Composite Layer) */
 .posterCard,
 .mikanWeeklyCard,
 .mikanSearchResultCard,
@@ -12515,26 +12486,26 @@ h3 {
 .toolbar,
 .statsPage .statTile,
 .scrapeListPage .issueBigCard {
-  /* 强制浏览器分配独立的 GPU 层，避免滚动/动画时的全页面重绘 */
+  /* 寮哄埗娴忚鍣ㄥ垎閰嶇嫭绔嬬殑 GPU 灞傦紝閬垮厤婊氬姩/鍔ㄧ敾鏃剁殑鍏ㄩ〉闈㈤噸缁?*/
   transform: translateZ(0);
   backface-visibility: hidden;
-  /* 提示浏览器预先分配资源 */
+  /* 鎻愮ず娴忚鍣ㄩ鍏堝垎閰嶈祫婧?*/
   will-change: transform;
 }
 
-/* 对长列表元素启用 content-visibility (视口剔除) 极大幅度提高长列表滚动帧率 */
-/* 注意：为了防止滚动条跳动，这里必须配合 contain-intrinsic-size。
-   如果没有精确高度，仅在最容易卡顿的地方开启。 */
+/* 瀵归暱鍒楄〃鍏冪礌鍚敤 content-visibility (瑙嗗彛鍓旈櫎) 鏋佸ぇ骞呭害鎻愰珮闀垮垪琛ㄦ粴鍔ㄥ抚鐜?*/
+/* 娉ㄦ剰锛氫负浜嗛槻姝㈡粴鍔ㄦ潯璺冲姩锛岃繖閲屽繀椤婚厤鍚?contain-intrinsic-size銆?
+   濡傛灉娌℃湁绮剧‘楂樺害锛屼粎鍦ㄦ渶瀹规槗鍗￠】鐨勫湴鏂瑰紑鍚€?*/
 .mediaGrid .posterCard,
 .tagResultGrid .animeCard,
 .candidateList .candidate,
 .mikanShowList .mikanShowItem {
   content-visibility: auto;
-  /* 预估一个最小占位高度，防止视口外元素剔除时滚动条剧烈跳动 */
+  /* 棰勪及涓€涓渶灏忓崰浣嶉珮搴︼紝闃叉瑙嗗彛澶栧厓绱犲墧闄ゆ椂婊氬姩鏉″墽鐑堣烦鍔?*/
   contain-intrinsic-size: auto 300px;
 }
 
-/* Modal 窄滚动条 */
+/* Modal 绐勬粴鍔ㄦ潯 */
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -12544,7 +12515,7 @@ h3 {
   -ms-overflow-style: none;
 }
 
-/* --- 本地文件容器：与上方 panel 一致的玻璃背景 --- */
+/* --- 鏈湴鏂囦欢瀹瑰櫒锛氫笌涓婃柟 panel 涓€鑷寸殑鐜荤拑鑳屾櫙 --- */
 .app.theme-liquid .detail.cover-tinted .fileTable {
   margin-top: 22px !important;
   overflow: visible !important;
@@ -12561,7 +12532,7 @@ h3 {
   border: none !important;
 }
 
-/* --- 文件夹折叠/展开按钮 --- */
+/* --- 鏂囦欢澶规姌鍙?灞曞紑鎸夐挳 --- */
 .groupHeader {
   cursor: pointer;
   user-select: none;
@@ -12610,7 +12581,7 @@ h3 {
   background: rgba(var(--cover-rgb), 0.2);
 }
 
-/* 文件组折叠动画 */
+/* 鏂囦欢缁勬姌鍙犲姩鐢?*/
 .fileGroupFiles {
   transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
@@ -12627,7 +12598,7 @@ h3 {
   overflow: visible;
 }
 
-/* 表头栏取色 — 与顶部卡片统一的玻璃质感 */
+/* 琛ㄥご鏍忓彇鑹?鈥?涓庨《閮ㄥ崱鐗囩粺涓€鐨勭幓鐠冭川鎰?*/
 .detail.cover-tinted .tableHead {
   background: rgba(var(--cover-rgb), 0.04) !important;
   border: 1px solid rgba(var(--cover-rgb), 0.1) !important;
@@ -12640,10 +12611,10 @@ h3 {
 }
 
 /* ============================================================
-   FINAL OVERRIDES - 确保在任何全局规则之后生效
+   FINAL OVERRIDES - 纭繚鍦ㄤ换浣曞叏灞€瑙勫垯涔嬪悗鐢熸晥
    ============================================================ */
 
-/* 1. 搜索框去白：强制输入框透明，移除任何可能叠加的白色背景 */
+/* 1. 鎼滅储妗嗗幓鐧斤細寮哄埗杈撳叆妗嗛€忔槑锛岀Щ闄や换浣曞彲鑳藉彔鍔犵殑鐧借壊鑳屾櫙 */
 .app.theme-liquid .searchBox input {
   background: transparent !important;
   backdrop-filter: none !important;
@@ -12661,26 +12632,6 @@ h3 {
   -webkit-backdrop-filter: none !important;
 }
 
-/* 2. 下拉菜单取色：与顶部工具栏完全一致的玻璃质感 */
-.app.theme-liquid .glassSelectMenu {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)),
-    rgba(255, 255, 255, 0.14) !important;
-  border-color: rgba(255, 255, 255, 0.62) !important;
-  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-  box-shadow:
-    0 22px 52px rgba(120, 52, 94, 0.15),
-    0 1px 0 rgba(255, 255, 255, 0.86) inset,
-    0 -18px 42px rgba(255, 99, 170, 0.055) inset !important;
-}
-
-/* 3. 移除下拉菜单中活跃选项的纯色背景，改为磨砂高亮 */
-.app.theme-liquid .glassSelectMenu button.active {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.32), rgba(255, 255, 255, 0.18)) !important;
-  color: #ff007b !important;
-  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.12) !important;
-}
 
 /* EMERGENCY OVERRIDE FOR SEARCH BOX WHITENESS */
 .app.theme-liquid div.searchBox input {
@@ -12692,23 +12643,11 @@ h3 {
   outline: none !important;
   appearance: none !important;
 }
-.app.theme-liquid .glassSelectMenu {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)), rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-}
-
-/* PORTALED MENU FIX */
-.glassSelectMenu.theme-liquid {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.16) 42%, rgba(126, 244, 255, 0.12) 76%, rgba(255, 95, 162, 0.12)), rgba(255, 255, 255, 0.14) !important;
-  border: 1px solid rgba(255, 255, 255, 0.32) !important;
-  backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-  -webkit-backdrop-filter: blur(48px) saturate(210%) brightness(1.05) !important;
-  box-shadow: 0 22px 52px rgba(120, 52, 94, 0.15), 0 1px 0 rgba(255, 255, 255, 0.86) inset !important;
-}
 
 /* AGGRESSIVE SEARCH BOX FIX */
-.searchBox input, .searchBox input:focus, .searchBox input:active {
+.searchBox input,
+.searchBox input:focus,
+.searchBox input:active {
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -12716,36 +12655,68 @@ h3 {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
-.glassSelectMenu.theme-liquid button.active {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.32), rgba(255, 255, 255, 0.18)) !important;
-  color: #ff007b !important;
-}
 
-/* FINAL ATTEMPT AT SEARCH BOX */
+/* FINAL ATTEMPT AT SEARCH BOX - NUKING WHITE PLASTIC */
 .app.theme-liquid .searchBox input {
   background: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
   border: none !important;
-  -webkit-appearance: none !important;
-}
-
-/* FINAL NUKING OF WHITE PLASTIC BOXES */
-.app.theme-liquid input, 
-.app.theme-liquid select, 
-.app.theme-liquid textarea {
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  box-shadow: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  backdrop-filter: blur(8px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(160%) !important;
-}
-.app.theme-liquid .searchBox input {
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+
+/* 绉婚櫎浠讳綍鍙兘浜х敓鐨勮儗鏅眰 */
+.app.theme-liquid .headerBottomRow .headerRightGroup::before,
+.app.theme-liquid .headerBottomRow .headerRightGroup::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* 閲嶆柊濉戦€犳悳绱㈡锛氳交鐩堛€佹诞鍔ㄣ€侀€忔槑 */
+.app.theme-liquid .globalSearchBox {
+  flex: 0 0 304px !important;
+  width: 304px !important;
+  height: 42px !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 21px !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.app.theme-liquid .globalSearchBox:focus-within {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 107, 157, 0.3) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+.app.theme-liquid .globalSearchBox input {
+  color: #1a0a14 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+.app.theme-liquid .globalSearchBox input::placeholder {
+  color: rgba(26, 10, 20, 0.40) !important;
+}
+
+/* Sidebar Collapsed Aggressive Color Override */
+.app.sidebar-collapsed .sidebar.collapsed .navButton:not(.active), 
+.app.sidebar-collapsed .sidebar.collapsed .sourceButton, 
+.app.sidebar-collapsed .sidebar.collapsed .themeToggleButton {
+  color: #000000 !important;
+}
+.app.sidebar-collapsed .sidebar.collapsed .sidebarToggle {
+  color: #000000 !important;
 }

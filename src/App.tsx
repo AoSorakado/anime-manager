@@ -184,7 +184,13 @@ function App() {
 
     const handleRefresh = () => void refreshSideInfo();
     window.addEventListener("refresh-side-info", handleRefresh);
-    return () => window.removeEventListener("refresh-side-info", handleRefresh);
+    const cleanupPlayback = window.libraryApi?.onPlaybackEnded?.(() => {
+      void refreshSideInfo();
+    });
+    return () => {
+      window.removeEventListener("refresh-side-info", handleRefresh);
+      cleanupPlayback?.();
+    };
   }, []);
 
   useEffect(() => {

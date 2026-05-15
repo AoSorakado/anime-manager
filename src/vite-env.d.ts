@@ -96,6 +96,7 @@ interface LibraryApi {
     maximize: () => Promise<void>;
     close: () => Promise<void>;
   };
+  onPlaybackEnded: (callback: () => void) => () => void;
 }
 
 declare global {

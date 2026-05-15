@@ -1,4 +1,4 @@
-import { flushSync } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Activity, ArrowLeft, Download, Heart, History, RefreshCw, Search, Star, X } from "lucide-react";
 import type { AnimeSeason, BangumiSubjectDetail, NormalizedAnimeItem, OnlineEpisode, OnlineSearchResult, RssItem, SeasonAnimeResponse } from "../../electron/shared/types";
@@ -315,8 +315,8 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
     const showTitle = selectedAnime.nameCn || selectedAnime.name;
     const showCover = selectedAnime.images.large || selectedAnime.images.common || "";
     return (
-      <div className="detail cover-tinted" style={{ "--cover-rgb": tintColor } as any}>
-        <button className="backButtonGlass" onClick={() => setSelectedAnime(null)} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
+      <div className="detail cover-tinted animeDetail" style={{ "--cover-rgb": tintColor, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' } as any}>
+        <button className="backButtonGlass" onClick={() => setSelectedAnime(null)} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px', alignSelf: 'flex-start' }}>
           <ArrowLeft size={16} />
           <span>返回媒体库</span>
         </button>
@@ -640,121 +640,139 @@ export function SubscriptionsPage({ onRefresh }: { onRefresh: () => Promise<void
   return (
     <div className="mikanHubPage greenTheme">
       <header className="scheduleHeader">
-        <div className="headerTop">
-          <div className="headerLeft">
-            <button className="sourceBtn refreshBtn" onClick={() => loadSeason(seasonYear, seasonKey, true)}>
-              <RefreshCw size={14} className={busy === "weekly-load" ? "animate-spin" : ""} />
-            </button>
-            <div className="historyControls">
-              <GlassSelect
-                value={String(seasonYear)}
-                columns={3}
-                onChange={(val) => changeSeason(Number(val), seasonKey)}
-                options={Array.from({ length: new Date().getFullYear() - 2010 + 2 }, (_, i) => {
-                  const y = new Date().getFullYear() + 1 - i;
-                  return { value: String(y), label: `${y}年` };
-                })}
-              />
-              <GlassSelect
-                value={seasonKey}
-                columns={2}
-                onChange={(value) => changeSeason(seasonYear, value as AnimeSeason)}
-                options={[
-                  { value: "winter", label: "冬季 (1月)" },
-                  { value: "spring", label: "春季 (4月)" },
-                  { value: "summer", label: "夏季 (7月)" },
-                  { value: "autumn", label: "秋季 (10月)" }
-                ]}
-              />
-              <GlassSelect
-                value={seasonSort}
-                onChange={(value) => setSeasonSort(value as any)}
-                options={[
-                  { value: "default", label: "默认" },
-                  { value: "rating", label: "评分" },
-                  { value: "rank", label: "排名" },
-                  { value: "members", label: "热度" }
-                ]}
-              />
-            </div>
+        <div className="headerTopRow">
+          <div className="headerLeftGroup">
+            {!globalSearchResult && (
+              <div className="headerInfo" style={{ padding: 0 }}>
+                <h1 style={{ 
+                  fontSize: '28px', 
+                  marginBottom: '0', 
+                  display: 'flex', 
+                  alignItems: 'baseline', 
+                  gap: '12px',
+                  color: '#1a0a14',
+                  textShadow: '0 1px 0 rgba(255, 255, 255, 0.4)'
+                }}>
+                  <span>{seasonYear}年 {({ winter: "冬", spring: "春", summer: "夏", autumn: "秋" } as Record<string, string>)[seasonKey]}季番组</span>
+                  <div className="headerStats" style={{ fontSize: '14px', color: 'rgba(26, 10, 20, 0.7)', fontWeight: 700 }}>
+                    {seasonData?.stale && <span className="staleLabel" style={{ color: '#d35400' }}>(旧缓存)</span>}
+                    {seasonData && <span className="countLabel">{seasonData.data.length} 部番剧</span>}
+                  </div>
+                </h1>
+              </div>
+            )}
           </div>
 
-          <div className="headerRight">
-            <div className="globalSearchBox">
-              <Search size={14} className="searchIcon" />
-              <input
-                type="text"
-                placeholder="快速搜索番剧/资源..."
-                value={searchQuery}
-                onFocus={() => setShowHistory(true)}
-                onBlur={() => setTimeout(() => setShowHistory(false), 200)}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && performGlobalSearch()}
-              />
-              {searchQuery && (
-                <button className="clearSearch" onClick={() => { setSearchQuery(""); setGlobalSearchResult(null); }}>
-                  <X size={14} />
+          <div className="headerRightGroup">
+            <div className="scheduleTabs">
+              <div className="scheduleIndicator" style={{ transform: `translateX(${selectedWeekdayIndex * 100}%)` }} />
+              {["一", "二", "三", "四", "五", "六", "日"].map((day, i) => (
+                <button
+                  key={day}
+                  className={`scheduleTab ${selectedWeekdayIndex === i ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedWeekdayIndex(i);
+                    setGlobalSearchResult(null);
+                  }}
+                >
+                  {day}
                 </button>
-              )}
-
-              {showHistory && searchHistory.length > 0 && (
-                <div className="searchHistoryDropdown">
-                  <div className="searchHistoryHeader">历史记录</div>
-                  {searchHistory.map((item, i) => (
-                    <div
-                      key={i}
-                      className="searchHistoryItem"
-                      onClick={() => {
-                        setSearchQuery(item);
-                        setTimeout(performGlobalSearch, 0);
-                      }}
-                    >
-                      <History size={12} className="historyIcon" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                  <div className="searchHistoryFooter" onClick={() => {
-                    setSearchHistory([]);
-                    localStorage.removeItem("search_history");
-                  }}>
-                    清空历史
-                  </div>
-                </div>
-              )}
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="headerBottom">
-          {!globalSearchResult && (
-            <div className="headerInfo">
-              <h1>
-                {seasonYear}年 {({ winter: "冬", spring: "春", summer: "夏", autumn: "秋" } as Record<string, string>)[seasonKey]}季番组
-              </h1>
-              <div className="headerStats">
-                {seasonData?.stale && <span className="staleLabel">(旧缓存)</span>}
-                {seasonData && <span className="countLabel">{seasonData.data.length} 部</span>}
-              </div>
-            </div>
-          )}
+        <div className="headerBottomRow">
+          <div className="historyControls">
+            <GlassSelect
+              value={String(seasonYear)}
+              columns={3}
+              onChange={(val) => changeSeason(Number(val), seasonKey)}
+              options={Array.from({ length: new Date().getFullYear() - 2010 + 2 }, (_, i) => {
+                const y = new Date().getFullYear() + 1 - i;
+                return { value: String(y), label: `${y}年` };
+              })}
+            />
+            <GlassSelect
+              value={seasonKey}
+              columns={2}
+              onChange={(value) => changeSeason(seasonYear, value as AnimeSeason)}
+              options={[
+                { value: "winter", label: "冬季 (1月)" },
+                { value: "spring", label: "春季 (4月)" },
+                { value: "summer", label: "夏季 (7月)" },
+                { value: "autumn", label: "秋季 (10月)" }
+              ]}
+            />
+            <GlassSelect
+              value={seasonSort}
+              onChange={(value) => setSeasonSort(value as any)}
+              options={[
+                { value: "default", label: "默认" },
+                { value: "rating", label: "评分" },
+                { value: "rank", label: "排名" },
+                { value: "members", label: "热度" }
+              ]}
+            />
+          </div>
 
-          <div className="scheduleTabs">
-            <div className="scheduleIndicator" style={{ transform: `translateX(${selectedWeekdayIndex * 100}%)` }} />
-            {["一", "二", "三", "四", "五", "六", "日"].map((day, i) => (
-              <button
-                key={day}
-                className={`scheduleTab ${selectedWeekdayIndex === i ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedWeekdayIndex(i);
-                  setGlobalSearchResult(null);
-                }}
-              >
-                {day}
+          <div className="globalSearchBox">
+            <Search size={14} className="searchIcon" />
+            <input
+              type="text"
+              placeholder="快速搜索番剧/资源..."
+              value={searchQuery}
+              onFocus={() => setShowHistory(true)}
+              onBlur={() => setTimeout(() => setShowHistory(false), 200)}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && performGlobalSearch()}
+            />
+            {searchQuery && (
+              <button className="clearSearch" onClick={() => { setSearchQuery(""); setGlobalSearchResult(null); }}>
+                <X size={14} />
               </button>
-            ))}
+            )}
+
+            {showHistory && searchHistory.length > 0 && (
+              <div className="searchHistoryDropdown">
+                <div className="searchHistoryHeader">历史记录</div>
+                {searchHistory.map((item, i) => (
+                  <div
+                    key={i}
+                    className="searchHistoryItem"
+                    onClick={() => {
+                      setSearchQuery(item);
+                      setTimeout(performGlobalSearch, 0);
+                    }}
+                  >
+                    <History size={12} className="historyIcon" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+                <div className="searchHistoryFooter" onClick={() => {
+                  setSearchHistory([]);
+                  localStorage.removeItem("search_history");
+                }}>
+                  清空历史
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </header>
+
+      {createPortal(
+        <button
+          className="floatingRefreshBtn"
+          onClick={() => loadSeason(seasonYear, seasonKey, true)}
+          title="刷新当前季度数据"
+        >
+          <RefreshCw size={24} className={busy === "weekly-load" ? "animate-spin" : ""} />
+        </button>,
+        document.body
+      )}
+
+
 
       {error && (
         <div style={{ margin: "12px 24px", padding: "12px", background: "rgba(255,0,0,0.1)", color: "#c0392b", borderRadius: "8px", fontSize: "14px" }}>

@@ -152,32 +152,56 @@ export function TagsPage() {
     setSelectedAnime(anime);
     setDetailTab("概览");
     setBusy("weekly-details");
+    
+    // 重置所有资源状态
     setSelectedWeeklyDetail(null);
-    setSelectedSubtitleGroup("全部");
+    setSelectedWeeklyResult(null);
+    setWeeklySearchResults([]);
     setWeeklyEpisodes([]);
     setMikanDownloadResults([]);
+    setSelectedSubtitleGroup("全部");
+    setTintColor("180, 180, 180");
 
     try {
-      const keyword = anime.nameCn || anime.name;
+      // 1. 优先获取 Bangumi 官方详情，以获得最准确的标题用于后续搜索
+      let detail: BangumiSubjectDetail | null = null;
       if (anime.bangumiId) {
-        window.libraryApi.season.getDetail(anime.bangumiId).then(detail => {
-          setSelectedWeeklyDetail(detail);
-        });
-      }
-      window.libraryApi.season.getMikanResources(keyword).then(results => {
-        setMikanDownloadResults(results);
-      });
-      window.libraryApi.online.search({ keyword }).then(async (searchResults) => {
-        setWeeklySearchResults(searchResults);
-        if (searchResults.length > 0) {
-          const first = searchResults[0];
-          setSelectedWeeklyResult(first);
-          const eps = await window.libraryApi.online.episodes({ ruleUrl: first.rule_url || undefined, url: first.url });
-          setWeeklyEpisodes(eps);
+        try {
+          detail = await window.libraryApi.season.getDetail(anime.bangumiId);
+          if (detail) setSelectedWeeklyDetail(detail);
+        } catch (err) {
+          console.error("Failed to fetch Bangumi detail:", err);
         }
-      });
+      }
+
+      // 使用官方标题或原始标题作为搜索关键字
+      const keyword = detail?.title || anime.nameCn || anime.name;
+
+      // 2. 并行获取在线播放资源和 Mikan 下载资源
+      Promise.all([
+        // 在线播放搜索
+        window.libraryApi.online.search({ keyword }).then(async (searchResults) => {
+          setWeeklySearchResults(searchResults);
+          if (searchResults.length > 0) {
+            const first = searchResults[0];
+            setSelectedWeeklyResult(first);
+            try {
+              const eps = await window.libraryApi.online.episodes({ ruleUrl: first.rule_url || undefined, url: first.url });
+              setWeeklyEpisodes(eps);
+            } catch (err) {
+              console.error("Failed to fetch episodes:", err);
+            }
+          }
+        }).catch(err => console.error("Online search failed:", err)),
+
+        // Mikan 资源搜索
+        window.libraryApi.season.getMikanResources(keyword).then(results => {
+          setMikanDownloadResults(results);
+        }).catch(err => console.error("Mikan search failed:", err))
+      ]);
+
     } catch (err) {
-      console.error(err);
+      console.error("Error in openAnimeDetail:", err);
     } finally {
       setBusy("");
     }
@@ -231,13 +255,11 @@ export function TagsPage() {
     const showCover = selectedAnime.images.large || selectedAnime.images.common || "";
 
     return (
-      <div className="detail cover-tinted tagsTheme" style={{ "--cover-rgb": tintColor } as any}>
-        <div className="backBar">
-          <button className="backButtonGlass" onClick={() => setSelectedAnime(null)}>
-            <ArrowLeft size={16} />
-            <span>返回媒体库</span>
-          </button>
-        </div>
+      <div className="detail cover-tinted tagsTheme animeDetail" style={{ "--cover-rgb": tintColor, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' } as any}>
+        <button className="backButtonGlass" onClick={() => setSelectedAnime(null)} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px', alignSelf: 'flex-start' }}>
+          <ArrowLeft size={16} />
+          <span>返回媒体库</span>
+        </button>
 
         <section className="detailHeroSection">
           <div className="detailHeroBg">

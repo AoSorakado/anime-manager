@@ -94,6 +94,10 @@ const api = {
     minimize: () => ipcRenderer.invoke("window:minimize") as Promise<void>,
     maximize: () => ipcRenderer.invoke("window:maximize") as Promise<void>,
     close: () => ipcRenderer.invoke("window:close") as Promise<void>
+  },
+  onPlaybackEnded: (callback: () => void) => {
+    ipcRenderer.on("playback-ended", callback);
+    return () => { ipcRenderer.removeListener("playback-ended", callback); };
   }
 };
 

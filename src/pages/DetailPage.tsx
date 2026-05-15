@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ChevronRight, Play, RefreshCw, Star, Wand2 } from "lucide-react";
+import { ArrowLeft, ChevronRight, Download, Play, RefreshCw, Star, Wand2 } from "lucide-react";
 import type { BangumiSubjectDetail, MediaFile, MediaItem, OnlineEpisode, OnlineSearchResult, RssItem, WatchStatus } from "../../electron/shared/types";
 import { extractDominantColor } from "../LiquidGlassRuntime";
 import { characterImage, formatSize, groupMediaFiles, localFileUrl, parseInfobox, parseJson, personImage, ratingConsensus, ratingDeviation, trimNumber, watchStatusOptions } from "../utils";
@@ -423,7 +423,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
                     <span>{new Date(file.mtime).toLocaleDateString()}</span>
                     <GlassSelect
                       className="statusGlassSelect"
-                      value={file.watched === 1 ? "watched" : "unwatched"}
+                      value={file.watched === 1 ? "watched" : file.watched === 0 ? "unwatched" : String(file.watched || "unwatched")}
                       onChange={async (value) => {
                         await window.libraryApi.files.setStatus(file.id, value);
                         await load();
@@ -438,6 +438,103 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
             </div>
           );
         })}
+      </section>
+
+      <section className="fileTable">
+        <h2>播放资源</h2>
+
+        <div className="resourceContainer" style={{ marginTop: '12px' }}>
+          <section className="resourceSubSection">
+            <div className="resourceHeading">
+              <h3>在线播放 (Kazumi Rules)</h3>
+              <GlassSelect
+                value={selectedWeeklyResult?.url || ""}
+                onChange={async (val) => {
+                  const found = weeklySearchResults.find(r => r.url === val);
+                  if (found) {
+                    setSelectedWeeklyResult(found);
+                    const eps = await window.libraryApi.online.episodes({ ruleUrl: found.rule_url || undefined, url: found.url });
+                    setWeeklyEpisodes(eps);
+                  }
+                }}
+                options={weeklySearchResults.map(res => ({
+                  value: res.url,
+                  label: res.rule_name || "未知源"
+                }))}
+              />
+            </div>
+            <div className="onlineEpisodeGrid">
+              {weeklyEpisodes.map((ep, idx) => (
+                <button key={idx} className="onlineEpBtn" onClick={async () => {
+                  await window.libraryApi.online.playUrl(ep.url, ep.title, ep.referer, { ruleUrl: ep.rule_url || undefined }, (selectedWeeklyDetail as any)?.external_id || (selectedWeeklyDetail as any)?.id);
+                  await onChanged();
+                }}>
+                  <div className="epNum">{ep.title.match(/\d+/)?.[0] ? `第 ${ep.title.match(/\d+/)?.[0]} 集` : ep.title}</div>
+                  <div className="epLabel">在线播放</div>
+                </button>
+              ))}
+              {weeklyEpisodes.length === 0 && <div className="emptyState">未找到可用分集资源</div>}
+            </div>
+          </section>
+
+          <section className="resourceSubSection">
+            <div className="resourceHeading">
+              <h3>离线下载 (Mikan RSS)</h3>
+            </div>
+            <div className="mikanDownloadLayout">
+              <aside className="mikanGroupSidebar">
+                <h4>相关字幕组</h4>
+                <button
+                  className={`mikanGroupBtn ${selectedSubtitleGroup === "全部" ? "active" : ""}`}
+                  onClick={() => setSelectedSubtitleGroup("全部")}
+                >全部</button>
+                {Array.from(new Set(mikanDownloadResults.map(i => i.subtitle_group || "未知")))
+                  .filter(g => g !== "未知")
+                  .sort()
+                  .map(group => (
+                    <button
+                      key={group}
+                      className={`mikanGroupBtn ${selectedSubtitleGroup === group ? "active" : ""}`}
+                      onClick={() => setSelectedSubtitleGroup(group)}
+                    >{group}</button>
+                  ))
+                }
+              </aside>
+              <main className="mikanResourceMain">
+                <div className="torrentTable">
+                  <div className="torrentTableHeader">
+                    <div className="colTitle">番组名</div>
+                    <div className="colSize">大小</div>
+                    <div className="colDate">更新时间</div>
+                    <div className="colActions">下载</div>
+                  </div>
+                  {mikanDownloadResults
+                    .filter(item => {
+                      const groups = Array.from(new Set(mikanDownloadResults.map(i => i.subtitle_group || "未知")));
+                      const currentFilter = groups.includes(selectedSubtitleGroup) ? selectedSubtitleGroup : "全部";
+                      return currentFilter === "全部" || item.subtitle_group === currentFilter;
+                    })
+                    .map((rssItem, idx) => (
+                      <div key={idx} className="torrentRow">
+                        <div className="colTitle" title={rssItem.title}>
+                          <span className="groupBadge">[{rssItem.subtitle_group || "未知"}]</span>
+                          {rssItem.title.replace(/\[\s*复制磁链\s*\]|\(\s*复制磁链\s*\)|【\s*复制磁链\s*】|复制磁链/gi, "")}
+                        </div>
+                        <div className="colSize">{rssItem.size_text || "--"}</div>
+                        <div className="colDate">{rssItem.pub_date ? new Date(rssItem.pub_date).toLocaleDateString() : "--"}</div>
+                        <div className="colActions">
+                          <button title="qBittorrent" onClick={() => window.libraryApi.subscriptions.sendUrl(rssItem.link || "", undefined, rssItem.title, item?.title || item?.clean_name || "")}><Download size={14} /></button>
+                          <button title="123盘" onClick={() => window.libraryApi.cloudOffline.submit123({ url: rssItem.link || "", title: `${item?.title || item?.clean_name || ""} - ${rssItem.title}` })}>123</button>
+                          <button title="Pikpak" onClick={() => window.libraryApi.cloudOffline.submitPikpak({ url: rssItem.link || "", title: `${item?.title || item?.clean_name || ""} - ${rssItem.title}` })}>Pik</button>
+                        </div>
+                      </div>
+                    ))}
+                  {mikanDownloadResults.length === 0 && <div className="emptyState">未找到种子资源</div>}
+                </div>
+              </main>
+            </div>
+          </section>
+        </div>
       </section>
 
       <footer className="detailFoot">
