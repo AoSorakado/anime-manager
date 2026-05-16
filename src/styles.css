@@ -76,63 +76,6 @@ button:disabled {
   }
 }
 
-.titleBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 38px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px;
-  z-index: 1000;
-  -webkit-app-region: drag;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.titleBarControls {
-  display: flex;
-  gap: 0;
-  -webkit-app-region: no-drag;
-  margin-right: -12px;
-  /* Pull to edge */
-}
-
-.titleBarButton {
-  width: 46px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border: none;
-  background: transparent;
-  color: #4a303e;
-  transition: all 0.25s ease;
-  cursor: pointer;
-}
-
-.titleBarButton:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-.titleBarButton.close:hover {
-  background: #e81123;
-  color: white;
-}
-
-.titleBarTitle {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(74, 48, 62, 0.6);
-  pointer-events: none;
-  flex: 1;
-  text-align: center;
-  letter-spacing: 0.05em;
-}
-
 .app {
   display: grid;
   grid-template-columns: 252px 1fr;
@@ -370,20 +313,6 @@ button:disabled {
 
   100% {
     transform: translate(20%, -10%) rotate(-10deg);
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate(15%, 10%) scale(1.15);
-  }
-
-  100% {
-    transform: translate(-10%, -5%) scale(0.95);
   }
 }
 
@@ -878,16 +807,6 @@ button:disabled {
 
 .sideRefreshBtn.spin svg {
   animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .bangumiMiniStatus {
@@ -2337,147 +2256,6 @@ h3 {
   margin-top: 24px;
 }
 
-.cardExpandOverlay {
-  position: fixed;
-  left: var(--from-left);
-  top: var(--from-top);
-  width: var(--from-width);
-  height: var(--from-height);
-  z-index: 80;
-  display: grid;
-  grid-template-columns: minmax(130px, 22vw) 1fr;
-  gap: 28px;
-  align-items: center;
-  padding: 18px;
-  pointer-events: none;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.68);
-  border-radius: var(--panel-radius);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 229, 243, 0.46)),
-    rgba(255, 244, 249, 0.68);
-  backdrop-filter: blur(54px) saturate(220%) brightness(1.05);
-  -webkit-backdrop-filter: blur(54px) saturate(220%) brightness(1.05);
-  box-shadow: 0 38px 90px rgba(164, 80, 118, 0.28), 0 2px 3px rgba(255, 255, 255, 0.7) inset;
-  transform-origin: center;
-  animation: cardExpandFrame 980ms var(--motion-fluid) both;
-}
-
-.cardExpandOverlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.72), transparent 22%, transparent 70%, rgba(255, 206, 228, 0.2)),
-    radial-gradient(620px 280px at 22% 0%, rgba(255, 255, 255, 0.58), transparent 64%);
-  opacity: 0.62;
-}
-
-.cardExpandPoster {
-  position: relative;
-  z-index: 1;
-  width: min(260px, 25vw);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 22px 52px rgba(164, 80, 118, 0.22);
-  animation: cardExpandPoster 980ms var(--motion-fluid) both;
-}
-
-.cardExpandTitle {
-  position: relative;
-  z-index: 1;
-  color: #37262f;
-  font-size: clamp(24px, 5vw, 58px);
-  font-weight: 800;
-  letter-spacing: 0;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.58);
-  animation: cardExpandTitle 980ms var(--motion-fluid) both;
-}
-
-@keyframes cardExpandFrame {
-  0% {
-    left: var(--from-left);
-    top: var(--from-top);
-    width: var(--from-width);
-    height: var(--from-height);
-    border-radius: var(--panel-radius);
-    opacity: 1;
-    filter: blur(0) saturate(1);
-  }
-
-  58% {
-    left: calc(var(--to-left) + 26px);
-    top: calc(var(--to-top) + 24px);
-    width: calc(var(--to-width) - 52px);
-    height: calc(var(--to-height) - 48px);
-    border-radius: 34px;
-    opacity: 1;
-    filter: blur(0) saturate(1.05);
-  }
-
-  78% {
-    left: var(--to-left);
-    top: var(--to-top);
-    width: var(--to-width);
-    height: var(--to-height);
-    border-radius: 0;
-    opacity: 0.9;
-  }
-
-  100% {
-    left: var(--to-left);
-    top: var(--to-top);
-    width: var(--to-width);
-    height: var(--to-height);
-    border-radius: 0;
-    opacity: 0;
-    filter: blur(8px) saturate(1.04);
-  }
-}
-
-@keyframes cardExpandPoster {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(18px);
-  }
-
-  28% {
-    opacity: 1;
-  }
-
-  72% {
-    transform: scale(1) translateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(1.04) translateY(-10px);
-  }
-}
-
-@keyframes cardExpandTitle {
-  0% {
-    opacity: 0;
-    transform: translateX(-12px) scale(0.96);
-    filter: blur(8px);
-  }
-
-  32% {
-    opacity: 1;
-  }
-
-  72% {
-    transform: translateX(0) scale(1);
-    filter: blur(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(18px) scale(1.02);
-    filter: blur(8px);
-  }
-}
-
 .metadataGrid {
   display: grid;
   grid-template-columns: 0.88fr 1.12fr;
@@ -2707,10 +2485,7 @@ h3 {
   color: #37262f;
 }
 
-.tagCloud,
-.staffGrid,
-.characterGrid,
-.relatedGroups {
+.tagCloud {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -2808,25 +2583,6 @@ h3 {
 .relatedList {
   display: grid;
   gap: 10px;
-}
-
-.relatedSubject {
-  display: grid;
-  grid-template-columns: 48px 1fr;
-  grid-template-rows: auto auto;
-  gap: 3px 12px;
-  align-items: center;
-  min-width: 0;
-  border: 1px solid var(--glass-border-soft);
-  border-radius: 16px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.42);
-  transition: transform 0.2s var(--motion-fluid);
-}
-
-.relatedSubject:hover {
-  transform: translateX(4px);
-  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .relatedSubject .poster.small {
@@ -7018,7 +6774,6 @@ h3 {
   .subscriptionItem,
   .mikanShowItem,
   .scrapeIssueItem,
-  .titleBar,
   .sourceRow,
   .detail,
   .detailHero,
