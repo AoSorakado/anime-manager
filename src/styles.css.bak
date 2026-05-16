@@ -90,6 +90,7 @@ button:disabled {
   grid-template-columns: 90px 1fr;
 }
 
+/* 閹嗗厴濡€崇础閿涙矮鏅舵潏瑙勭埉缁夎濮╅張鐔兼？缁備胶鏁ゆ妯跨鏉炵晫澹掗弫?*/
 .app.sidebar-moving .posterCard,
 .app.sidebar-moving .scheduleCard,
 .app.sidebar-moving .mikanWeeklyCard,
@@ -106,6 +107,7 @@ button:disabled {
 
 .app.sidebar-moving .ambientBackground {
   filter: none !important;
+  /* 閺嗗倹妞傜粋浣烘暏閼冲本娅欏Ο锛勭ˇ濠娿倝鏆?*/
 }
 
 .ambientBackground {
@@ -245,6 +247,7 @@ button:disabled {
   animation-delay: -2s;
 }
 
+/* 璇︽儏椤佃儗鏅細鏍规嵁灏侀潰鍙栬壊鑷姩鍙樻崲 */
 .app.page-detail .ambientBackground {
   background: linear-gradient(45deg,
       rgba(var(--cover-rgb), 0.12) 0%,
@@ -255,6 +258,7 @@ button:disabled {
 .app.page-detail .blob {
   background: rgba(var(--cover-rgb), 0.6) !important;
   mix-blend-mode: color-burn;
+  /* 棰滆壊鏇存繁閭冿紝閫傚簲鑳屾櫙 */
   opacity: 0.45;
 }
 
@@ -598,7 +602,6 @@ button:disabled {
   color: #ff107b !important;
   box-shadow: 0 8px 25px rgba(255, 107, 157, 0.18) !important;
 }
-
 .sidebar.collapsed .navButton:hover,
 .sidebar.collapsed .sidebarToggle:hover,
 .sidebar.collapsed .themeToggleButton:hover {
@@ -1072,7 +1075,7 @@ button:disabled {
 }
 
 .detail {
-  overflow: visible;
+  overflow-y: auto;
 }
 
 .main::-webkit-scrollbar {
@@ -1407,6 +1410,7 @@ select option {
   max-height: 400px;
   border-radius: 24px;
   overflow: hidden;
+  /* 纭繚鑳屾櫙涓嶆孩鍑?*/
   box-shadow:
     0 32px 84px rgba(164, 80, 118, 0.28),
     0 4px 12px rgba(164, 80, 118, 0.08);
@@ -1427,6 +1431,7 @@ select option {
   backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
   -webkit-backdrop-filter: blur(54px) saturate(280%) brightness(1.08) contrast(1.05);
   filter: url(#liquid-glass-filter);
+  /* 鏍稿績娑叉€佹壄鏇叉晥鏋?*/
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: inherit;
 }
@@ -1696,7 +1701,6 @@ select option {
     linear-gradient(150deg, rgba(255, 247, 251, 0.58), rgba(236, 217, 231, 0.5));
   color: rgba(151, 72, 108, 0.72);
   overflow: hidden;
-  border-radius: var(--panel-radius) var(--panel-radius) 0 0;
 }
 
 .poster.large {
@@ -2158,6 +2162,7 @@ h3 {
   font-size: 13px !important;
 }
 
+/* 鐞涖劍鐗搁崘鍛畱閹绢厽鏂侀幐澶愭尦娑旂喖娓剁憰浣烘彛閸戞垵瀵?*/
 .tableRow .playButton {
   min-height: 32px !important;
   height: 32px !important;
@@ -2226,6 +2231,7 @@ h3 {
   box-shadow: 0 16px 40px rgba(164, 80, 118, 0.14), 0 2px 3px rgba(255, 255, 255, 0.72) inset;
 }
 
+/* 閺嶇绺炬穱顔碱槻閿涙艾缍嬬悰灞藉敶娑撳濯洪懣婊冨礋閹垫挸绱戦弮璁圭礉瀵缚顢戦幓鎰磳閺佺顢戦惃鍕湴缁狙嶇礉闂冨弶顒涚悮顐＄瑓娑撯偓鐞涘本灏呮担?*/
 .tableRow:has(.glassSelect.open) {
   z-index: 1000 !important;
   position: relative;
@@ -2657,6 +2663,7 @@ h3 {
   display: grid;
   grid-template-columns: 50px 1fr;
   gap: 18px;
+  /* 澧炲姞澶村儚鍜屾枃瀛椾箣闂寸殑闂磋窛 */
   align-items: center;
   text-align: left;
   color: inherit;
@@ -3362,6 +3369,7 @@ h3 {
   padding-right: 12px;
 }
 
+/* 閿涗緤绱掗敍浣圭壋閼冲€燁洬閻╂牭绱版稉宥呯敨閻喛鍋嗛崜宥囩磻閿涘苯宸遍崚璺哄綁閸?閿涗緤绱掗敍?*/
 .mikanHubPage .toolbar,
 .mikanHomeHeader,
 .mikanHeroPanel {
@@ -3405,6 +3413,7 @@ h3 {
   -webkit-backdrop-filter: var(--glass-blur-soft);
   box-shadow: var(--glass-shadow-soft);
   border-radius: 32px;
+  /* 瀵搫鍩楅崣妯烘妇 */
   margin: 10px 0;
 }
 
@@ -4562,10 +4571,12 @@ h3 {
 
 .mikanHubPage.greenTheme {
   padding: 12px 20px;
+  /* 婢х偛濮炴径鏍劥闂傜绐涢敍宀冾唨瀹搞儱鍙块弽蹇旇癁鐠ч攱娼?*/
   height: 100%;
   display: flex;
   flex-direction: column;
   background: transparent !important;
+  /* 缂佺喍绔存担璺ㄦ暏閸斻劍鈧浇鍎楅弲?*/
 }
 
 
@@ -4668,7 +4679,6 @@ h3 {
   -webkit-backdrop-filter: blur(34px) saturate(210%) brightness(1.06);
   box-shadow: 0 2px 2px rgba(255, 255, 255, 0.58) inset, 0 10px 26px rgba(176, 82, 124, 0.1);
 }
-
 .globalSearchBox input {
   flex: 1;
   background: transparent;
@@ -4678,7 +4688,6 @@ h3 {
   color: #37262f;
   font-size: 13px;
 }
-
 .globalSearchBox input::placeholder {
   color: rgba(55, 38, 47, 0.55);
 }
@@ -5085,6 +5094,7 @@ h3 {
 .detailMetaItem label {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.5) !important;
+  /* 閸旂姵绻侀弽鍥╊劮妫版粏澹?*/
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -5095,6 +5105,7 @@ h3 {
   font-size: 16px;
   font-weight: 800;
   color: var(--text-main) !important;
+  /* 瀵搫鍩楁担璺ㄦ暏娑撶粯鏋冪€涙顤侀懝?*/
 }
 
 .ratingStars {
@@ -6555,14 +6566,15 @@ h3 {
   white-space: nowrap;
 }
 
-/* iOS 27 STYLE 閳光偓閳光偓 PINK LIQUID GLASS 璺?缁澹婂☉鍙夆偓浣哄箵閻?   Inspired by visionOS / iOS 18+ glass material principles:
+/* ============================================================
+   iOS 27 STYLE 閳光偓閳光偓 PINK LIQUID GLASS 璺?缁澹婂☉鍙夆偓浣哄箵閻?   Inspired by visionOS / iOS 18+ glass material principles:
    璺?Layered translucency with dynamic background bleed
    璺?Frosted blur + saturation boost for vibrant glass
    璺?Soft, diffused light borders with inner highlights
    璺?Continuous rounded corners (squircle aesthetic)
    璺?Depth through stacked glass surfaces
-   Primary: #FF6B9D (iOS Pink) 璺?Accent: #E84A7A 璺?Soft: #FFB8D0 */
-
+   Primary: #FF6B9D (iOS Pink) 璺?Accent: #E84A7A 璺?Soft: #FFB8D0
+   ============================================================ */
 
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   0. ROOT VARIABLES 閳?The glass material system
    閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
@@ -6726,9 +6738,7 @@ h3 {
 }
 
 @keyframes ios-liquid-breathing {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1) translate(0, 0) rotate(0deg);
   }
 
@@ -6746,13 +6756,8 @@ h3 {
 }
 
 @keyframes ios-liquid-hue {
-  from {
-    filter: blur(120px) hue-rotate(0deg);
-  }
-
-  to {
-    filter: blur(120px) hue-rotate(360deg);
-  }
+  from { filter: blur(120px) hue-rotate(0deg); }
+  to { filter: blur(120px) hue-rotate(360deg); }
 }
 
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   2. FOUNDATION RESET 閳?Strip all opaque backgrounds
@@ -6958,6 +6963,7 @@ h3 {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  /* 閸忔娊鏁敍姘帒鐠佺鐡欓崗鍐閹搭亝鏌?*/
   flex: 1;
 }
 
@@ -7038,6 +7044,7 @@ h3 {
   color: var(--text-main);
   width: 100%;
   max-width: 100%;
+  /* 娑撱儳顩﹂崙铏规櫕 */
   overflow: hidden;
 }
 
@@ -7071,6 +7078,7 @@ h3 {
 .app.theme-liquid .recentMiniTitle {
   flex: 1;
   width: 0;
+  /* 瀵搫鍩楁禒?0 瀵偓婵顓哥粻妤€鑴婇幀褍顔旀惔?*/
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -7081,9 +7089,11 @@ h3 {
 .app.theme-liquid .recentMiniTime {
   font-size: 11px;
   color: var(--text-dim);
+  /* 妫版粏澹婇崝鐘崇箒娑撯偓閻愬湱鍋?*/
   font-weight: 700;
   padding-left: 8px;
   flex-shrink: 0;
+  /* 缁備焦顒涚悮顐箯娓氀勭垼妫版ɑ灏嬮崢?*/
   opacity: 0.9;
 }
 
@@ -7263,6 +7273,7 @@ h3 {
 .app.theme-liquid input:not([type]),
 .app.theme-liquid textarea {
   background: transparent;
+  /* 瑜拌绨崇粔濠氭珟閸愬懎鐪伴惂钘夌俺 */
   border: none;
   border-radius: 14px;
   color: var(--text-main);
@@ -7347,6 +7358,7 @@ h3 {
   color: var(--accent);
   transition: transform 0.4s var(--motion-fluid);
   margin-top: -1px;
+  /* 娣囶喗顒滅€涙顑侀崺铏瑰殠鐎靛綊缍?*/
   font-weight: 900;
 }
 
@@ -7558,6 +7570,7 @@ h3 {
   color: #3d1a2e;
 }
 
+/* 閸樺棗鍕剧悰顭掔窗楠炵繝鍞ら柅澶嬪閺€閫涜礋 3 閸掓缍夐弽纭风礉閺囨挳鐝弫?*/
 .app.theme-liquid .historyControls .glassSelect:first-child .glassSelectMenu {
   width: 360px;
   max-height: 420px;
@@ -7672,6 +7685,7 @@ h3 {
   position: relative;
 }
 
+/* 閸斻劍鈧礁寮介崗澶婄湴 - 娴犺法婀￠悳鑽ゆ嫅閻ㄥ嫭鐗宠箛?*/
 .app.theme-liquid .posterCard::before {
   content: "";
   position: absolute;
@@ -7711,14 +7725,17 @@ h3 {
   transform: translateY(0) scale(1);
 }
 
+/* 闂呮劕鑸扮喊鐗堟寬缁犳唻绱伴梼鍙夘剾娑撳﹥璇為崥搴ㄧ炊閺嶅洣娑径鍗烆嚤閼峰娈戦幎鑺ユ倷 */
 .posterCard::after {
   content: "";
   position: absolute;
   inset: 0;
   bottom: -30px;
+  /* 閸氭垳绗呭鏈靛嚑閿涘苯鐣ф担蹇涚炊閺?*/
   z-index: -1;
 }
 
+/* 濞戣弓缍嬮幍顐㈠帨 */
 .posterCard::before {
   content: "";
   position: absolute;
@@ -7739,6 +7756,7 @@ h3 {
   background: rgba(255, 255, 255, 0.18) !important;
   border-color: rgba(255, 255, 255, 0.7) !important;
 
+  /* 濞ｅ崬瀹抽梾蹇撳З闂冩潙濂栭敍姘辩級閻叀绐涚粋浼欑礉婢х偛宸遍幑鏇熷磸閹?*/
   box-shadow:
     calc(var(--m-x, 0) * -25px) calc(var(--m-y, 0) * -25px) 45px rgba(var(--cover-rgb, 255, 107, 157), 0.3),
     0 15px 35px rgba(0, 0, 0, 0.15) !important;
@@ -8761,11 +8779,11 @@ h3 {
   box-shadow: 0 5px 15px rgba(255, 107, 157, 0.12);
 }
 
-/* FINAL iOS 27 LIQUID GLASS MATERIAL PATCH
+/* =====================================================================
+   FINAL iOS 27 LIQUID GLASS MATERIAL PATCH
    - 閸╄桨绨ぐ鎾冲閸欘垳鏁?styles.css 鏉╄棄濮?
    - 閸欘亝鏁奸弶鎰窛閿涙瓬ackground / border / shadow / backdrop-filter / highlight
    - 娑撳秵鏁?grid / flex / width / height / margin / padding / position top 缁涘绔风仦鈧仦鐐粹偓?   ===================================================================== */
-
 
 .app.theme-liquid {
   --ios27-pink: #ff5fa2;
@@ -8798,6 +8816,7 @@ h3 {
   color: var(--ios27-ink);
 }
 
+/* 閼冲本娅欒箛鍛淬€忛弴绮光偓婊勬箒閼规彃鍍甸垾婵撶礉閻滆崵鎷戦幍宥嗘箒閹舵ê鐨犻幇?*/
 .app.theme-liquid .ambientBackground {
   background:
     radial-gradient(1100px 760px at 8% -8%, rgba(255, 255, 255, 0.98), transparent 54%),
@@ -8842,6 +8861,7 @@ h3 {
   }
 }
 
+/* 娑撴槒顩﹂悳鑽ゆ嫅閺夋劘宸濋敍姘涧鐟曞棛娲婄憴鍡氼潕鐏炵偞鈧嶇礉娑撳秶顫敮鍐ㄧ湰 */
 .app.theme-liquid :is(.sidebar,
   .toolbar,
   .backBar,
@@ -8913,6 +8933,7 @@ h3 {
   color: rgba(61, 26, 46, 0.54);
 }
 
+/* 妞ゅ爼鍎村銉ュ徔閺嶅繑娲块崓蹇庣閺佹潙娼￠幃顒佽癁閻滆崵鎷?*/
 .app.theme-liquid .toolbar,
 .app.theme-liquid .backBar {
   background:
@@ -8925,6 +8946,7 @@ h3 {
     0 -18px 42px rgba(255, 99, 170, 0.055) inset;
 }
 
+/* 娓氀勭埉閿涙艾涔忔笟褌绻氶幐浣戒氦闁骏绱濋崣瀹犵珶缂傛ɑ婀侀悳鑽ゆ嫅閸樻艾瀹?*/
 .app.theme-liquid .sidebar {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.16) 58%, rgba(135, 245, 255, 0.10)),
@@ -8973,6 +8995,7 @@ h3 {
     inset -18px -22px 42px rgba(255, 95, 162, 0.07) !important;
 }
 
+/* 閻滆崵鎷戞潏鍦喘閿涙氨鏁ゆ导顏勫帗缁辩姴浠涢垾婊冨袱鏉堣顢嬮垾婵撶礉娑撳秵灏嬮崢瀣鐏炩偓 */
 .app.theme-liquid :is(.posterCard,
   .toolbar,
   .detailHero,
@@ -9023,6 +9046,7 @@ h3 {
   mask-composite: exclude;
 }
 
+/* 閸愬懘鍎村☉鍙夆偓浣稿帨閺?*/
 .app.theme-liquid .posterCard::after,
 .app.theme-liquid .onlineResultCard::after,
 .app.theme-liquid .sideCard::after,
@@ -9060,6 +9084,7 @@ h3 {
   z-index: 3;
 }
 
+/* 濞撮攱濮ら崠鍝勭厵閿涙艾娴橀悧鍥︾瑝鐞氼偅绀傞惂鏂ょ礉娴ｅ棜绔熺紓妯绘纯閸嶅繐绁甸崗銉у箵閻?*/
 .app.theme-liquid .poster {
   position: relative;
   background:
@@ -9093,6 +9118,7 @@ h3 {
   border-top: 1px solid rgba(255, 255, 255, 0.45);
 }
 
+/* 鏉堟挸鍙嗗鍡愨偓浣风瑓閹峰鈧焦瀵滈柦顕嗙窗濮樺瓨娣悳鑽ゆ嫅閹貉傛 */
 .app.theme-liquid .glassSelectButton,
 .app.theme-liquid .primaryButton,
 .app.theme-liquid .secondaryButton,
@@ -9144,7 +9170,9 @@ h3 {
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
+/* 娑撳濯洪懣婊冨礋閿涙岸鈧繑妲戞担鍡曠瑝缁﹥鏋冪€?*/
 
+/* 閺呴缚鍏橀崥鎴滅瑐瀵懓鍤弨顖涘瘮 */
 .glassSelect.drop-up .glassSelectMenu {
   top: auto !important;
   bottom: 100% !important;
@@ -9153,6 +9181,7 @@ h3 {
   transform-origin: bottom center !important;
 }
 
+/* 鐎佃壈鍩呴幐澶愭尦閿涙岸鈧鑵戦悩鑸碘偓浣稿剼娑撯偓妫版绁划澶嬫寜濠?*/
 .app.theme-liquid .navButton,
 .app.theme-liquid .sourceButton {
   background: rgba(255, 255, 255, 0.055);
@@ -9175,6 +9204,7 @@ h3 {
     inset 0 -1px 0 rgba(255, 255, 255, 0.26);
 }
 
+/* 閻樿埖鈧降鈧焦鐖ｇ粵淇扁偓浣哥毈閼宠泛娉?*/
 .app.theme-liquid .status,
 .app.theme-liquid .tagCloud span,
 .app.theme-liquid .timeMachineYear,
@@ -9188,6 +9218,7 @@ h3 {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 8px 18px rgba(120, 44, 90, 0.07);
 }
 
+/* 閹剙浠犻弮璺哄娑撯偓閻愯鎭幀浣硅癁鐠у嚖绱濇稉宥嗘暭闂堟瑦鈧礁绔风仦鈧?*/
 .app.theme-liquid :is(.posterCard:hover,
   .mediaCard:hover,
   .onlineResultCard:hover,
@@ -9213,6 +9244,7 @@ h3 {
   filter: saturate(1.04) brightness(1.012);
 }
 
+/* 閺嶅洭顣芥稉搴㈩偧缁狙勬瀮閺堫剨绱濋崷銊╃彯闁繑妲戦悳鑽ゆ嫅娑撳﹣绻氶幐浣稿讲鐠?*/
 .app.theme-liquid :is(.posterMeta strong,
   .onlineResultMeta strong,
   .onlineRuleItem strong,
@@ -9241,6 +9273,7 @@ h3 {
   color: rgba(64, 39, 52, 0.68) !important;
 }
 
+/* 閺嶅洭顣介弽蹇ョ窗妞ゅ爼鍎寸化鑽ょ埠閻滆崵鎷?*/
 .app.theme-liquid .titleBar {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22)),
@@ -9258,6 +9291,7 @@ h3 {
   -webkit-backdrop-filter: blur(18px) saturate(2.0);
 }
 
+/* 濠婃艾濮╅弶鈥茬瘍閻滆崵鎷戦崠?*/
 .app.theme-liquid .main::-webkit-scrollbar-thumb,
 .app.theme-liquid .sidebar::-webkit-scrollbar-thumb,
 .app.theme-liquid .onlineRuleList::-webkit-scrollbar-thumb {
@@ -9293,6 +9327,7 @@ h3 {
   --glass-bg-card: linear-gradient(145deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.145) 35%, rgba(138, 246, 255, 0.095) 58%, rgba(255, 95, 162, 0.13) 100%), rgba(255, 255, 255, 0.105);
 }
 
+/* ---------- 1. 閼冲本娅欓敍姘櫤鐏忔垹娅ч弶鎸庡妳閿涘瞼绮伴悳鑽ゆ嫅鐡掑啿顧勯崣顖涘鐏忓嫮娈戦懝鎻掑兊 ---------- */
 .app.theme-liquid,
 .app.theme-liquid .mikanHubPage,
 .app.theme-liquid .mikanHubPage.greenTheme,
@@ -9341,6 +9376,7 @@ h3 {
   }
 }
 
+/* ---------- 2. 闁氨鏁ら悳鑽ゆ嫅閺夋劘宸濋敍姘Ω閻у€熷閸ф鏁奸幋鎰扳偓蹇旀濞戝弶鈧胶骞撻悹?---------- */
 .app.theme-liquid .toolbar,
 .app.theme-liquid .backBar,
 .app.theme-liquid .sidebar,
@@ -9438,6 +9474,7 @@ h3 {
     inset 0 -22px 46px rgba(255, 79, 161, 0.07);
 }
 
+/* 閻滆崵鎷戦崢姘崇珶妤傛ê鍘滅仦?*/
 .app.theme-liquid :is(.toolbar::before,
   .panel::before,
   .fileTable::before,
@@ -9485,6 +9522,7 @@ h3 {
   z-index: 1;
 }
 
+/* ---------- 3. 閹兼粎鍌ㄥ鍡愨偓浣界翻閸忋儲顢嬮妴浣瑰瘻闁筋噯绱伴崢缁樺竴缁绢垳娅ч敍灞肩箽閻ｆ瑦绔婚弲鏉垮 ---------- */
 .app.theme-liquid :is(.sourceToggles,
   .scheduleTabs,
   .historyControls select,
@@ -9547,6 +9585,7 @@ h3 {
 }
 
 
+/* ---------- 4. 閻ｎ亜澧介崡锛勫閿涙氨绮烘稉鈧В鏂剧伐閵嗕浇顔€鐏忓繐宕遍悧鍥彯鎼达箑灏柊?---------- */
 .app.theme-liquid .mediaGrid {
   align-items: stretch;
 }
@@ -9566,8 +9605,8 @@ h3 {
       rgba(240, 253, 255, 0.60) 100%),
     rgba(255, 248, 252, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 26px !important;
-  overflow: hidden !important;
+  border-radius: 26px;
+  overflow: hidden;
   box-shadow:
     0 24px 58px rgba(var(--cover-rgb), 0.18),
     0 16px 42px rgba(120, 43, 89, 0.10),
@@ -9575,10 +9614,7 @@ h3 {
     inset -24px -34px 58px rgba(var(--cover-rgb), 0.08);
   /* 閹嗗厴閿涙氨些闂?backdrop-filter閿涘奔濞囬悽銊╃彯娑撳秹鈧繑妲戞惔锕佸剹閺咁垱娴涙禒?*/
   transform: translateZ(0);
-  contain: paint;
-  isolation: isolate;
 }
-
 
 .app.theme-liquid .posterCard::before {
   content: "";
@@ -9652,7 +9688,7 @@ h3 {
   aspect-ratio: 2 / 3;
   min-height: 0;
   height: auto;
-  border-radius: 24px 24px 0 0;
+  border-radius: 24px 24px 14px 14px;
   overflow: hidden;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(var(--cover-rgb), 0.10)),
@@ -9690,9 +9726,7 @@ h3 {
       rgba(var(--cover-rgb), 0.18) 100%),
     rgba(255, 250, 253, 0.90);
   transform: translateZ(0);
-  border-radius: inherit;
 }
-
 
 .app.theme-liquid .posterMeta strong {
   min-height: 0;
@@ -9746,6 +9780,7 @@ h3 {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
 }
 
+/* 閸忔湹绮悾顏勫⒔鐏忓繐宕辨稊鐔跺▏閻劌褰囬懝鎻掑綁闁?*/
 .app.theme-liquid .mikanWeeklyCard,
 .app.theme-liquid .mikanSearchResultCard,
 .app.theme-liquid .mikanShowItem,
@@ -9813,6 +9848,7 @@ h3 {
   /* 涓?z-index 濂犲畾鍩虹 */
 }
 
+/* 闁氨鏁ゆ穱顔碱槻閿涙碍褰侀崡鍥ㄥ閺堝鎭幀浣峰瘜妫版ü绗呭ú璇插З鐞涘瞼娈戠仦鍌滈獓 */
 .app.theme-liquid div:has(> .glassSelect.open),
 .app.theme-liquid .tableRow:has(.glassSelect.open),
 .app.theme-liquid .mikanResultRow:has(.glassSelect.open) {
@@ -9891,6 +9927,7 @@ h3 {
 }
 
 
+/* 闂堛垺婢橀敍姘妇鐟?+ 閻滆崵鎷戦懗灞炬珯 + 閸愬懎绁甸崗澶嬭景 */
 .app.theme-liquid .settingsPage .panel {
   background:
     linear-gradient(145deg,
@@ -9910,6 +9947,7 @@ h3 {
   overflow: hidden;
 }
 
+/* 闂堛垺婢橀弽鍥暯 */
 .app.theme-liquid .settingsPage .panel h2 {
   font-size: 16px;
   color: #3d1a2e;
@@ -9938,6 +9976,7 @@ h3 {
   font-weight: 500;
 }
 
+/* 鏉堟挸鍙嗗鍡窗濞ｏ紕鐭囬悳鑽ゆ嫅鐠愩劍鍔?+ 閸﹀棜顫?*/
 .app.theme-liquid .settingsPage input,
 .app.theme-liquid .settingsPage select,
 .app.theme-liquid .settingsPage textarea {
@@ -10020,6 +10059,7 @@ h3 {
   gap: 12px;
 }
 
+/* 閹稿鎸崇悰?*/
 .app.theme-liquid .settingsPage .buttonRow {
   display: flex;
   gap: 10px;
@@ -10037,6 +10077,7 @@ h3 {
   flex: 1;
 }
 
+/* 閹绘劗銇氶弬鍥х摟 */
 .app.theme-liquid .settingsPage .hintText {
   color: rgba(61, 26, 46, 0.48);
   font-size: 12px;
@@ -10112,6 +10153,7 @@ h3 {
   gap: 12px;
 }
 
+/* 瑜版捇銆婇柈銊︽箒娑撳濯洪懣婊冨礋閹垫挸绱戦弮璁圭礉閹绘劕宕岄弫缈犻嚋妞ゅ爼鍎寸悰宀€娈戠仦鍌滈獓 */
 .app.theme-liquid .headerTop:has(.glassSelect.open) {
   z-index: 100002;
 }
@@ -10171,6 +10213,7 @@ h3 {
 }
 
 
+/* ---------- 7. 鐎佃壈鍩呴弽蹇撴嫲閺嶅洭顣介弽蹇ョ窗鏉堝湱绱弴鏉戝剼閸樻氨骞撻悹?---------- */
 .theme-liquid .floatingRefreshBtn {
   position: fixed;
   bottom: 32px;
@@ -10266,7 +10309,7 @@ h3 {
     rgba(255, 240, 250, 0.22) !important;
   border-color: #ff6b9d !important;
   color: #ff107b !important;
-  box-shadow:
+  box-shadow: 
     0 12px 30px rgba(255, 107, 157, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
     inset 0 -1px 0 rgba(255, 255, 255, 0.3) !important;
@@ -10381,6 +10424,7 @@ h3 {
   opacity: 0.7;
 }
 
+/* ---------- 8. 閺傚洤鐡ч崣顖濐嚢閹?---------- */
 .app.theme-liquid,
 .app.theme-liquid button,
 .app.theme-liquid input,
@@ -10418,6 +10462,7 @@ h3 {
   color: rgba(64, 39, 52, 0.66);
 }
 
+/* ---------- 9. 濠婃艾濮╅弶?---------- */
 .app.theme-liquid .main::-webkit-scrollbar-thumb,
 .app.theme-liquid .sidebar::-webkit-scrollbar-thumb,
 .app.theme-liquid .onlineRuleList::-webkit-scrollbar-thumb,
@@ -10428,6 +10473,7 @@ h3 {
   border-radius: 999px;
 }
 
+/* ---------- 10. 閹嗗厴娑撳骸鍚嬬€?---------- */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
 
   .app.theme-liquid .toolbar,
@@ -10452,6 +10498,7 @@ h3 {
   }
 }
 
+/* 鏉╂柨娲栭幐澶愭尦閿涙俺鍏岄崶濠冭癁閸斻劍鐗卞?*/
 .app.theme-liquid .backBar {
   display: flex;
   align-items: center;
@@ -10494,6 +10541,7 @@ h3 {
   opacity: 0.8;
 }
 
+/* 閿涗緤绱掗敍?缂佹繂顕柅蹇旀鐏忎焦娼冩禒?閿涗緤绱掗敍?*/
 .app.theme-liquid div.backBar,
 .app.theme-liquid .detail>div.backBar {
   background: transparent;
@@ -10504,6 +10552,7 @@ h3 {
   box-shadow: none;
   width: auto;
   display: inline-flex;
+  /* 鐠佲晛鐣犳稉宥呭晙濡亣娉曢崗銊ョ潌 */
   margin: 5px 0 12px 20px;
 }
 
@@ -10520,6 +10569,7 @@ h3 {
 .animeDetail {
   position: relative;
   z-index: 10;
+  /* 绾喕绻氭稉宥夋閸掕泛鍞撮柈銊ヨ剨缁?*/
   transform: none !important;
   contain: none !important;
 }
@@ -10530,6 +10580,7 @@ h3 {
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   鐟欏棗娴樻潻鍥ㄦ诞闁插秴顢栭敍姘冲闂嗗嫭鎹ｉ幎?(Hero) + 閸愬懎顔愬ù顔惧箛
    閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 
+/* 1. 閸忋劌鐪潻鍥ㄦ诞閸忔粌绨抽敍姘€崗璺烘彥闁喓娈戝ǎ鈥冲弳濞ｂ€冲毉閿涘本绉烽梽銈呭瀼閹广垻鐏涢梻瀵告畱缁岃櫣娅ч幇?*/
 ::view-transition-old(root) {
   animation: 0.2s ease-in-out both ios-fade-out;
 }
@@ -10558,6 +10609,7 @@ h3 {
   }
 }
 
+/* 2. 閼婚亶娉熷ù閿嬪Г閻ㄥ嫭鐗宠箛鍐跨窗閺囨潙鎻╅惃鍕偓鐔峰娑撳孩娲跨槐褍鍣鹃惃鍕锤缁?*/
 ::view-transition-group(shared-poster) {
   animation-duration: 0.45s !important;
   animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1) !important;
@@ -10565,6 +10617,7 @@ h3 {
   will-change: transform, opacity;
 }
 
+/* 娣囨繆鐦夊ù閿嬪Г鏉烆剙婧€閺冭埖鐥呴張澶愮拨鏉堣鍨ㄩ幏澶夊嚑 */
 ::view-transition-old(shared-poster),
 ::view-transition-new(shared-poster) {
   height: 100% !important;
@@ -10579,12 +10632,14 @@ h3 {
   view-transition-name: shared-poster;
 }
 
+/* 瀵搫鍩楃敮鍐ㄧ湰閸栧懎鎯堥敍灞惧絹閸楀洩绻冨〒鈩冣偓褑鍏?*/
 .poster,
 .posterCard,
 .scheduleCard {
   isolation: isolate;
 }
 
+/* 3. 閸愬懎顔愬ù顔惧箛閿涙碍鎹ｉ幎銉ユ彥妞嬬偛鍩岄弮鑸垫瀮鐎涙鍟€閸戠儤娼?*/
 .app.theme-liquid .detailInfo,
 .app.theme-liquid .metadataGrid,
 .app.theme-liquid .detailSection,
@@ -10607,11 +10662,13 @@ h3 {
   }
 }
 
+/* 瑜版挻顒滈崷銊ㄦ祮閸︾儤妞傞敍宀勬閽樺繋绔存禍娑㈠櫢鐠愮喕娴囬弫鍫熺亯 */
 .view-transitioning .glass-panel {
   backdrop-filter: none !important;
   /* 娑撳瓨妞傜粋浣烘暏妤傛ɑ鏌夊Ο锛勭ˇ閿涘瞼娓烽崙?GPU 鐠у嫭绨紒娆忓З閻?*/
 }
 
+/* 4. 瀵搫鍩楃憰鍡欐磰娑斿澧犻崣顖濆厴鐎涙ê婀惃鍕級閺€鍓ц */
 .route-enter-card,
 .route-exit-card {
   transform: none !important;
@@ -10619,11 +10676,15 @@ h3 {
   animation: none !important;
 }
 
+/* 5. 鐠囷附鍎忔い鍨殻娴ｆ挸顔愰崳銊┾偓蹇撶俺閿涘奔绗夐柆顔藉皡鏉╁洦娴崝銊ф暰 */
 .app.theme-liquid .detail {
   background: transparent;
   animation: none;
+  /* 缁夊娅庨弮褏娈戦弫缈犵秼閸斻劎鏁鹃敍灞炬暭閻劌鍞撮柈銊ュ敶鐎硅璇為悳?*/
 }
 
+/* 閸忋劌鐪懗灞炬珯娣囨繃瀵旂粙鍐茬暰濞ｂ€冲弳 */
+/* 4. 閺嬩浇鍤ч幀褑鍏樻穱婵嬫閿涙俺娴嗛崷鐑樻埂闂傛潙浠犻悽銊︽鐠愮數娈戦懗灞炬珯濡紕纭?*/
 .view-transitioning .posterMeta,
 .view-transitioning .posterCard,
 .view-transitioning .scheduleCard,
@@ -10645,6 +10706,7 @@ h3 {
   transition: none !important;
 }
 
+/* 璇︽儏椤靛尯鍩熷叏灞€鏍峰紡 */
 .detailSection {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(24px);
@@ -10750,6 +10812,7 @@ h3 {
   color: #2b1824;
 }
 
+/* 閺嶅洨顒锋禍鎴犵秹閺?*/
 .tagCloudGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -10853,6 +10916,7 @@ h3 {
   z-index: 1;
 }
 
+/* 閺嶅洨顒风紒鎾寸亯閸掓銆?*/
 .tagResultGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -11019,6 +11083,7 @@ h3 {
   align-items: center !important;
   justify-content: center !important;
   z-index: 999999 !important;
+  /* 閺嬩線鐝仦鍌滈獓 */
   padding: 40px !important;
   animation: ios-fade-in 0.3s ease-out !important;
 }
@@ -11133,9 +11198,11 @@ h3 {
 .detail.cover-tinted {
   --accent-dynamic: rgb(var(--cover-rgb));
   --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
+  /* 澧炲姞闈欒哀鎰?*/
   --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
   --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
 
+  /* 鍏ㄩ〉闈㈠井璋冭壊锛岃鑳屾櫙涓庡皝闈㈡洿缁熶竴 */
   background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
 }
 
@@ -11307,10 +11374,13 @@ h3 {
 }
 
 
-/* SCROLL PERFORMANCE 鈥?宸叉寜鐢ㄦ埛瑕佹眰鍏抽棴鍔ㄦ€佷紭鍖栦互閬垮厤闂儊
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SCROLL PERFORMANCE 鈥?宸叉寜鐢ㄦ埛瑕佹眰鍏抽棴鍔ㄦ€佷紭鍖栦互閬垮厤闂儊
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-   NESTED GLASS DESIGN 鈥?鎾斁璧勬簮锛氬ぇ鐜荤拑鍙犲皬鐜荤拑閲嶆瀯 */
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   NESTED GLASS DESIGN 鈥?鎾斁璧勬簮锛氬ぇ鐜荤拑鍙犲皬鐜荤拑閲嶆瀯
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11331,6 +11401,7 @@ h3 {
   overflow: visible;
 }
 
+/* 娑堥櫎鍐呭眰鐭╁舰 */
 .app.theme-liquid .torrentTable,
 .app.theme-liquid .mikanDownloadLayout {
   background: transparent;
@@ -11396,8 +11467,9 @@ h3 {
 }
 
 
-/* LIQUID GLASS V2 鈥?鏋佽嚧閫氶€忋€佹湁鏈哄渾娑﹂噸鏋?*/
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS V2 鈥?鏋佽嚧閫氶€忋€佹湁鏈哄渾娑﹂噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11407,12 +11479,14 @@ h3 {
   -webkit-backdrop-filter: blur(40px) saturate(2.5) brightness(1.1);
   border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-radius: 40px;
+  /* 鏋佸ぇ鍦嗚锛屾洿鍦嗘鼎 */
   padding: 32px;
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.06),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
   margin-bottom: 35px;
   border-top-color: rgba(255, 255, 255, 0.6);
+  /* 椤堕儴楂樺厜绾?*/
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -11424,6 +11498,7 @@ h3 {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
+  /* 鏋佸ぇ鍦嗚 */
   padding: 15px;
   box-shadow: none;
   transition: all 0.5s var(--motion-fluid);
@@ -11462,9 +11537,11 @@ h3 {
 }
 
 
-/* LIQUID GLASS V3 鈥?鍓ョ鍐椾綑鍥惧眰锛屽疄鐜版瀬鑷撮€忔槑 */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS V3 鈥?鍓ョ鍐椾綑鍥惧眰锛屽疄鐜版瀬鑷撮€忔槑
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-
+/* 1. 褰诲簳鏉€鎺夋墍鏈夊彲鑳藉鑷村爢鍙犲彉鐧界殑鐖剁骇鑳屾櫙 */
 .app.theme-liquid .resourceContainer,
 .app.theme-liquid .mikanDownloadLayout,
 .app.theme-liquid .mikanResourceMain,
@@ -11476,9 +11553,11 @@ h3 {
   box-shadow: none;
 }
 
+/* 2. 鏋佽嚧閫忔槑鐨勫崟灞傜幓鐠冨簳搴?*/
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
   background: rgba(255, 255, 255, 0.03);
+  /* 鏋佷綆娴撳害锛屽嚑涔庨€忔槑 */
   background-color: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(40px) saturate(2.5);
   -webkit-backdrop-filter: blur(40px) saturate(2.5);
@@ -11489,6 +11568,7 @@ h3 {
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
+/* 3. 鍐呭眰鍏冪礌涔熻褰诲簳閫氶€忥紝鍘绘帀浠讳綍瀹炶壊娈嬬暀 */
 .app.theme-liquid .onlineEpBtn,
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
@@ -11508,8 +11588,9 @@ h3 {
 
 
 
-/* LIQUID GLASS FINAL 鈥?鏋佽嚧娑叉€併€佸渾娑︺€侀€忔槑 */
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LIQUID GLASS FINAL 鈥?鏋佽嚧娑叉€併€佸渾娑︺€侀€忔槑
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceSubSection,
 .app.theme-liquid .fileTable {
@@ -11518,6 +11599,7 @@ h3 {
   -webkit-backdrop-filter: blur(50px) saturate(3) brightness(0.9);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 60px;
+  /* 鏋佸ぇ鍦嗚 */
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
   padding: 40px;
 }
@@ -11532,12 +11614,14 @@ h3 {
 }
 
 
-/* VISIBILITY & LAYOUT OPTIMIZATION 鈥?鏂囧瓧澧炲己涓庡竷灞€鎵╁ */
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   VISIBILITY & LAYOUT OPTIMIZATION 鈥?鏂囧瓧澧炲己涓庡竷灞€鎵╁
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .resourceHeading h3,
 .app.theme-liquid .mikanGroupSidebar h4 {
   color: #1e1b4b;
+  /* 鏋佹繁钃濊壊锛屾彁楂樺姣斿害 */
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
@@ -11548,6 +11632,7 @@ h3 {
   font-weight: 600;
 }
 
+/* 璧勬簮琛ㄥ垪瀹藉垎閰?- 褰诲簳瑙ｅ喅閲嶅彔 */
 .app.theme-liquid .colTitle {
   flex: 1;
   min-width: 0;
@@ -11577,19 +11662,25 @@ h3 {
   gap: 8px;
 }
 
+/* 鎵╁鏁翠綋鍐呰竟璺濓紝鍒╃敤鏇村绌洪棿 */
 .app.theme-liquid .resourceSubSection {
   padding: 24px 20px;
 }
 
 
-/* LAYOUT CORRECTION 鈥?鎭㈠渚ц竟鏍忓苟鏋佽嚧鎵╁鏁版嵁鍖?*/
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   LAYOUT CORRECTION 鈥?鎭㈠渚ц竟鏍忓苟鏋佽嚧鎵╁鏁版嵁鍖?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-
+/* 2. 鎵╁璇︽儏椤垫ā鎬佹鏁翠綋瀹藉害锛岀粰鍐呴儴鑵剧┖闂?*/
 .app.theme-liquid .detailModalCard {
   width: 95vw;
+  /* 鍗犳嵁灞忓箷 95% 瀹藉害 */
   max-width: 1400px;
+  /* 鏈€澶у搴︿笂璋?*/
 }
 
+/* 3. 寮哄埗鏁版嵁闈㈡澘鍗犳弧瀹藉害 */
 .app.theme-liquid .resourceContainer,
 .app.theme-liquid .resourceSubSection {
   width: 100%;
@@ -11597,24 +11688,30 @@ h3 {
   box-sizing: border-box;
 }
 
+/* 4. 浼樺寲鍒楀垎閰嶏紝涓嶅啀寮哄埗鎴柇鐣粍鍚?*/
 .app.theme-liquid .colTitle {
   white-space: normal;
+  /* 鍏佽鎹㈣锛屾垨鑰呯粰瓒冲瀹藉害 */
   line-height: 1.4;
   padding-right: 20px;
 }
 
 .app.theme-liquid .torrentRow {
   align-items: flex-start;
+  /* 澶氳鏂囧瓧鏃跺榻愰《閮?*/
   padding: 16px;
 }
 
 
-/* SIDEBAR RESTORATION 鈥?閿佸畾宸︿晶瀹藉害锛岄槻姝㈡尋鍘?*/
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SIDEBAR RESTORATION 鈥?閿佸畾宸︿晶瀹藉害锛岄槻姝㈡尋鍘?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .mikanGroupSidebar {
   width: 240px;
+  /* 澶у箙鍔犲 */
   flex-shrink: 0;
+  /* 鏍稿績锛氱姝㈣鎸ゅ帇 */
   padding-right: 20px;
   border-right: 1.5px solid rgba(255, 255, 255, 0.15);
 }
@@ -11622,6 +11719,7 @@ h3 {
 .app.theme-liquid .mikanGroupBtn {
   padding: 10px 16px;
   font-size: 13px;
+  /* 鎭㈠瀛楀彿 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -11631,12 +11729,14 @@ h3 {
 
 .app.theme-liquid .mikanDownloadLayout {
   gap: 32px;
+  /* 澧炲姞宸﹀彸闂磋窛 */
   align-items: stretch;
 }
 
 
-/* COMPACT DOWNLOAD BUTTONS 鈥?绮捐嚧鍖栦笅杞芥寜閽?*/
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   COMPACT DOWNLOAD BUTTONS 鈥?绮捐嚧鍖栦笅杞芥寜閽?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .colActions {
   width: 140px;
@@ -11657,6 +11757,7 @@ h3 {
   color: #db2777;
   transition: all 0.3s;
   font-size: 10px;
+  /* 閽堝鏂囧瓧鎸夐挳 */
   font-weight: 800;
   cursor: pointer;
 }
@@ -11676,8 +11777,9 @@ h3 {
 }
 
 
-/* COMPACT ROWS & ANIMATION FIX 鈥?璧勬簮琛岀槮韬笌鍔ㄧ敾闃查伄鎸?*/
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   COMPACT ROWS & ANIMATION FIX 鈥?璧勬簮琛岀槮韬笌鍔ㄧ敾闃查伄鎸?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .torrentTable,
 .app.theme-liquid .mikanResourceMain,
@@ -11688,17 +11790,20 @@ h3 {
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
   padding: 8px 16px;
+  /* 娣卞害鐦﹁韩锛屽噺灏戜笂涓嬮棿璺?*/
   min-height: 0;
   margin-bottom: 6px;
   background: rgba(255, 255, 255, 0.04);
 }
 
+/* 璋冩暣涓婃诞骞呭害锛岃瀹冩洿杞荤泩浣嗕笉鑷充簬鎾炲 */
 .app.theme-liquid .torrentRow:hover,
 .app.theme-liquid .fileRow:hover {
   transform: translateY(-2px) scale(1.005);
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* 缁欑涓€琛岀暀鍑鸿捣椋炵┖闂?*/
 .app.theme-liquid .torrentTable {
   padding-top: 5px;
 }
@@ -11720,13 +11825,15 @@ h3 {
 }
 
 
-/* PERFORMANCE & CLARITY 鈥?绉婚櫎琛屽唴妯＄硦锛岃В鍐抽暱鍒楄〃鍙戠櫧闂 */
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   PERFORMANCE & CLARITY 鈥?绉婚櫎琛屽唴妯＄硦锛岃В鍐抽暱鍒楄〃鍙戠櫧闂
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .onlineEpBtn,
 .app.theme-liquid .torrentRow,
 .app.theme-liquid .fileRow {
   backdrop-filter: none;
+  /* 褰诲簳绉婚櫎琛屽唴妯＄硦锛岄槻姝㈠彔鍔犲彂鐧?*/
   -webkit-backdrop-filter: none;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -11776,27 +11883,33 @@ h3 {
 }
 
 
-/* SCROLL & HEIGHT FIX 鈥?寮哄埗闄愰珮婊氬姩锛岃В鍐抽暱鍒楄〃鍙戠櫧涓庢拺鐖嗛〉闈?*/
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   SCROLL & HEIGHT FIX 鈥?寮哄埗闄愰珮婊氬姩锛岃В鍐抽暱鍒楄〃鍙戠櫧涓庢拺鐖嗛〉闈?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
-
+/* 1. 闄愬埗璧勬簮涓诲尯鍩熼珮搴︼紝寮€鍚唴閮ㄦ粴鍔?*/
 .app.theme-liquid .mikanDownloadLayout {
   height: 650px;
+  /* 鍥哄畾楂樺害 */
   overflow: hidden;
 }
 
 .app.theme-liquid .mikanResourceMain {
   height: 100%;
   overflow-y: auto;
+  /* 寮€鍚粴鍔ㄦ潯 */
   padding-right: 10px;
   border-radius: 24px;
   margin-left: 10px;
 }
 
+/* 2. 杩欓噷鐨勮儗鏅繀椤诲交搴曢€忔槑锛屽惁鍒欐粴鍔ㄦ椂浼氬彂鐧?*/
 .app.theme-liquid .mikanResourceMain,
 .app.theme-liquid .torrentTable {
   background: transparent;
 }
 
+/* 3. 缇庡寲婊氬姩鏉★紝浣垮叾绗﹀悎娑叉€侀鏍?*/
 .app.theme-liquid .mikanResourceMain::-webkit-scrollbar {
   width: 4px;
 }
@@ -11820,8 +11933,9 @@ h3 {
 }
 
 
-/* STICKY HEADER 鈥?閿佸畾琛ㄥご锛屾彁鍗囨粴鍔ㄤ綋楠?*/
-
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   STICKY HEADER 鈥?閿佸畾琛ㄥご锛屾彁鍗囨粴鍔ㄤ綋楠?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .app.theme-liquid .torrentTable {
   border-radius: 24px;
@@ -11844,18 +11958,26 @@ h3 {
 }
 
 
-/* DETAIL PAGE COLOR PICKING 鈥?璇︽儏椤垫瀬鑷村彇鑹查噸鏋?*/
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   DETAIL PAGE COLOR PICKING 鈥?璇︽儏椤垫瀬鑷村彇鑹查噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   DETAIL PAGE COLOR PICKING 鈥?璇︽儏椤垫瀬鑷村彇鑹查噸鏋?
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .detail.cover-tinted {
   --accent-dynamic: rgb(var(--cover-rgb));
   --accent-dynamic-muted: rgba(var(--cover-rgb), 0.85);
+  /* 澧炲姞闈欒哀鎰?*/
   --accent-dynamic-soft: rgba(var(--cover-rgb), 0.1);
   --accent-dynamic-glow: rgba(var(--cover-rgb), 0.15);
 
+  /* 鍏ㄩ〉闈㈠井璋冭壊锛岃鑳屾櫙涓庡皝闈㈡洿缁熶竴 */
   background: radial-gradient(circle at 50% -10%, rgba(var(--cover-rgb), 0.08), transparent 70%) !important;
 }
 
+/* 鍔ㄧ敾锛氬姩鎬佹瘺鐜荤拑鍏夋檿婕傜Щ - 澧炲姞骞呭害鍜岄€熷害 */
 @keyframes fluidGlow {
   0% {
     background-position: 0% 50%;
@@ -11878,6 +12000,7 @@ h3 {
   }
 }
 
+/* 椤堕儴鑻遍泟鍖哄煙鑳屾櫙鍙栬壊铻嶅悎 - 闄嶄綆椤堕儴鐨勯噸鑹插苟鍔犲叆鍔ㄦ€佹晥鏋?*/
 .detail.cover-tinted .detailHeroSection {
   background:
     radial-gradient(circle at 20% 20%, rgba(var(--cover-rgb), 0.15) 0%, transparent 50%),
@@ -11894,6 +12017,7 @@ h3 {
   text-shadow: 0 4px 12px rgba(var(--cover-rgb), 0.1);
 }
 
+/* 缁熶竴璇︽儏椤典俊鎭垪琛ㄦ枃瀛楅鑹诧紝閬垮厤鈥滈殢鏈衡€濇劅 */
 .detail.cover-tinted .infoList dt {
   color: rgba(var(--cover-rgb), 0.7);
   /* label 绋嶅井甯︿竴鐐瑰彇鑹蹭絾鏇存殫 */
@@ -11905,6 +12029,7 @@ h3 {
   font-weight: 700;
 }
 
+/* 鐜荤拑瀹瑰櫒鍙栬壊锛氬寮轰笅鏂瑰鍣ㄩ鑹茬殑姣旈噸锛岀‘淇濇瀬楂樹紭鍏堢骇 */
 .app.theme-liquid .detail.cover-tinted .panel,
 .app.theme-liquid .detail.cover-tinted .detailSection,
 .app.theme-liquid .detail.cover-tinted .ratingDistribution,
@@ -11923,9 +12048,11 @@ h3 {
     0 24px 64px rgba(var(--cover-rgb), 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
   backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
+  /* 澧炲姞浜害鎻愬崌閫氶€忔劅 */
   -webkit-backdrop-filter: blur(32px) saturate(2.2) brightness(1.05) !important;
 }
 
+/* 瑕嗙洊骞跺姞寮洪珮鍏夊眰锛屼娇鍏朵骇鐢熲€滃彂鍏夆€濈殑璐ㄦ劅 */
 .app.theme-liquid .detail.cover-tinted .panel::before,
 .app.theme-liquid .detail.cover-tinted .detailSection::before,
 .app.theme-liquid .detail.cover-tinted .fileTable::before,
@@ -11990,6 +12117,7 @@ h3 {
   box-shadow: 0 14px 34px rgba(var(--cover-rgb), 0.16), 0 2px 3px rgba(255, 255, 255, 0.7) inset !important;
 }
 
+/* 澧炲己锛氳鑹插崱鐗囩瓑灏忓鍣ㄤ篃鍙互绋嶅井甯︿竴鐐硅壊 */
 .detail.cover-tinted .characterCard,
 .detail.cover-tinted .characterItem,
 .detail.cover-tinted .staffCard,
@@ -12011,6 +12139,7 @@ h3 {
   box-shadow: 0 16px 32px rgba(var(--cover-rgb), 0.12) !important;
 }
 
+/* 灞曞紑鎸夐挳鍙栬壊 */
 .detail.cover-tinted .expandStaffBtn {
   background: rgba(var(--cover-rgb), 0.06) !important;
   border: 1px solid rgba(var(--cover-rgb), 0.18) !important;
@@ -12024,6 +12153,7 @@ h3 {
   box-shadow: 0 8px 20px rgba(var(--cover-rgb), 0.1) !important;
 }
 
+/* 澧炲姞搴曞眰绋冲畾鑳屾櫙锛岄槻姝㈣繙绋嬪浘鍔犺浇鏃剁殑绌虹櫧 */
 .detailHeroBg::before {
   content: "";
   position: absolute;
@@ -12033,6 +12163,7 @@ h3 {
   z-index: -1;
 }
 
+/* 鑻遍泟鍖哄煙鑳屾櫙姣涚幓鐠冨寮?- 骞跺姞鍏ュ姩鎬佹晥鏋?*/
 .detail.cover-tinted .detailHeroBg::after {
   content: "";
   position: absolute;
@@ -12041,6 +12172,7 @@ h3 {
   z-index: 1;
 }
 
+/* 鏍囬瑁呴グ绾垮彇鑹?- 澧炲姞澶栧彂鍏?*/
 .detail.cover-tinted .detailSection h2::before,
 .detail.cover-tinted section h2::before {
   background: var(--accent-dynamic) !important;
@@ -12048,6 +12180,7 @@ h3 {
   width: 5px !important;
 }
 
+/* 璇勫垎鏁板瓧鍙栬壊 - 鏋侀珮鏉冮噸 */
 .detail.cover-tinted .ratingScoreValue {
   color: var(--accent-dynamic) !important;
   font-size: 42px !important;
@@ -12057,6 +12190,7 @@ h3 {
   line-height: 1 !important;
 }
 
+/* 璇勫垎鍒嗗竷鍥捐〃鍙栬壊 - 鏇村姞鐏靛姩 */
 .detail.cover-tinted .chartBar {
   background: var(--accent-dynamic) !important;
   opacity: 1 !important;
@@ -12076,6 +12210,7 @@ h3 {
   filter: brightness(0.9) saturate(0.8);
 }
 
+/* 涓昏鎸夐挳鍙栬壊 - 鍛煎惛鎰?*/
 .detail.cover-tinted .primaryButton {
   background: var(--accent-dynamic) !important;
   color: white !important;
@@ -12091,6 +12226,7 @@ h3 {
   box-shadow: 0 18px 45px var(--accent-dynamic-glow) !important;
 }
 
+/* 鏍囩浜戝彇鑹?- 褰诲簳瑕嗙洊鏃ф牱寮?*/
 .detail.cover-tinted .tagCloud span,
 .detail.cover-tinted .metadataPanel.tagsPanel .tagCloud span {
   background: var(--accent-dynamic-soft) !important;
@@ -12103,15 +12239,18 @@ h3 {
   border-radius: 16px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  /* 鏋佽嚧娴佺晠鐨勫姩鍔涘杩囨浮 */
 }
 
 .detail.cover-tinted .tagCloud span:hover {
   background: var(--accent-dynamic) !important;
   color: white !important;
   transform: translateY(-5px);
+  /* 绾瀭鐩翠綅绉绘洿鏄剧嚎鎬?*/
   box-shadow: 0 12px 32px var(--accent-dynamic-glow) !important;
 }
 
+/* 淇℃伅鍒楄〃鏁板€煎彇鑹?*/
 .detail.cover-tinted .detailMetaItem span,
 .detail.cover-tinted .infoList dd,
 .detail.cover-tinted .chartFoot b,
@@ -12121,6 +12260,7 @@ h3 {
   text-shadow: 0 0 1px var(--accent-dynamic-glow);
 }
 
+/* 鎾斁鎸夐挳鍙栬壊 */
 .detail.cover-tinted .playButton {
   background: var(--accent-dynamic-soft) !important;
   color: var(--accent-dynamic) !important;
@@ -12134,6 +12274,7 @@ h3 {
   box-shadow: 0 8px 20px var(--accent-dynamic-glow) !important;
 }
 
+/* 杩斿洖鎸夐挳鍙栬壊 */
 .detail.cover-tinted .backButtonGlass {
   color: var(--accent-dynamic) !important;
   background: var(--accent-dynamic-soft) !important;
@@ -12146,11 +12287,13 @@ h3 {
   color: white !important;
 }
 
+/* 搴曢儴鑴氭敞鍙栬壊 */
 .detail.cover-tinted .detailFoot span {
   color: var(--accent-dynamic-muted) !important;
   opacity: 0.8;
 }
 
+/* 锟斤拷锟斤拷页锟斤拷锟脚伙拷锟斤拷去锟斤拷锟斤拷锟截帮拷钮锟斤拷谋锟斤拷锟斤拷锟?*/
 .app.theme-liquid .scrapePage .backBar {
   background: transparent !important;
   border-bottom: none !important;
@@ -12184,7 +12327,9 @@ h3 {
   transform: translateY(-2px);
 }
 
+/* ========================================================================= */
 /* 馃殌 PERFORMANCE OPTIMIZATION PATCH - 寮哄埗 GPU 纭欢鍔犻€熷眰锛岃В鍐冲崱椤夸笌鎺夊抚 */
+/* ========================================================================= */
 /* 涓哄寘鍚ぇ闈㈢Н姣涚幓鐠?闃村奖/鍙栬壊鐨勬牳蹇冪粍浠剁嫭绔嬪垱寤哄悎鎴愬眰 (Composite Layer) */
 .posterCard,
 .mikanWeeklyCard,
@@ -12208,18 +12353,21 @@ h3 {
   /* 寮哄埗娴忚鍣ㄥ垎閰嶇嫭绔嬬殑 GPU 灞傦紝閬垮厤婊氬姩/鍔ㄧ敾鏃剁殑鍏ㄩ〉闈㈤噸缁?*/
   transform: translateZ(0);
   backface-visibility: hidden;
+  /* 鎻愮ず娴忚鍣ㄩ鍏堝垎閰嶈祫婧?*/
   will-change: transform;
 }
 
 /* 瀵归暱鍒楄〃鍏冪礌鍚敤 content-visibility (瑙嗗彛鍓旈櫎) 鏋佸ぇ骞呭害鎻愰珮闀垮垪琛ㄦ粴鍔ㄥ抚鐜?*/
 /* 娉ㄦ剰锛氫负浜嗛槻姝㈡粴鍔ㄦ潯璺冲姩锛岃繖閲屽繀椤婚厤鍚?contain-intrinsic-size銆?
+   濡傛灉娌℃湁绮剧‘楂樺害锛屼粎鍦ㄦ渶瀹规槗鍗￠】鐨勫湴鏂瑰紑鍚€?*/
+.mediaGrid .posterCard,
 .tagResultGrid .animeCard,
 .candidateList .candidate,
 .mikanShowList .mikanShowItem {
   content-visibility: auto;
+  /* 棰勪及涓€涓渶灏忓崰浣嶉珮搴︼紝闃叉瑙嗗彛澶栧厓绱犲墧闄ゆ椂婊氬姩鏉″墽鐑堣烦鍔?*/
   contain-intrinsic-size: auto 300px;
 }
-
 
 /* Modal 绐勬粴鍔ㄦ潯 */
 .custom-scrollbar::-webkit-scrollbar {
@@ -12248,6 +12396,7 @@ h3 {
   border: none !important;
 }
 
+/* --- 鏂囦欢澶规姌鍙?灞曞紑鎸夐挳 --- */
 .groupHeader {
   cursor: pointer;
   user-select: none;
@@ -12296,6 +12445,7 @@ h3 {
   background: rgba(var(--cover-rgb), 0.2);
 }
 
+/* 鏂囦欢缁勬姌鍙犲姩鐢?*/
 .fileGroupFiles {
   transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
@@ -12312,6 +12462,7 @@ h3 {
   overflow: visible;
 }
 
+/* 琛ㄥご鏍忓彇鑹?鈥?涓庨《閮ㄥ崱鐗囩粺涓€鐨勭幓鐠冭川鎰?*/
 .detail.cover-tinted .tableHead {
   background: rgba(var(--cover-rgb), 0.04) !important;
   border: 1px solid rgba(var(--cover-rgb), 0.1) !important;
@@ -12323,9 +12474,11 @@ h3 {
   border-radius: 14px;
 }
 
-/* FINAL OVERRIDES - 纭繚鍦ㄤ换浣曞叏灞€瑙勫垯涔嬪悗鐢熸晥 */
+/* ============================================================
+   FINAL OVERRIDES - 纭繚鍦ㄤ换浣曞叏灞€瑙勫垯涔嬪悗鐢熸晥
+   ============================================================ */
 
-
+/* 1. 鎼滅储妗嗗幓鐧斤細寮哄埗杈撳叆妗嗛€忔槑锛岀Щ闄や换浣曞彲鑳藉彔鍔犵殑鐧借壊鑳屾櫙 */
 .app.theme-liquid .searchBox input {
   background: transparent !important;
   backdrop-filter: none !important;
@@ -12344,7 +12497,18 @@ h3 {
 }
 
 
-/* Search box transparent background */
+/* EMERGENCY OVERRIDE FOR SEARCH BOX WHITENESS */
+.app.theme-liquid div.searchBox input {
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  appearance: none !important;
+}
+
+/* AGGRESSIVE SEARCH BOX FIX */
 .searchBox input,
 .searchBox input:focus,
 .searchBox input:active {
@@ -12356,8 +12520,9 @@ h3 {
   -webkit-backdrop-filter: none !important;
 }
 
+/* FINAL ATTEMPT AT SEARCH BOX - NUKING WHITE PLASTIC */
 .app.theme-liquid .searchBox input {
-  background: transparent !important;
+  background: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
   border: none !important;
@@ -12365,18 +12530,19 @@ h3 {
   padding-bottom: 0 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  appearance: none !important;
   -webkit-appearance: none !important;
-  outline: none !important;
+  appearance: none !important;
 }
 
 
+/* 绉婚櫎浠讳綍鍙兘浜х敓鐨勮儗鏅眰 */
 .app.theme-liquid .headerBottomRow .headerRightGroup::before,
 .app.theme-liquid .headerBottomRow .headerRightGroup::after {
   display: none !important;
   content: none !important;
 }
 
+/* 閲嶆柊濉戦€犳悳绱㈡锛氳交鐩堛€佹诞鍔ㄣ€侀€忔槑 */
 .app.theme-liquid .globalSearchBox {
   flex: 0 0 304px !important;
   width: 304px !important;
@@ -12410,12 +12576,11 @@ h3 {
 }
 
 /* Sidebar Collapsed Aggressive Color Override */
-.app.sidebar-collapsed .sidebar.collapsed .navButton:not(.active),
-.app.sidebar-collapsed .sidebar.collapsed .sourceButton,
+.app.sidebar-collapsed .sidebar.collapsed .navButton:not(.active), 
+.app.sidebar-collapsed .sidebar.collapsed .sourceButton, 
 .app.sidebar-collapsed .sidebar.collapsed .themeToggleButton {
   color: #000000 !important;
 }
-
 .app.sidebar-collapsed .sidebar.collapsed .sidebarToggle {
   color: #000000 !important;
 }

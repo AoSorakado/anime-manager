@@ -18,7 +18,26 @@ export default function GlassSelect({
   const [dropUp, setDropUp] = useState(false);
   const [menuPos, setMenuPos] = useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 180 });
   const btnRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const selected = options.find((option) => option.value === value) || options[0];
+
+  // Close on outside click — uses document listener instead of overlay
+  // to avoid intercepting clicks on other GlassSelect buttons
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if (btnRef.current?.contains(t)) return;
+      if (menuRef.current?.contains(t)) return;
+      setOpen(false);
+    };
+    // Use setTimeout to avoid the same click that opened the dropdown from closing it
+    const id = setTimeout(() => document.addEventListener("click", onDocClick), 0);
+    return () => {
+      clearTimeout(id);
+      document.removeEventListener("click", onDocClick);
+    };
+  }, [open]);
 
   const handleToggle = () => {
     if (!open && btnRef.current) {
@@ -42,55 +61,49 @@ export default function GlassSelect({
         <span className="glassSelectChevron">{dropUp ? "⌃" : "⌄"}</span>
       </button>
       {open && createPortal(
-        <>
-          {/* 透明遮罩层：点击任意位置关闭 */}
+        <div
+          ref={menuRef}
+          className={`glassSelectMenu glassSelectMenuPortal ${dropUp ? "drop-up" : ""} ${document.querySelector('.app')?.classList.contains('theme-liquid') ? 'theme-liquid' : ''}`}
+          style={{
+            position: "fixed",
+            zIndex: 999999,
+            left: columns > 1 ? Math.min(menuPos.left, window.innerWidth - (columns * 110) - 20) : menuPos.left,
+            width: columns > 1 ? columns * 110 : menuPos.width,
+            ...(dropUp
+              ? { bottom: window.innerHeight - menuPos.top + 8, top: "auto" }
+              : { top: menuPos.top, bottom: "auto" }),
+          }}
+        >
           <div
-            style={{ position: "fixed", inset: 0, zIndex: 999998 }}
-            onClick={() => setOpen(false)}
-          />
-          <div
-            className={`glassSelectMenu glassSelectMenuPortal ${dropUp ? "drop-up" : ""} ${document.querySelector('.app')?.classList.contains('theme-liquid') ? 'theme-liquid' : ''}`}
+            className="glassSelectMenuContent"
             style={{
-              position: "fixed",
-              zIndex: 999999,
-              left: columns > 1 ? Math.min(menuPos.left, window.innerWidth - (columns * 110) - 20) : menuPos.left,
-              width: columns > 1 ? columns * 110 : menuPos.width,
-              ...(dropUp
-                ? { bottom: window.innerHeight - menuPos.top + 8 }
-                : { top: menuPos.top }),
+              display: columns > 1 ? 'grid' : 'block',
+              gridTemplateColumns: columns > 1 ? `repeat(${columns}, 1fr)` : 'none',
+              gap: '6px',
+              padding: columns > 1 ? '8px' : '0',
+              overflow: 'hidden'
             }}
           >
-            <div 
-              className="glassSelectMenuContent"
-              style={{
-                display: columns > 1 ? 'grid' : 'block',
-                gridTemplateColumns: columns > 1 ? `repeat(${columns}, 1fr)` : 'none',
-                gap: '6px',
-                padding: columns > 1 ? '8px' : '0',
-                overflow: 'hidden'
-              }}
-            >
-              {options.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  className={value === opt.value ? "active" : ""}
-                  style={{
-                    padding: columns > 1 ? '10px 4px' : '10px 16px',
-                    textAlign: 'center',
-                    whiteSpace: 'nowrap'
-                  }}
-                  onClick={() => {
-                    onChange(opt.value);
-                    setOpen(false);
-                  }}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+            {options.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                className={value === opt.value ? "active" : ""}
+                style={{
+                  padding: columns > 1 ? '10px 4px' : '10px 16px',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap'
+                }}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
-        </>,
+        </div>,
         document.body
       )}
     </div>

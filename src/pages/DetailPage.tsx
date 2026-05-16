@@ -189,7 +189,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning, s
 
   return (
     <div className="detail cover-tinted" style={{ "--cover-rgb": tintColor } as any}>
-      <button className="backButtonGlass" onClick={onBack} style={{ position: 'sticky', top: '0', zIndex: 24, marginBottom: '14px' }}>
+      <button className="backButtonGlass" onClick={onBack} style={{ position: 'sticky', top: '-10px', zIndex: 100, marginBottom: '14px' }}>
         <ArrowLeft size={16} />
         <span>返回媒体库</span>
       </button>
