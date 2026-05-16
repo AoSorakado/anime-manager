@@ -11,7 +11,8 @@ export function SettingsPage({
   onSourceAdded,
   onSourcesChanged,
   onScan,
-  onNamesChanged
+  onNamesChanged,
+  showDialog
 }: {
   sources: Source[];
   scanningSourceId: number | null;
@@ -20,6 +21,7 @@ export function SettingsPage({
   onSourcesChanged: () => Promise<void>;
   onScan: (id: number) => Promise<void>;
   onNamesChanged?: () => Promise<void>;
+  showDialog: (options: any) => void;
 }) {
   const [settings, setSettings] = useState<SettingsMap>({});
   const [libraryPath, setLibraryPath] = useState("");
@@ -101,16 +103,21 @@ export function SettingsPage({
   }
 
   async function downloadSync() {
-    const confirmed = window.confirm("从 WebDAV 拉取同步状态？\n会把匹配到的条目、单集进度和播放历史合并到本机。");
-    if (!confirmed) return;
-    try {
-      const result = await window.libraryApi.sync.downloadWebDav();
-      await onNamesChanged?.();
-      setMessage(`同步拉取完成：合并 ${result.items} 个条目、${result.files} 个文件、${result.histories} 条历史`);
-      setError("");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
+    showDialog({
+      type: "confirm",
+      title: "拉取同步状态",
+      message: "从 WebDAV 拉取同步状态？\n会把匹配到的条目、单集进度和播放历史合并到本机。",
+      onConfirm: async () => {
+        try {
+          const result = await window.libraryApi.sync.downloadWebDav();
+          await onNamesChanged?.();
+          setMessage(`同步拉取完成：合并 ${result.items} 个条目、${result.files} 个文件、${result.histories} 条历史`);
+          setError("");
+        } catch (err) {
+          setError(err instanceof Error ? err.message : String(err));
+        }
+      }
+    });
   }
 
   async function chooseMpv() {
@@ -181,16 +188,21 @@ export function SettingsPage({
   }
 
   async function deleteLibrary(source: Source) {
-    const confirmed = window.confirm(`删除媒体库「${source.name}」？\n\n只会删除 App 里的来源、条目和历史记录，不会删除磁盘文件。`);
-    if (!confirmed) return;
-    try {
-      await window.libraryApi.sources.delete(source.id);
-      await onSourcesChanged();
-      setMessage(`已删除媒体库：${source.name}`);
-      setError("");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
+    showDialog({
+      type: "confirm",
+      title: "删除媒体库",
+      message: `删除媒体库「${source.name}」？\n\n只会删除 App 里的来源、条目和历史记录，不会删除磁盘文件。`,
+      onConfirm: async () => {
+        try {
+          await window.libraryApi.sources.delete(source.id);
+          await onSourcesChanged();
+          setMessage(`已删除媒体库：${source.name}`);
+          setError("");
+        } catch (err) {
+          setError(err instanceof Error ? err.message : String(err));
+        }
+      }
+    });
   }
 
   return (

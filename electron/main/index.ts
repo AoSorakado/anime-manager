@@ -348,7 +348,7 @@ function registerIpc() {
 async function checkLibrariesOnStartup(win: BrowserWindow) {
   const sources = listSources();
   if (sources.length === 0) {
-    await dialog.showMessageBox(win, {
+    win.webContents.send("show-dialog", {
       type: "info",
       title: "资源库检查",
       message: "无更新",
@@ -378,14 +378,14 @@ async function checkLibrariesOnStartup(win: BrowserWindow) {
   }
 
   if (changedSources > 0) {
-    await dialog.showMessageBox(win, {
+    win.webContents.send("show-dialog", {
       type: "info",
       title: "资源库有更新",
       message: "资源库有更新",
       detail: `已扫描 ${sources.length} 个媒体库，${changedSources} 个有变化。\n当前共识别 ${totalFolders} 个条目、${totalFiles} 个视频文件。${failed ? `\n失败 ${failed} 个：\n${errors.join("\n")}` : ""}`
     });
   } else {
-    await dialog.showMessageBox(win, {
+    win.webContents.send("show-dialog", {
       type: failed ? "warning" : "info",
       title: failed ? "资源库检查完成" : "资源库无更新",
       message: failed ? "资源库检查完成，但有失败项" : "无更新",

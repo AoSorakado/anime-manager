@@ -1,6 +1,7 @@
 import fs from "fs";
 import { spawn } from "child_process";
 import net from "net";
+import { BrowserWindow } from "electron";
 import { getDb, getMediaItem, getSettings, log, now } from "./db.js";
 import { updateBangumiSubjectStatus } from "./bangumiSync.js";
 export function playFile(mediaFileId) {
@@ -146,6 +147,7 @@ async function monitorMpvPlayback({ child, pipeName, startedAt, historyId, file,
                 }
             }
         }
+        notifyRendererStatsChanged();
         log("info", "player", `mpv 播放结束：${title}，真实播放 ${formatDuration(watchedSeconds)}，位置 ${formatDuration(Math.round(position))}`, file?.file_path || onlineTitle);
     };
     child.once("exit", finalize);
@@ -215,6 +217,7 @@ async function monitorMpvPlayback({ child, pipeName, startedAt, historyId, file,
                             .prepare("UPDATE media_files SET duration = COALESCE(?, duration), last_position = ?, updated_at = ? WHERE id = ?")
                             .run(state.mediaDuration, Math.round(position), now(), file.id);
                     }
+                    notifyRendererStatsChanged();
                 }
                 // Bangumi Sync: Set "Watching" when play starts
                 if (!state.syncedWatching && position > 2 && state.watchedSeconds > 5) {
@@ -329,4 +332,9 @@ function formatDuration(seconds) {
     const minutes = Math.floor(seconds / 60);
     const rest = seconds % 60;
     return `${minutes}分${rest}秒`;
+}
+function notifyRendererStatsChanged() {
+    BrowserWindow.getAllWindows().forEach(win => {
+        win.webContents.send("playback-ended");
+    });
 }

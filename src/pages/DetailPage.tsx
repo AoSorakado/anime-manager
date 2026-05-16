@@ -11,7 +11,7 @@ import Poster from "../components/Poster";
 import RelatedSubjectsPanel from "../components/RelatedSubjectsPanel";
 import SubjectModal from "../components/SubjectModal";
 
-export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }: { id: number; onBack: () => void; onScrape: () => void; onChanged: () => Promise<void>; isTransitioning: boolean }) {
+export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning, showDialog }: { id: number; onBack: () => void; onScrape: () => void; onChanged: () => Promise<void>; isTransitioning: boolean; showDialog: (options: any) => void }) {
   const [item, setItem] = useState<MediaItem | null>(null);
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [activeCharacter, setActiveCharacter] = useState<Record<string, unknown> | null>(null);
@@ -161,7 +161,11 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
       await load();
       await onChanged();
     } catch (err) {
-      window.alert(err instanceof Error ? err.message : String(err));
+      showDialog({
+        type: "error",
+        title: "播放失败",
+        message: err instanceof Error ? err.message : String(err)
+      });
     }
   }
 
@@ -173,7 +177,11 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
       await load();
       await onChanged();
     } catch (err) {
-      window.alert(err instanceof Error ? err.message : String(err));
+      showDialog({
+        type: "error",
+        title: "刷新数据失败",
+        message: err instanceof Error ? err.message : String(err)
+      });
     } finally {
       setRefreshingById(false);
     }
@@ -440,102 +448,7 @@ export function DetailPage({ id, onBack, onScrape, onChanged, isTransitioning }:
         })}
       </section>
 
-      <section className="fileTable">
-        <h2>播放资源</h2>
 
-        <div className="resourceContainer" style={{ marginTop: '12px' }}>
-          <section className="resourceSubSection">
-            <div className="resourceHeading">
-              <h3>在线播放 (Kazumi Rules)</h3>
-              <GlassSelect
-                value={selectedWeeklyResult?.url || ""}
-                onChange={async (val) => {
-                  const found = weeklySearchResults.find(r => r.url === val);
-                  if (found) {
-                    setSelectedWeeklyResult(found);
-                    const eps = await window.libraryApi.online.episodes({ ruleUrl: found.rule_url || undefined, url: found.url });
-                    setWeeklyEpisodes(eps);
-                  }
-                }}
-                options={weeklySearchResults.map(res => ({
-                  value: res.url,
-                  label: res.rule_name || "未知源"
-                }))}
-              />
-            </div>
-            <div className="onlineEpisodeGrid">
-              {weeklyEpisodes.map((ep, idx) => (
-                <button key={idx} className="onlineEpBtn" onClick={async () => {
-                  await window.libraryApi.online.playUrl(ep.url, ep.title, ep.referer, { ruleUrl: ep.rule_url || undefined }, (selectedWeeklyDetail as any)?.external_id || (selectedWeeklyDetail as any)?.id);
-                  await onChanged();
-                }}>
-                  <div className="epNum">{ep.title.match(/\d+/)?.[0] ? `第 ${ep.title.match(/\d+/)?.[0]} 集` : ep.title}</div>
-                  <div className="epLabel">在线播放</div>
-                </button>
-              ))}
-              {weeklyEpisodes.length === 0 && <div className="emptyState">未找到可用分集资源</div>}
-            </div>
-          </section>
-
-          <section className="resourceSubSection">
-            <div className="resourceHeading">
-              <h3>离线下载 (Mikan RSS)</h3>
-            </div>
-            <div className="mikanDownloadLayout">
-              <aside className="mikanGroupSidebar">
-                <h4>相关字幕组</h4>
-                <button
-                  className={`mikanGroupBtn ${selectedSubtitleGroup === "全部" ? "active" : ""}`}
-                  onClick={() => setSelectedSubtitleGroup("全部")}
-                >全部</button>
-                {Array.from(new Set(mikanDownloadResults.map(i => i.subtitle_group || "未知")))
-                  .filter(g => g !== "未知")
-                  .sort()
-                  .map(group => (
-                    <button
-                      key={group}
-                      className={`mikanGroupBtn ${selectedSubtitleGroup === group ? "active" : ""}`}
-                      onClick={() => setSelectedSubtitleGroup(group)}
-                    >{group}</button>
-                  ))
-                }
-              </aside>
-              <main className="mikanResourceMain">
-                <div className="torrentTable">
-                  <div className="torrentTableHeader">
-                    <div className="colTitle">番组名</div>
-                    <div className="colSize">大小</div>
-                    <div className="colDate">更新时间</div>
-                    <div className="colActions">下载</div>
-                  </div>
-                  {mikanDownloadResults
-                    .filter(item => {
-                      const groups = Array.from(new Set(mikanDownloadResults.map(i => i.subtitle_group || "未知")));
-                      const currentFilter = groups.includes(selectedSubtitleGroup) ? selectedSubtitleGroup : "全部";
-                      return currentFilter === "全部" || item.subtitle_group === currentFilter;
-                    })
-                    .map((rssItem, idx) => (
-                      <div key={idx} className="torrentRow">
-                        <div className="colTitle" title={rssItem.title}>
-                          <span className="groupBadge">[{rssItem.subtitle_group || "未知"}]</span>
-                          {rssItem.title.replace(/\[\s*复制磁链\s*\]|\(\s*复制磁链\s*\)|【\s*复制磁链\s*】|复制磁链/gi, "")}
-                        </div>
-                        <div className="colSize">{rssItem.size_text || "--"}</div>
-                        <div className="colDate">{rssItem.pub_date ? new Date(rssItem.pub_date).toLocaleDateString() : "--"}</div>
-                        <div className="colActions">
-                          <button title="qBittorrent" onClick={() => window.libraryApi.subscriptions.sendUrl(rssItem.link || "", undefined, rssItem.title, item?.title || item?.clean_name || "")}><Download size={14} /></button>
-                          <button title="123盘" onClick={() => window.libraryApi.cloudOffline.submit123({ url: rssItem.link || "", title: `${item?.title || item?.clean_name || ""} - ${rssItem.title}` })}>123</button>
-                          <button title="Pikpak" onClick={() => window.libraryApi.cloudOffline.submitPikpak({ url: rssItem.link || "", title: `${item?.title || item?.clean_name || ""} - ${rssItem.title}` })}>Pik</button>
-                        </div>
-                      </div>
-                    ))}
-                  {mikanDownloadResults.length === 0 && <div className="emptyState">未找到种子资源</div>}
-                </div>
-              </main>
-            </div>
-          </section>
-        </div>
-      </section>
 
       <footer className="detailFoot">
         <span>来源：{item.provider || "manual"}</span>

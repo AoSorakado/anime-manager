@@ -13,6 +13,7 @@ import { CardTransitionPayload, Page, scrollMainTo } from "./utils";
 import BangumiCollectionModal from "./components/BangumiCollectionModal";
 import BangumiStatusModal from "./components/BangumiStatusModal";
 import BrowserOnlyNotice from "./components/BrowserOnlyNotice";
+import GlassDialog, { DialogType } from "./components/GlassDialog";
 import NavButton from "./components/NavButton";
 import SidebarInsights from "./components/SidebarInsights";
 import WindowControls from "./components/WindowControls";
@@ -31,6 +32,16 @@ import { SubscriptionsPage } from "./pages/SubscriptionsPage";
 import { TagsPage } from "./pages/TagsPage";
 
 // ─── App ────────────────────────────────────────────────────────
+interface DialogState {
+  type: DialogType;
+  title: string;
+  message: string;
+  detail?: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+}
 
 function App() {
   if (!window.libraryApi) {
@@ -92,6 +103,21 @@ function App() {
   const lastCardTransition = useRef<CardTransitionPayload | null>(null);
   const [showBangumiCollections, setShowBangumiCollections] = useState(false);
   const [showBangumiStatus, setShowBangumiStatus] = useState(false);
+  const [dialog, setDialog] = useState<DialogState | null>(null);
+
+  const showDialog = (options: Omit<DialogState, "onConfirm" | "onCancel"> & { onConfirm?: () => void; onCancel?: () => void }) => {
+    setDialog({
+      ...options,
+      onConfirm: () => {
+        options.onConfirm?.();
+        setDialog(null);
+      },
+      onCancel: () => {
+        options.onCancel?.();
+        setDialog(null);
+      }
+    });
+  };
 
   // 页面滚动位置持久化：导航前同步捕获，双 rAF 恢复（抵消 content-visibility 估算偏差）
   const scrollPositions = useRef<Record<string, number>>({});
@@ -183,12 +209,26 @@ function App() {
     void refreshSideInfo();
 
     const handleRefresh = () => void refreshSideInfo();
+    const handleShowDialog = (_: any, args: any) => {
+      showDialog({
+        type: args.type || "info",
+        title: args.title || "通知",
+        message: args.message || "",
+        detail: args.detail,
+        confirmLabel: args.confirmLabel,
+        cancelLabel: args.cancelLabel
+      });
+    };
+
     window.addEventListener("refresh-side-info", handleRefresh);
+    window.libraryApi.ipcRenderer?.on?.("show-dialog", handleShowDialog);
+
     const cleanupPlayback = window.libraryApi?.onPlaybackEnded?.(() => {
       void refreshSideInfo();
     });
     return () => {
       window.removeEventListener("refresh-side-info", handleRefresh);
+      window.libraryApi.ipcRenderer?.off?.("show-dialog", handleShowDialog);
       cleanupPlayback?.();
     };
   }, []);
@@ -236,7 +276,11 @@ function App() {
       await window.libraryApi.scraper.batchSearchBangumi({ unmatchedOnly: true, autoApplyThreshold: 92, delayMs: 1100 });
       await refreshItems();
     } catch (error) {
-      window.alert(error instanceof Error ? error.message : String(error));
+      showDialog({
+        type: "error",
+        title: "批量刮削失败",
+        message: error instanceof Error ? error.message : String(error)
+      });
     } finally {
       setBusy("");
       setScraping(false);
@@ -249,10 +293,18 @@ function App() {
     setBusy("按 ID 刷新中");
     try {
       const result = await window.libraryApi.scraper.batchRefreshBangumiById({ delayMs: 900 });
-      window.alert(`按 ID 刷新完成：成功 ${result.refreshed}/${result.total}，失败 ${result.failed}`);
+      showDialog({
+        type: "info",
+        title: "按 ID 刷新完成",
+        message: `成功 ${result.refreshed}/${result.total}，失败 ${result.failed}`
+      });
       await refreshItems();
     } catch (error) {
-      window.alert(error instanceof Error ? error.message : String(error));
+      showDialog({
+        type: "error",
+        title: "刷新失败",
+        message: error instanceof Error ? error.message : String(error)
+      });
     } finally {
       setBusy("");
       setRefreshingIds(false);
@@ -265,9 +317,17 @@ function App() {
     setBusy("同步中");
     try {
       const result = await window.libraryApi.bangumi.syncLocalStatus();
-      window.alert(`Bangumi 同步完成：成功 ${result.synced}，跳过 ${result.skipped}，失败 ${result.failed}`);
+      showDialog({
+        type: "info",
+        title: "Bangumi 同步完成",
+        message: `成功 ${result.synced}，跳过 ${result.skipped}，失败 ${result.failed}`
+      });
     } catch (error) {
-      window.alert(error instanceof Error ? error.message : String(error));
+      showDialog({
+        type: "error",
+        title: "同步失败",
+        message: error instanceof Error ? error.message : String(error)
+      });
     } finally {
       setBusy("");
       setSyncingBangumi(false);
@@ -450,6 +510,7 @@ function App() {
                 onNamesChanged={async () => {
                   await refreshItems();
                 }}
+                showDialog={showDialog}
               />
             )}
 
@@ -516,6 +577,7 @@ function App() {
                   await refreshSideInfo();
                 }}
                 isTransitioning={isTransitioning}
+                showDialog={showDialog}
               />
             )}
 
@@ -551,6 +613,18 @@ function App() {
       )}
       {showBangumiStatus && (
         <BangumiStatusModal onClose={() => setShowBangumiStatus(false)} />
+      )}
+      {dialog && (
+        <GlassDialog
+          type={dialog.type}
+          title={dialog.title}
+          message={dialog.message}
+          detail={dialog.detail}
+          confirmLabel={dialog.confirmLabel}
+          cancelLabel={dialog.cancelLabel}
+          onConfirm={dialog.onConfirm || (() => setDialog(null))}
+          onCancel={dialog.onCancel}
+        />
       )}
     </>
   );

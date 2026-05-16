@@ -482,6 +482,13 @@ button:disabled {
   gap: 12px;
 }
 
+.sidebarNav {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .sidebar.collapsed .sidebarNav {
   display: flex;
   flex-direction: column;
@@ -3207,9 +3214,9 @@ h3 {
 }
 
 .dailyBarTrack span {
-  width: 70%;
+  width: 100%;
   min-height: 4px;
-  border-radius: 999px 999px 4px 4px;
+  border-radius: 999px;
   background: linear-gradient(180deg, #ff8ab8, #e85c9b);
   box-shadow: 0 10px 22px rgba(232, 92, 155, 0.18);
 }
@@ -3308,8 +3315,6 @@ h3 {
 .statsRecentList div {
   display: grid;
   gap: 4px;
-  border-bottom: 1px solid var(--glass-border-soft);
-  padding-bottom: 10px;
 }
 
 .statsRecentList strong {
@@ -6744,6 +6749,7 @@ h3 {
 .statsRecentList {
   max-height: 480px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 4px;
 }
 
@@ -6777,7 +6783,7 @@ h3 {
   width: 100%;
   height: 140px;
   background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
 }
@@ -6787,8 +6793,9 @@ h3 {
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
   background: linear-gradient(to top, #ff6ba7, #ff8eb9);
-  border-radius: 4px 4px 0 0;
+  border-radius: 20px;
   transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -6850,66 +6857,151 @@ h3 {
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   1. AMBIENT BACKGROUND 閳?Living pink gradients
    閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?*/
 .app.theme-liquid .ambientBackground {
-  background: linear-gradient(165deg, #fff0f5 0%, #ffe0eb 25%, #f5e0f0 50%, #eee8ff 75%, #ffe8f0 100%);
+  background: linear-gradient(165deg, #ffd6e7 0%, #ffc8e0 25%, #e8d0ff 50%, #d0e8ff 75%, #ffc8d0 100%);
   overflow: hidden;
   perspective: 1200px;
-  /* 娑撳搫鍙忕仦鈧ǎ璇插闁繗顫嬮幇?*/
 }
 
 .app.theme-liquid .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(120px);
   mix-blend-mode: normal;
   will-change: transform;
-  animation: ios-liquid-breathing 28s infinite alternate ease-in-out;
+  animation: ios-liquid-breathing 25s ease-in-out infinite, ios-liquid-hue 40s linear infinite;
+  pointer-events: none;
 }
 
 .app.theme-liquid .blob1 {
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle at 40% 40%, #ffb0cc 0%, #ff8ab5 40%, transparent 70%);
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle at 40% 40%, #ff80ab 0%, #ff4081 40%, transparent 70%);
   top: -200px;
   left: -150px;
-  opacity: 0.85;
+  opacity: 0.55;
+  animation-duration: 22s, 35s;
 }
 
 .app.theme-liquid .blob2 {
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle at 50% 50%, #d8b4f8 0%, #c49ee8 40%, transparent 70%);
-  bottom: -200px;
-  right: -150px;
-  opacity: 0.7;
-  animation-delay: -7s;
+  width: 1100px;
+  height: 1100px;
+  background: radial-gradient(circle at 50% 50%, #ba68c8 0%, #9c27b0 40%, transparent 70%);
+  bottom: -300px;
+  right: -200px;
+  opacity: 0.45;
+  animation-delay: -5s, -2s;
+  animation-duration: 28s, 45s;
 }
 
 .app.theme-liquid .blob3 {
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle at 45% 45%, #64b5f6 0%, #2196f3 40%, transparent 70%);
+  top: 15%;
+  right: -10%;
+  opacity: 0.4;
+  animation-delay: -12s, -10s;
+  animation-duration: 18s, 30s;
+}
+
+.app.theme-liquid .blob4 {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle at 50% 50%, #f06292 0%, #e91e63 40%, transparent 70%);
+  bottom: 10%;
+  left: -5%;
+  opacity: 0.35;
+  animation-delay: -3s, -15s;
+  animation-duration: 25s, 50s;
+}
+
+.app.theme-liquid .blob5 {
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle at 45% 45%, #b8d4ff 0%, #a0c4f8 40%, transparent 70%);
-  top: 30%;
-  right: 10%;
-  opacity: 0.5;
-  animation-delay: -14s;
+  background: radial-gradient(circle at 50% 50%, #4dd0e1 0%, #00bcd4 40%, transparent 70%);
+  top: 40%;
+  left: 20%;
+  opacity: 0.3;
+  animation-delay: -18s, -5s;
+  animation-duration: 32s, 38s;
+}
+
+.app.theme-liquid .blob6 {
+  width: 1200px;
+  height: 1200px;
+  background: radial-gradient(circle at 50% 50%, #f48fb1 0%, #ec407a 40%, transparent 70%);
+  top: -10%;
+  right: 20%;
+  opacity: 0.25;
+  animation-delay: -8s, -20s;
+  animation-duration: 40s, 60s;
+}
+
+.app.theme-liquid .blob7 {
+  width: 850px;
+  height: 850px;
+  background: radial-gradient(circle at 50% 50%, #90caf9 0%, #42a5f5 40%, transparent 70%);
+  bottom: 20%;
+  right: 25%;
+  opacity: 0.25;
+  animation-delay: -22s, -12s;
+  animation-duration: 20s, 42s;
+}
+
+.app.theme-liquid .blob8 {
+  width: 950px;
+  height: 950px;
+  background: radial-gradient(circle at 50% 50%, #ffcc80 0%, #ffa726 40%, transparent 70%);
+  top: 25%;
+  left: 35%;
+  opacity: 0.2;
+  animation-delay: -15s, -30s;
+  animation-duration: 30s, 55s;
+}
+
+.app.theme-liquid .blob9 {
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(circle at 50% 50%, #ce93d8 0%, #ab47bc 40%, transparent 70%);
+  bottom: 40%;
+  left: 45%;
+  opacity: 0.25;
+  animation-delay: -10s, -5s;
+  animation-duration: 16s, 28s;
+}
+
+.app.theme-liquid .blob10 {
+  width: 1050px;
+  height: 1050px;
+  background: radial-gradient(circle at 50% 50%, #ffe082 0%, #ffca28 40%, transparent 70%);
+  top: 60%;
+  right: 35%;
+  opacity: 0.15;
+  animation-delay: -28s, -40s;
+  animation-duration: 45s, 65s;
 }
 
 @keyframes ios-liquid-breathing {
-  0% {
+  0%, 100% {
     transform: scale(1) translate(0, 0) rotate(0deg);
   }
 
-  33% {
-    transform: scale(1.14) translate(55px, -35px) rotate(120deg);
+  25% {
+    transform: scale(1.6) translate(250px, -180px) rotate(90deg);
   }
 
-  66% {
-    transform: scale(0.94) translate(-35px, 45px) rotate(240deg);
+  50% {
+    transform: scale(0.6) translate(-220px, 240px) rotate(180deg);
   }
 
-  100% {
-    transform: scale(1.07) translate(18px, -18px) rotate(360deg);
+  75% {
+    transform: scale(1.4) translate(180px, 100px) rotate(270deg);
   }
+}
+
+@keyframes ios-liquid-hue {
+  from { filter: blur(120px) hue-rotate(0deg); }
+  to { filter: blur(120px) hue-rotate(360deg); }
 }
 
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   2. FOUNDATION RESET 閳?Strip all opaque backgrounds
@@ -7018,7 +7110,6 @@ h3 {
 .app.theme-liquid .statTile,
 .app.theme-liquid .issueBigCard,
 .app.theme-liquid .formGrid,
-.app.theme-liquid .statsRecentItem,
 .app.theme-liquid .onlineRulePanel,
 .app.theme-liquid .onlineSearchPanel,
 .app.theme-liquid .onlineEpisodePanel,
@@ -7033,7 +7124,20 @@ h3 {
   border: 1px solid var(--glass-border-soft);
   box-shadow: var(--glass-shadow-soft);
   border-radius: 32px;
-  /* 婢х偛濮為崷鍡氼潡閿涘本娲块崓蹇氬厡閸?*/
+}
+
+.app.theme-liquid .statsRecentItem {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 20px;
+}
+
+.app.theme-liquid .statsRecentItem:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(8px);
 }
 
 /* 閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡鎰ㄦ櫜閳烘劏鏅查埡?   5. SIDEBAR 閳?Frosted navigation rail
@@ -9118,7 +9222,6 @@ h3 {
   .issueButton,
   .issueBigCard,
   .scheduleCard,
-  .statsRecentItem,
   .statTile,
   .candidate,
   .logEntry,
@@ -9334,14 +9437,16 @@ h3 {
 .app.theme-liquid .sourceButton:hover,
 .app.theme-liquid .navButton.active {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.18) 48%, rgba(255, 95, 162, 0.12)),
-    rgba(255, 255, 255, 0.12);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18);
   border-color: rgba(255, 255, 255, 0.52);
   color: var(--ios27-pink);
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05);
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
   box-shadow:
-    0 14px 30px rgba(157, 50, 100, 0.12),
+    0 10px 24px rgba(128, 44, 90, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+    inset 0 -1px 0 rgba(255, 255, 255, 0.26);
 }
 
 /* 閻樿埖鈧降鈧焦鐖ｇ粵淇扁偓浣哥毈閼宠泛娉?*/
@@ -9717,9 +9822,11 @@ h3 {
 .app.theme-liquid .navButton.active {
   color: #ff4fa1;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.20) 54%, rgba(255, 79, 161, 0.18)),
-    rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.74);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18);
+  border-color: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05);
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
 }
 
 
@@ -10413,13 +10520,15 @@ h3 {
 .app.theme-liquid .sourceButton:hover,
 .app.theme-liquid .navButton.active {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.28) 48%, rgba(255, 119, 171, 0.24)),
-    rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.68);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 111, 176, 0.08) 52%, rgba(144, 245, 255, 0.1)),
+    rgba(255, 240, 250, 0.18);
+  border-color: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(32px) saturate(2.25) brightness(1.05);
+  -webkit-backdrop-filter: blur(22px) saturate(2.25) brightness(1.08);
   box-shadow:
-    0 18px 42px rgba(157, 50, 100, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+    0 10px 24px rgba(128, 44, 90, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.26);
 }
 
 .app.theme-liquid .sidebar.collapsed .navButton,

@@ -97,6 +97,10 @@ interface LibraryApi {
     close: () => Promise<void>;
   };
   onPlaybackEnded: (callback: () => void) => () => void;
+  ipcRenderer: {
+    on: (channel: string, func: (event: any, ...args: any[]) => void) => void;
+    off: (channel: string, func: (event: any, ...args: any[]) => void) => void;
+  };
 }
 
 declare global {

@@ -314,7 +314,7 @@ function registerIpc() {
 async function checkLibrariesOnStartup(win) {
     const sources = listSources();
     if (sources.length === 0) {
-        await dialog.showMessageBox(win, {
+        win.webContents.send("show-dialog", {
             type: "info",
             title: "资源库检查",
             message: "无更新",
@@ -343,7 +343,7 @@ async function checkLibrariesOnStartup(win) {
         }
     }
     if (changedSources > 0) {
-        await dialog.showMessageBox(win, {
+        win.webContents.send("show-dialog", {
             type: "info",
             title: "资源库有更新",
             message: "资源库有更新",
@@ -351,7 +351,7 @@ async function checkLibrariesOnStartup(win) {
         });
     }
     else {
-        await dialog.showMessageBox(win, {
+        win.webContents.send("show-dialog", {
             type: failed ? "warning" : "info",
             title: failed ? "资源库检查完成" : "资源库无更新",
             message: failed ? "资源库检查完成，但有失败项" : "无更新",

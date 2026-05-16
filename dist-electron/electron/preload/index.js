@@ -89,6 +89,10 @@ const api = {
         minimize: () => ipcRenderer.invoke("window:minimize"),
         maximize: () => ipcRenderer.invoke("window:maximize"),
         close: () => ipcRenderer.invoke("window:close")
+    },
+    onPlaybackEnded: (callback) => {
+        ipcRenderer.on("playback-ended", callback);
+        return () => { ipcRenderer.removeListener("playback-ended", callback); };
     }
 };
 contextBridge.exposeInMainWorld("libraryApi", api);

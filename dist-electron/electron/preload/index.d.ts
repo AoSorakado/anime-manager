@@ -129,6 +129,7 @@ declare const api: {
         maximize: () => Promise<void>;
         close: () => Promise<void>;
     };
+    onPlaybackEnded: (callback: () => void) => () => void;
 };
 export type LibraryApi = typeof api;
 export {};
